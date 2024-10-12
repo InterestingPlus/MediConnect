@@ -74,8 +74,6 @@ header {
       gap: 1rem;
 
       li {
-        padding: 10px 20px;
-        border-radius: 20px;
         cursor: pointer;
 
         a {
@@ -83,39 +81,35 @@ header {
           font-size: 1.7rem;
           text-decoration: none;
           font-size: 1.6rem;
-        }
+          padding: 10px 20px;
+          border-radius: 20px;
 
-        &:hover {
-          a {
+          &:hover {
             color: #3d0547;
+            background: #959bf363;
           }
-          background: #959bf363;
         }
 
         &.login {
           a {
             color: #6f3909;
-          }
 
-          &:hover {
-            a {
+            &:hover {
               color: #402004;
+              background: #a8b6ee;
             }
-            background: #a8b6ee;
           }
         }
+
         &.sign-up {
           a {
             color: #ffffff;
-          }
+            background: #081c6d;
 
-          background: #081c6d;
-
-          &:hover {
-            a {
+            &:hover {
               color: #ebffff;
+              background: #060f34;
             }
-            background: #060f34;
           }
         }
       }
@@ -127,6 +121,50 @@ main {
   padding: 2rem;
   background: rgb(218, 235, 240);
   min-height: 80vh;
+
+  .hero {
+    padding: 5rem;
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  .services {
+    padding: 5rem 0rem 8rem;
+    display: flex;
+    justify-content: space-around;
+    gap: 1.5rem;
+    margin: 20px;
+
+    .service {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 30%;
+      padding: 2rem 1.3rem;
+      text-align: center;
+
+      h3 {
+        color: #4caf50;
+        margin-bottom: 1rem;
+      }
+    }
+  }
 
   &#sign-up {
     h1 {
@@ -218,34 +256,37 @@ main {
 }
 
 form {
-  &#create-doctor {
-    min-height: 100dvh;
-    padding: 2rem;
-    background: rgba(0, 17, 255, 0.154);
+  min-height: 100dvh;
+  padding: 2rem;
+  // background: rgba(0, 17, 255, 0.154);
 
-    h1 {
-      text-align: center;
-    }
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: fit-content;
 
-    label {
-      padding: 1rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
-    input {
-      padding: 0.5rem 1rem;
-      width: fit-content;
-      margin-top: 20px;
-      border-radius: 20px;
-      border: 1px solid #081c6d;
+  h1 {
+    text-align: center;
+  }
 
-      &[type="submit"] {
-        color: #fff;
-        font-size: 1rem;
-        font-weight: 500;
-        letter-spacing: 0.1rem;
-        background: rgb(125, 20, 246);
-      }
+  label {
+    padding: 1rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  input {
+    padding: 0.5rem 1rem;
+    width: fit-content;
+    margin-top: 20px;
+    border-radius: 20px;
+    border: 1px solid #081c6d;
+
+    &[type="submit"] {
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1rem;
+      background: rgb(125, 20, 246);
     }
   }
 }
@@ -303,4 +344,15 @@ ul#all-doctors {
   ul#all-doctors {
     grid-template-columns: 1fr;
   }
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

@@ -59,85 +59,88 @@ function CreatePatient() {
   }
 
   return (
-    <form id="create-doctor" 
-    // onSubmit={submit}
-    >
-      <h1>Sign Up</h1>
+    <main>
+      <form
+        id="create-doctor"
+        // onSubmit={submit}
+      >
+        <h1>Sign Up</h1>
 
-      <label htmlFor="username">Username : </label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        value={values.username}
-        onChange={(e) => handleChange(e)}
-        required
-      />
+        <label htmlFor="username">Username : </label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          value={values.username}
+          onChange={(e) => handleChange(e)}
+          required
+        />
 
-      <br />
+        <br />
 
-      <label htmlFor="password">Password : </label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        value={values.password}
-        onChange={(e) => handleChange(e)}
-        required
-      />
+        <label htmlFor="password">Password : </label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          value={values.password}
+          onChange={(e) => handleChange(e)}
+          required
+        />
 
-      <br />
+        <br />
 
-      <label htmlFor="name">Name : </label>
-      <input
-        type="text"
-        name="name"
-        id="name"
-        value={values.name}
-        onChange={(e) => handleChange(e)}
-        required
-      />
+        <label htmlFor="name">Name : </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          value={values.name}
+          onChange={(e) => handleChange(e)}
+          required
+        />
 
-      <br />
+        <br />
 
-      <label htmlFor="age">Age : </label>
-      <input
-        type="number"
-        name="age"
-        id="age"
-        value={values.age}
-        onChange={(e) => handleChange(e)}
-        required
-      />
+        <label htmlFor="age">Age : </label>
+        <input
+          type="number"
+          name="age"
+          id="age"
+          value={values.age}
+          onChange={(e) => handleChange(e)}
+          required
+        />
 
-      <br />
+        <br />
 
-      <label htmlFor="contact">Contact : </label>
-      <input
-        type="number"
-        name="contact"
-        id="contact"
-        value={values.contact}
-        onChange={(e) => handleChange(e)}
-        required
-      />
+        <label htmlFor="contact">Contact : </label>
+        <input
+          type="number"
+          name="contact"
+          id="contact"
+          value={values.contact}
+          onChange={(e) => handleChange(e)}
+          required
+        />
 
-      <br />
+        <br />
 
-      <label htmlFor="address">Address : </label>
-      <input
-        type="text"
-        name="address"
-        id="address"
-        value={values.address}
-        onChange={(e) => handleChange(e)}
-        required
-      />
+        <label htmlFor="address">Address : </label>
+        <input
+          type="text"
+          name="address"
+          id="address"
+          value={values.address}
+          onChange={(e) => handleChange(e)}
+          required
+        />
 
-      <br />
+        <br />
 
-      <input type="submit" />
-    </form>
+        <input type="submit" />
+      </form>
+    </main>
   );
 }
 
