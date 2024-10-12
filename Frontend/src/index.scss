@@ -77,16 +77,21 @@ main {
   min-height: 80vh;
 
   &#sign-up {
+    h1 {
+      text-align: center;
+    }
+
     .role {
       width: 100%;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       gap: 2rem;
       margin-top: 2rem;
       margin-bottom: 1rem;
 
       span {
         width: 100%;
+        max-width: 200px;
         border: 1px solid blueviolet;
         border-radius: 20px;
         display: flex;
@@ -142,6 +147,10 @@ main {
       border-radius: 20rem;
 
       cursor: pointer;
+
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
 
       &:hover {
         color: #fff;

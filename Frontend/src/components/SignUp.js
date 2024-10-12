@@ -10,7 +10,7 @@ function SignUp() {
       <div className="role">
         <span className={select === 1 ? "selected" : ""}>
           <label
-            for="patient"
+            htmlFor="patient"
             onClick={() => {
               setSelect(1);
             }}
@@ -22,7 +22,7 @@ function SignUp() {
 
         <span className={select === 2 ? "selected" : ""}>
           <label
-            for="doctor"
+            htmlFor="doctor"
             onClick={() => {
               setSelect(2);
             }}
@@ -42,9 +42,7 @@ function SignUp() {
             : "/sign-up"
         }
       >
-        <button className={select == 0 ? "next disable" : "next"}>
-          Next
-        </button>
+        <button className={select == 0 ? "next disable" : "next"}>Next</button>
       </Link>
     </main>
   );

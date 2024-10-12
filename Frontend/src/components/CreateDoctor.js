@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function CreateDoctor() {
@@ -14,6 +14,20 @@ function CreateDoctor() {
     contact: "",
     availability: "",
   });
+
+  useEffect(() => {
+    async function localUser() {
+      const user = await JSON.parse(localStorage.getItem("profile"));
+
+      if (user) {
+        alert(`Hello, ${user.username}`);
+      } else {
+        console.log("Not Found!");
+      }
+    }
+
+    localUser();
+  }, []);
 
   function handleChange(e) {
     setValues({
@@ -50,8 +64,6 @@ function CreateDoctor() {
           }
         );
 
-        console.log(data);
-
         if (data.status === false) {
           console.log("Errr :", data.msg);
         }
@@ -67,6 +79,12 @@ function CreateDoctor() {
             contact: "",
             availability: "",
           });
+
+          alert("Signed Up Successfully");
+
+          console.log(data.data);
+
+          localStorage.setItem("profile", JSON.stringify(data.data));
 
           navigate("/");
 
