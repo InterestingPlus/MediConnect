@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AllDoctors from "./components/AllDoctors";
 import CreateDoctor from "./components/CreateDoctor";
+import CreatePatient from "./components/CreatePatient";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
@@ -12,9 +13,15 @@ function App() {
         <Route path="/" element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path="sign-up" element={<SignUp />} />
+
+          {/* Doctors */}
+          <Route path="all-doctors" element={<AllDoctors />} />
+          <Route path="create-doctor" element={<CreateDoctor />} />
+
+          {/* Patient */}
+          {/* <Route path="all-doctors" element={<AllDoctors />} /> */}
+          <Route path="create-patient" element={<CreatePatient />} />
         </Route>
-        <Route path="/create-doctor" element={<CreateDoctor />} />
-        <Route path="/all-doctors" element={<AllDoctors />} />
       </Routes>
     </BrowserRouter>
   );

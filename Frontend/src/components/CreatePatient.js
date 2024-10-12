@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateDoctor() {
+function CreatePatient() {
   const navigate = useNavigate();
 
   const [values, setValues] = useState({
@@ -10,9 +10,8 @@ function CreateDoctor() {
     password: "",
     name: "",
     age: "",
-    specialization: "",
     contact: "",
-    availability: "",
+    address: "",
   });
 
   function handleChange(e) {
@@ -22,58 +21,46 @@ function CreateDoctor() {
     });
   }
 
+  async function submit(e) {
+    e.preventDefault();
+    const { username, password, name, age, contact, address } = values;
+
+    const { data } = await axios.post("http://localhost:4444/create-doctor", {
+      username,
+      password,
+      name,
+      age,
+      contact,
+      address,
+    });
+
+    console.log(data);
+
+    if (data.status === false) {
+      console.log("Errr :", data.msg);
+    }
+    if (data.status === true) {
+      console.log("Signed Up Successfully");
+
+      setValues({
+        username: "",
+        password: "",
+        name: "",
+        age: "",
+        contact: "",
+        address: "",
+      });
+
+      navigate("/");
+
+      // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      // navigate("/setAvatar");
+    }
+  }
+
   return (
-    <form
-      id="create-doctor"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        const {
-          username,
-          password,
-          name,
-          age,
-          specialization,
-          contact,
-          availability,
-        } = values;
-
-        const { data } = await axios.post(
-          "http://localhost:4444/create-doctor",
-          {
-            username,
-            password,
-            name,
-            age,
-            specialization,
-            contact,
-            availability,
-          }
-        );
-
-        console.log(data);
-
-        if (data.status === false) {
-          console.log("Errr :", data.msg);
-        }
-        if (data.status === true) {
-          console.log("Signed Up Successfully");
-
-          setValues({
-            username: "",
-            password: "",
-            name: "",
-            age: "",
-            specialization: "",
-            contact: "",
-            availability: "",
-          });
-
-          navigate("/");
-
-          // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-          // navigate("/setAvatar");
-        }
-      }}
+    <form id="create-doctor" 
+    // onSubmit={submit}
     >
       <h1>Sign Up</h1>
 
@@ -125,18 +112,6 @@ function CreateDoctor() {
 
       <br />
 
-      <label htmlFor="specialization">Specialization : </label>
-      <input
-        type="text"
-        name="specialization"
-        id="specialization"
-        value={values.specialization}
-        onChange={(e) => handleChange(e)}
-        required
-      />
-
-      <br />
-
       <label htmlFor="contact">Contact : </label>
       <input
         type="number"
@@ -149,12 +124,12 @@ function CreateDoctor() {
 
       <br />
 
-      <label htmlFor="availability">Availability : </label>
+      <label htmlFor="address">Address : </label>
       <input
         type="text"
-        name="availability"
-        id="availability"
-        value={values.availability}
+        name="address"
+        id="address"
+        value={values.address}
         onChange={(e) => handleChange(e)}
         required
       />
@@ -166,4 +141,4 @@ function CreateDoctor() {
   );
 }
 
-export default CreateDoctor;
+export default CreatePatient;

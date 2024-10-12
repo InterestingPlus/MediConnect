@@ -13,23 +13,32 @@ function AllDoctors() {
     getDoctor();
   }, []);
 
-  console.log(doctors);
-
-  return (
-    <ul id="all-doctors">
-      {doctors?.data.data.map((doctor, index) => {
-        return (
-          <li key={index}>
-            <h1>Name: {doctor.name}</h1>
-            <h2>{doctor.specialization}</h2>
-            <h3>{doctor.age}</h3>
-            <h3>password: {doctor.password}</h3>
-            <h3>availability: {doctor.availability}</h3>
-          </li>
-        );
-      })}
-    </ul>
-  );
+  if (doctors) {
+    return (
+      <ul id="all-doctors">
+        {doctors.data.data.map((doctor, index) => {
+          return (
+            <li key={index}>
+              <img
+                src="https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                alt="profile-pic"
+              />
+              <h1>{doctor.name}</h1>
+              <h2>{doctor.specialization}</h2>
+              <h3>{doctor.availability}</h3>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  } else {
+    return (
+      <div id="loading">
+        <span className="animation"></span>
+        <h1>Fetching All Doctors...</h1>
+      </div>
+    );
+  }
 }
 
 export default AllDoctors;
