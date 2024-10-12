@@ -20,7 +20,7 @@ function CreateDoctor() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
       if (user) {
-        alert(`Hello, ${user.username}`);
+        console.log(`Hello, ${user.username}`);
       } else {
         console.log("Not Found!");
       }
@@ -82,7 +82,7 @@ function CreateDoctor() {
 
           alert("Signed Up Successfully");
 
-          console.log(data.data);
+          data.data.role = "D";
 
           localStorage.setItem("profile", JSON.stringify(data.data));
 

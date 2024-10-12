@@ -49,22 +49,74 @@ div {
 
 header {
   background: rgb(226, 233, 235);
-  color: blue;
-  padding: 2rem;
+  padding: 1rem 2rem;
   text-decoration: none;
-  border-bottom: 1px solid blue;
+  border-bottom: 3px solid rgba(12, 54, 113, 0.577);
+  display: flex;
+
+  h1 {
+    color: #3d0547;
+    font-size: 2rem;
+    margin-right: 2rem;
+    font-weight: 900;
+    font-family: cursive;
+    cursor: default;
+  }
 
   nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
     ul {
       display: flex;
       list-style: none;
       gap: 1rem;
 
       li {
+        padding: 10px 20px;
+        border-radius: 20px;
+        cursor: pointer;
+
         a {
           font-weight: 700;
           font-size: 1.7rem;
           text-decoration: none;
+          font-size: 1.6rem;
+        }
+
+        &:hover {
+          a {
+            color: #3d0547;
+          }
+          background: #959bf363;
+        }
+
+        &.login {
+          a {
+            color: #6f3909;
+          }
+
+          &:hover {
+            a {
+              color: #402004;
+            }
+            background: #a8b6ee;
+          }
+        }
+        &.sign-up {
+          a {
+            color: #ffffff;
+          }
+
+          background: #081c6d;
+
+          &:hover {
+            a {
+              color: #ebffff;
+            }
+            background: #060f34;
+          }
         }
       }
     }
