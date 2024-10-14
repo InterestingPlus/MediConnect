@@ -26,6 +26,10 @@ function AllDoctors() {
               <h1>{doctor.name}</h1>
               <h2>{doctor.specialization}</h2>
               <h3>{doctor.availability}</h3>
+              <div>
+                <button>View Detail</button>
+                <button>Book Appointment</button>
+              </div>
             </li>
           );
         })}

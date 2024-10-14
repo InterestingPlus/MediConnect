@@ -88,6 +88,11 @@ header {
             color: #3d0547;
             background: #959bf363;
           }
+
+          &.active {
+            color: #060f34;
+            background: #25b09b4b;
+          }
         }
 
         &.login {
@@ -104,11 +109,15 @@ header {
         &.sign-up {
           a {
             color: #ffffff;
-            background: #081c6d;
+            background: #3a25b0;
 
             &:hover {
               color: #ebffff;
               background: #060f34;
+            }
+            &.active {
+              color: #fff;
+              background: #081c6d;
             }
           }
         }
@@ -326,6 +335,31 @@ ul#all-doctors {
     }
     h3 {
       color: #833d0b69;
+    }
+
+    div {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 1rem;
+      gap: 1rem;
+
+      button {
+        padding: 0.8rem 1.5rem;
+        border-radius: 10px;
+        border: none;
+        color: #fff;
+        background: rgba(149, 0, 255, 0.89);
+        font-weight: 700;
+        width: 50%;
+        cursor: pointer;
+
+        &:last-child {
+          background: #3f33c1;
+        }
+        &:hover {
+          background: #060f34;
+        }
+      }
     }
   }
 }

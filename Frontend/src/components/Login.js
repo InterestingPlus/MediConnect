@@ -51,7 +51,7 @@ function Login() {
             ? "/create-doctor"
             : select == 1
             ? "/create-patient"
-            : "/sign-up"
+            : "/login"
         }
       >
         <button className={select == 0 ? "next disable" : "next"}>Next</button>
