@@ -44,7 +44,7 @@ module.exports.addDoctor = async (req, res) => {
   }
 };
 
-module.exports.getDoctor = async (req, res) => {
+module.exports.getAllDoctors = async (req, res) => {
   const data = await Doctor.find();
 
   res.json({
@@ -52,4 +52,37 @@ module.exports.getDoctor = async (req, res) => {
     status: true,
     data,
   });
+};
+
+module.exports.getDoctor = async (req, res) => {
+  try {
+    const username = req.body.username;
+
+    const data = await Doctor.findOne({ username });
+
+    if (!data) {
+      return res.status(404).json({
+        message: "Doctor not found",
+        status: false,
+      });
+    }
+
+    const doctorData = data.toObject();
+
+    delete doctorData.password;
+
+    console.log(doctorData);
+
+    res.json({
+      message: "Data Loaded Successfully!",
+      status: true,
+      data: doctorData,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server Error",
+      status: false,
+      error: error.message,
+    });
+  }
 };

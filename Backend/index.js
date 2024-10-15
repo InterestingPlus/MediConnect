@@ -5,7 +5,11 @@ require("dotenv").config();
 
 const mongoose = require("mongoose");
 
-const { getDoctor, addDoctor } = require("./controllers/doctor.controller.js");
+const {
+  getDoctor,
+  getAllDoctors,
+  addDoctor,
+} = require("./controllers/doctor.controller.js");
 
 const app = express();
 app.use(cors());
@@ -28,7 +32,8 @@ mongoose
     console.error("Error connecting to MongoDB : ", error);
   });
 
-app.get("/get-doctor", getDoctor);
+app.get("/get-doctor", getAllDoctors);
+app.post("/doctor", getDoctor);
 app.post("/create-doctor", addDoctor);
 
 app.listen(PORT, () => {
