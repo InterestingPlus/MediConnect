@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
+import Doctor from "./components/doctor/Doctor";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           {/* Doctors */}
           <Route path="all-doctors" element={<AllDoctors />} />
           <Route path="create-doctor" element={<CreateDoctor />} />
+          <Route path="doctor/:u" element={<Doctor />} />
 
           {/* Patient */}
           {/* <Route path="all-doctors" element={<AllDoctors />} /> */}

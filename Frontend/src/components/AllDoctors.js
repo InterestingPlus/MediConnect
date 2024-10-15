@@ -1,16 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function AllDoctors() {
   const [doctors, setDoctors] = useState(null);
 
   useEffect(() => {
-    async function getDoctor() {
+    async function getDoctors() {
       const data = await axios.get("http://localhost:4444/get-doctor");
 
       setDoctors(data);
     }
-    getDoctor();
+    getDoctors();
   }, []);
 
   if (doctors) {
@@ -27,8 +28,12 @@ function AllDoctors() {
               <h2>{doctor.specialization}</h2>
               <h3>{doctor.availability}</h3>
               <div>
-                <button>View Detail</button>
-                <button>Book Appointment</button>
+                <Link to={`/doctor/${doctor.username}`}>
+                  <button>View Detail</button>
+                </Link>
+                <Link to="/sign-up">
+                  <button className="aptmnt">Book Appointment</button>
+                </Link>
               </div>
             </li>
           );

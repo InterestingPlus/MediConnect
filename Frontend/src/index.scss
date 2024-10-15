@@ -339,7 +339,7 @@ ul#all-doctors {
 
     div {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
       margin-top: 1rem;
       gap: 1rem;
 
@@ -350,10 +350,10 @@ ul#all-doctors {
         color: #fff;
         background: rgba(149, 0, 255, 0.89);
         font-weight: 700;
-        width: 50%;
+        width: 100%;
         cursor: pointer;
 
-        &:last-child {
+        &.aptmnt {
           background: #3f33c1;
         }
         &:hover {
@@ -363,6 +363,62 @@ ul#all-doctors {
     }
   }
 }
+
+// Doctor Profile Start
+main.profile {
+  padding: 3rem;
+  display: grid;
+  place-items: center;
+
+  section {
+    border: 1px solid rgb(26, 9, 117);
+    background: linear-gradient(to bottom right, #1d50f61d, #1d50f664);
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: fit-content;
+    display: flex;
+    flex-direction: column;
+
+    .main {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+
+      h1 {
+        font-size: 2.3rem;
+        color: transparent;
+        background: linear-gradient(
+          to right bottom,
+          #ff5500,
+          #ff2a00,
+          rgb(251, 13, 132)
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+      }
+
+      h2 {
+        color: #09114b96;
+      }
+
+      img {
+        border-radius: 50%;
+        max-width: 150px;
+        border: 3px solid black;
+      }
+    }
+
+    h3 {
+      color: #3f086681;
+
+      span {
+        color: #260b71db;
+      }
+    }
+  }
+}
+// Doctor Profile End
 
 @media screen and (width > 1500px) {
   ul#all-doctors {
