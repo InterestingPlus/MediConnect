@@ -274,14 +274,24 @@ form {
   transform: translateX(-50%);
   max-width: fit-content;
 
+  &.loading {
+    cursor: progress !important;
+  }
+
   h1 {
     text-align: center;
+    color: #091780;
+    span {
+      color: #0076d6;
+    }
   }
 
   label {
     padding: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 1px;
+    font-size: 1.2rem;
+    color: #6081c0;
   }
   input {
     padding: 0.5rem 1rem;
@@ -289,13 +299,26 @@ form {
     margin-top: 20px;
     border-radius: 20px;
     border: 1px solid #081c6d;
+    color: #510d42ca;
+    font-weight: 800;
+    letter-spacing: 1px;
 
-    &[type="submit"] {
+    &.err {
+      border: 3px solid red;
+      background: rgba(255, 35, 35, 0.031);
+    }
+
+    &.submit {
       color: #fff;
       font-size: 1rem;
       font-weight: 500;
       letter-spacing: 0.1rem;
       background: rgb(125, 20, 246);
+
+      &.disable {
+        cursor: progress;
+        background: rgba(117, 63, 179, 0.681);
+      }
     }
   }
 }
@@ -419,6 +442,28 @@ main.profile {
   }
 }
 // Doctor Profile End
+
+//
+
+// Dashboard Start
+main#dashboard {
+  min-height: 100dvh;
+
+  button.logout {
+    color: #fff;
+    background: #f2155b;
+    padding: 0.7rem 1.8rem;
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-radius: 2rem;
+    cursor: pointer;
+  }
+}
+// Dashboard End
+
+//
+
+//
 
 @media screen and (width > 1500px) {
   ul#all-doctors {

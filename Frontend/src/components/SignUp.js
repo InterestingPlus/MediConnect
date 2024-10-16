@@ -1,8 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [select, setSelect] = useState(0);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkLocalUser() {
+      const user = await JSON.parse(localStorage.getItem("profile"));
+
+      if (user) {
+        navigate("/dashboard");
+      }
+    }
+
+    checkLocalUser();
+  }, []);
+
   return (
     <main id="sign-up">
       <h1>Join as :</h1>

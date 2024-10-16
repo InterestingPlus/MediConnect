@@ -1,8 +1,7 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateDoctor() {
+function LoginPatient() {
   const navigate = useNavigate();
 
   const [ifDisabled, setIfDisabled] = useState(false);
@@ -12,22 +11,9 @@ function CreateDoctor() {
     password: "",
     name: "",
     age: "",
-    specialization: "",
     contact: "",
-    availability: "",
+    address: "",
   });
-
-  useEffect(() => {
-    async function checkLocalUser() {
-      const user = await JSON.parse(localStorage.getItem("profile"));
-
-      if (user) {
-        navigate("/dashboard");
-      }
-    }
-
-    checkLocalUser();
-  }, []);
 
   function handleChange(e) {
     setValues({
@@ -38,65 +24,50 @@ function CreateDoctor() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     setIfDisabled(true);
 
-    const {
-      username,
-      password,
-      name,
-      age,
-      specialization,
-      contact,
-      availability,
-    } = values;
+    alert("The Patient Sign-up Feature is Under Construction");
 
-    if (true) {
-      const { data } = await axios.post("http://localhost:4444/create-doctor", {
-        username,
-        password,
-        name,
-        age,
-        specialization,
-        contact,
-        availability,
-      });
+    // const { username, password, name, age, contact, address } = values;
 
-      if (data.status === false) {
-        console.log("Errr :", data.msg);
-      }
-      if (data.status === true) {
-        setValues({
-          username: "",
-          password: "",
-          name: "",
-          age: "",
-          specialization: "",
-          contact: "",
-          availability: "",
-        });
+    // const { data } = await axios.post("http://localhost:4444/create-doctor", {
+    //   username,
+    //   password,
+    //   name,
+    //   age,
+    //   contact,
+    //   address,
+    // });
 
-        alert("Signed Up Successfully");
+    // console.log(data);
 
-        data.data.role = "d";
+    // if (data.status === false) {
+    //   console.log("Errr :", data.msg);
+    // }
+    // if (data.status === true) {
+    //   console.log("Signed Up Successfully");
 
-        localStorage.setItem("profile", JSON.stringify(data.data));
+    //   setValues({
+    //     username: "",
+    //     password: "",
+    //     name: "",
+    //     age: "",
+    //     contact: "",
+    //     address: "",
+    //   });
 
-        navigate("/login");
+    //   navigate("/");
 
-        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      }
-    }
+    // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+    // navigate("/setAvatar");
   }
 
   return (
-    <main className="form">
-      <form
-        id="create-doctor"
-        onSubmit={handleSubmit}
-        className={`${ifDisabled ? "loading" : ""}`}
-      >
+    <main>
+      <form id="create-doctor" onSubmit={handleSubmit}>
         <h1>
-          Sign Up as a <span>Doctor</span>
+          Login as <span>Patient</span>
         </h1>
 
         <label htmlFor="username">Username : </label>
@@ -147,18 +118,6 @@ function CreateDoctor() {
 
         <br />
 
-        <label htmlFor="specialization">Specialization : </label>
-        <input
-          type="text"
-          name="specialization"
-          id="specialization"
-          value={values.specialization}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <br />
-
         <label htmlFor="contact">Contact : </label>
         <input
           type="number"
@@ -171,12 +130,12 @@ function CreateDoctor() {
 
         <br />
 
-        <label htmlFor="availability">Availability : </label>
+        <label htmlFor="address">Address : </label>
         <input
           type="text"
-          name="availability"
-          id="availability"
-          value={values.availability}
+          name="address"
+          id="address"
+          value={values.address}
           onChange={(e) => handleChange(e)}
           required
         />
@@ -193,4 +152,4 @@ function CreateDoctor() {
   );
 }
 
-export default CreateDoctor;
+export default LoginPatient;

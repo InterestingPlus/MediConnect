@@ -4,7 +4,7 @@ function Home() {
   const navigate = useNavigate();
   return (
     <main id="home">
-      <section class="hero" id="home">
+      <section className="hero" id="home">
         <h1>Welcome to Our Hospital</h1>
         <p>
           We are committed to providing the best healthcare services to our
@@ -15,22 +15,22 @@ function Home() {
         </button>
       </section>
 
-      <section class="services" id="services">
-        <div class="service">
+      <section className="services" id="services">
+        <div className="service">
           <h3>24/7 Emergency Care</h3>
           <p>
             Our emergency services are available round the clock to assist you
             in critical situations.
           </p>
         </div>
-        <div class="service">
+        <div className="service">
           <h3>Expert Doctors</h3>
           <p>
             Our team of highly skilled doctors are specialists in various fields
             of medicine.
           </p>
         </div>
-        <div class="service">
+        <div className="service">
           <h3>Advanced Technology</h3>
           <p>
             We use state-of-the-art technology to provide you with the best

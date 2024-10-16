@@ -1,8 +1,23 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const [select, setSelect] = useState(0);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function checkLocalUser() {
+      const user = await JSON.parse(localStorage.getItem("profile"));
+
+      if (user) {
+        navigate("/dashboard");
+      }
+    }
+
+    checkLocalUser();
+  }, []);
+
   return (
     <main id="sign-up">
       <h1>Login as :</h1>
@@ -48,9 +63,11 @@ function Login() {
       <Link
         to={
           select == 2
-            ? "/create-doctor"
+            ? "/login-doctor"
             : select == 1
-            ? "/create-patient"
+            ? "/login-patient"
+            : select == 3
+            ? "/login-admin"
             : "/login"
         }
       >

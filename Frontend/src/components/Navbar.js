@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <>
       <header>
-        <h1>HRM</h1>
+        <h1>HMS</h1>
         <nav>
           <ul>
             <li>

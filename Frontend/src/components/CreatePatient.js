@@ -1,9 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function CreatePatient() {
   const navigate = useNavigate();
+
+  const [ifDisabled, setIfDisabled] = useState(false);
 
   const [values, setValues] = useState({
     username: "",
@@ -21,50 +22,53 @@ function CreatePatient() {
     });
   }
 
-  async function submit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    const { username, password, name, age, contact, address } = values;
 
-    const { data } = await axios.post("http://localhost:4444/create-doctor", {
-      username,
-      password,
-      name,
-      age,
-      contact,
-      address,
-    });
+    setIfDisabled(true);
 
-    console.log(data);
+    alert("The Patient Sign-up Feature is Under Construction");
 
-    if (data.status === false) {
-      console.log("Errr :", data.msg);
-    }
-    if (data.status === true) {
-      console.log("Signed Up Successfully");
+    // const { username, password, name, age, contact, address } = values;
 
-      setValues({
-        username: "",
-        password: "",
-        name: "",
-        age: "",
-        contact: "",
-        address: "",
-      });
+    // const { data } = await axios.post("http://localhost:4444/create-doctor", {
+    //   username,
+    //   password,
+    //   name,
+    //   age,
+    //   contact,
+    //   address,
+    // });
 
-      navigate("/");
+    // console.log(data);
 
-      // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      // navigate("/setAvatar");
-    }
+    // if (data.status === false) {
+    //   console.log("Errr :", data.msg);
+    // }
+    // if (data.status === true) {
+    //   console.log("Signed Up Successfully");
+
+    //   setValues({
+    //     username: "",
+    //     password: "",
+    //     name: "",
+    //     age: "",
+    //     contact: "",
+    //     address: "",
+    //   });
+
+    //   navigate("/");
+
+    // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+    // navigate("/setAvatar");
   }
 
   return (
     <main>
-      <form
-        id="create-doctor"
-        // onSubmit={submit}
-      >
-        <h1>Sign Up</h1>
+      <form id="create-doctor" onSubmit={handleSubmit}>
+        <h1>
+          Sign Up as a <span>Patient</span>
+        </h1>
 
         <label htmlFor="username">Username : </label>
         <input
@@ -138,7 +142,11 @@ function CreatePatient() {
 
         <br />
 
-        <input type="submit" />
+        <input
+          type={ifDisabled ? "button" : "submit"}
+          className={ifDisabled ? "submit disable" : "submit"}
+          value="submit"
+        />
       </form>
     </main>
   );
