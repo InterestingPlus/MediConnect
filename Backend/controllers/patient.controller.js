@@ -1,6 +1,6 @@
 const Doctor = require("../models/doctor.model.js");
 
-module.exports.addDoctor = async (req, res) => {
+module.exports.addPatient = async (req, res) => {
   try {
     const {
       username,
@@ -23,14 +23,14 @@ module.exports.addDoctor = async (req, res) => {
     });
 
     console.log(
-      `Doctor Created = Name : ${result.name} UserName : ${result.username} Specialization : ${result.specialization}`
+      `Doctor Created = Name : ${result.name} UserName : ${result.username} Specialization : ${specialization}`
     );
 
     return res.json({
       message: "Doctor Profile Created SuccessFully!",
       data: {
         id: result.id,
-        username: result.username,
+        username: req.body.name,
       },
       status: true,
     });
@@ -44,7 +44,7 @@ module.exports.addDoctor = async (req, res) => {
   }
 };
 
-module.exports.getAllDoctors = async (req, res) => {
+module.exports.getAllPatients = async (req, res) => {
   const data = await Doctor.find();
 
   res.json({
@@ -54,7 +54,7 @@ module.exports.getAllDoctors = async (req, res) => {
   });
 };
 
-module.exports.getDoctor = async (req, res) => {
+module.exports.getPetient = async (req, res) => {
   try {
     const username = req.body.username;
 
@@ -78,37 +78,6 @@ module.exports.getDoctor = async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      message: "Server Error",
-      status: false,
-      error: error.message,
-    });
-  }
-};
-
-module.exports.loginDoctor = async (req, res) => {
-  try {
-    const { username, password } = req.body;
-
-    const data = await Doctor.findOne({ username, password });
-
-    if (!data) {
-      return res.json({
-        message: "Doctor not found",
-        status: false,
-      });
-    }
-
-    const doctorData = data.toObject();
-
-    delete doctorData.password;
-
-    res.json({
-      message: "Data Loaded Successfully!",
-      status: true,
-      data: doctorData,
-    });
-  } catch (error) {
-    res.json({
       message: "Server Error",
       status: false,
       error: error.message,

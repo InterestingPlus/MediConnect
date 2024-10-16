@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const {} = require("../");
 
 const doctorSchema = mongoose.Schema({
-  username: String,
+  username: { type: String, unique: true },
   password: String,
 
   name: String,

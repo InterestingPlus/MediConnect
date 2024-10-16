@@ -9,6 +9,7 @@ const {
   getDoctor,
   getAllDoctors,
   addDoctor,
+  loginDoctor,
 } = require("./controllers/doctor.controller.js");
 
 const app = express();
@@ -35,6 +36,7 @@ mongoose
 app.get("/get-doctor", getAllDoctors);
 app.post("/doctor", getDoctor);
 app.post("/create-doctor", addDoctor);
+app.post("/login-doctor", loginDoctor);
 
 app.listen(PORT, () => {
   console.log(`Server is Running on http://localhost:${PORT}`);
