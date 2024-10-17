@@ -29,8 +29,9 @@ module.exports.addDoctor = async (req, res) => {
     return res.json({
       message: "Doctor Profile Created SuccessFully!",
       data: {
-        id: result.id,
+        id: result._id,
         username: result.username,
+        role: "d",
       },
       status: true,
     });
@@ -89,7 +90,42 @@ module.exports.loginDoctor = async (req, res) => {
   try {
     const { username, password } = req.body;
 
-    const data = await Doctor.findOne({ username, password });
+    const result = await Doctor.findOne({ username, password });
+
+    if (!result) {
+      return res.json({
+        message: "Doctor not found",
+        status: false,
+      });
+    }
+
+    const doctorData = result.toObject();
+
+    delete doctorData.password;
+
+    res.json({
+      message: "Data Loaded Successfully!",
+      status: true,
+      data: {
+        id: doctorData._id,
+        username: doctorData.username,
+        role: "d",
+      },
+    });
+  } catch (error) {
+    res.json({
+      message: "Server Error",
+      status: false,
+      error: error.message,
+    });
+  }
+};
+
+module.exports.getAuthenticatedDoctor = async (req, res) => {
+  try {
+    const { id, username } = req.body;
+
+    const data = await Doctor.findOne({ _id: id, username });
 
     if (!data) {
       return res.json({

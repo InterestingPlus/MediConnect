@@ -10,6 +10,7 @@ const {
   getAllDoctors,
   addDoctor,
   loginDoctor,
+  getAuthenticatedDoctor,
 } = require("./controllers/doctor.controller.js");
 
 const app = express();
@@ -35,6 +36,7 @@ mongoose
 
 app.get("/get-doctor", getAllDoctors);
 app.post("/doctor", getDoctor);
+app.post("/auth-doctor", getAuthenticatedDoctor);
 app.post("/create-doctor", addDoctor);
 app.post("/login-doctor", loginDoctor);
 
