@@ -17,8 +17,6 @@ function Doctor() {
     getDoctor();
   }, []);
 
-  console.log(doctor);
-
   return (
     <main className="profile">
       <section>

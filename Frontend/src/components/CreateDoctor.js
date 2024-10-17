@@ -77,8 +77,6 @@ function CreateDoctor() {
 
         alert("Signed Up Successfully");
 
-        data.data.role = "d";
-
         localStorage.setItem("profile", JSON.stringify(data.data));
 
         navigate("/login");

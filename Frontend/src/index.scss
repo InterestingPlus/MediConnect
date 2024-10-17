@@ -26,7 +26,12 @@ div {
   }
 
   &#loading {
-    min-height: 100dvh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100dvh;
+
     background: #cae5f1;
     color: #081c6d;
     display: flex;
@@ -275,7 +280,7 @@ form {
   max-width: fit-content;
 
   &.loading {
-    cursor: progress !important;
+    cursor: wait !important;
   }
 
   h1 {
@@ -316,7 +321,7 @@ form {
       background: rgb(125, 20, 246);
 
       &.disable {
-        cursor: progress;
+        cursor: wait;
         background: rgba(117, 63, 179, 0.681);
       }
     }
@@ -446,16 +451,44 @@ main.profile {
 //
 
 // Dashboard Start
+button.logout {
+  color: #fff;
+  background: #f2155b;
+  padding: 0.5rem 1.9rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  border-radius: 2rem;
+  cursor: pointer;
+}
 main#dashboard {
   min-height: 100dvh;
 
-  button.logout {
-    color: #fff;
-    background: #f2155b;
-    padding: 0.7rem 1.8rem;
+  img {
+    width: 200px;
+    border-radius: 50%;
+  }
+  h1 {
+    margin-bottom: 1rem;
+
+    span {
+      color: red;
+    }
+  }
+  h2 {
+    color: #0076d6;
+
+    span {
+      color: #091780;
+    }
+  }
+
+  #edit {
+    color: #ffff;
+    background: #060f34;
+    padding: 0.6rem 2rem;
+    border-radius: 1rem;
     font-size: 1.3rem;
-    font-weight: 800;
-    border-radius: 2rem;
+    font-weight: 700;
     cursor: pointer;
   }
 }

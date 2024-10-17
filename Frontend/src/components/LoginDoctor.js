@@ -58,8 +58,6 @@ function LoginDoctor() {
 
         alert("Logged in Successfully");
 
-        data.data.role = "d";
-
         localStorage.setItem("profile", JSON.stringify(data.data));
 
         navigate("/dashboard");

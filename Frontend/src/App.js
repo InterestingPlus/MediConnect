@@ -9,6 +9,7 @@ import LoginPatient from "./components/LoginPatient";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/admin/doctor/Dashboard";
+import DoctorNav from "./components/admin/doctor/DoctorNav";
 import Doctor from "./components/doctor/Doctor";
 
 function App() {
@@ -31,7 +32,10 @@ function App() {
           <Route path="create-patient" element={<CreatePatient />} />
           <Route path="login-patient" element={<LoginPatient />} />
         </Route>
-        <Route path="/dashboard" element={<Dashboard />} />
+
+        <Route path="/dashboard" element={<DoctorNav />}>
+          <Route index element={<Dashboard />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
