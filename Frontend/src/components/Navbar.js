@@ -1,11 +1,14 @@
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 function Navbar() {
+  const [menu, setMenu] = useState(false);
+
   return (
     <>
       <header>
         <h1>HMS</h1>
-        <nav>
+        <nav className={`mobile ${menu ? "close" : ""}`}>
           <ul>
             <li>
               <NavLink to="/">Home</NavLink>
@@ -22,6 +25,13 @@ function Navbar() {
               <NavLink to="/sign-up">Sign Up</NavLink>
             </li>
           </ul>
+          <button
+            onClick={() => {
+              setMenu(!menu);
+            }}
+          >
+            {menu ? "menu" : "close"}
+          </button>
         </nav>
       </header>
 

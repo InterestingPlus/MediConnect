@@ -72,7 +72,16 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     width: 100%;
+
+    button {
+      display: none;
+
+      padding: 0.4rem 1rem;
+      border-radius: 10px;
+    }
+
     ul {
       display: flex;
       list-style: none;
@@ -83,9 +92,8 @@ header {
 
         a {
           font-weight: 700;
-          font-size: 1.7rem;
-          text-decoration: none;
           font-size: 1.6rem;
+          text-decoration: none;
           padding: 10px 20px;
           border-radius: 20px;
 
@@ -506,6 +514,91 @@ main#dashboard {
 @media screen and (width < 1000px) {
   ul#all-doctors {
     grid-template-columns: 1fr 1fr;
+  }
+
+  nav.mobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    max-width: 50vw;
+    padding: 2rem;
+    background: rgba(68, 32, 115, 0.223);
+    backdrop-filter: blur(10px);
+    justify-content: start;
+    align-items: start;
+    flex-direction: column-reverse;
+    min-height: 100dvh;
+    gap: 4rem;
+    z-index: 999;
+
+    &.close {
+      transform: translateX(100%);
+
+      button {
+        position: absolute;
+        top: 1rem;
+        left: -100px;
+      }
+    }
+
+    button {
+      display: block;
+    }
+
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+
+      li {
+        a {
+          font-weight: 600;
+          font-size: 1.5rem;
+
+          &:hover {
+            color: #3d0547;
+            background: #eff1ff63;
+          }
+
+          &.active {
+            color: #060f34;
+            background: #9efff194;
+          }
+        }
+
+        &.login {
+          a {
+            color: #6f3909;
+            background: #a3b3f37b;
+
+            &:hover {
+              color: #402004;
+              background: #a8b6ee;
+            }
+
+            &.active {
+              background: #bbc5eed4;
+            }
+          }
+        }
+
+        &.sign-up {
+          a {
+            color: #ffffff;
+            background: #3a25b0;
+
+            &:hover {
+              color: #ebffff;
+              background: #060f34;
+            }
+            &.active {
+              color: #fff;
+              background: #081c6d;
+            }
+          }
+        }
+      }
+    }
   }
 }
 @media screen and (width < 750px) {
