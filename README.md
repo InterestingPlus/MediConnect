@@ -21,3 +21,6 @@ The **Hospital Management System (HMS)** is a web-based application designed to 
 - Health reminders for patients
 - Integration of patient health records
 - Advanced reporting for hospital staff
+
+### Live Frontend URL : [hms-frontend-react.netlify.app](https://hms-frontend-react.netlify.app)
+[hms-frontend-react.netlify.app](https://hms-frontend-react.netlify.app)
