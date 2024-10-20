@@ -1,5 +1,4 @@
 # Hospital Management System (HMS)
-
 The **Hospital Management System (HMS)** is a web-based application designed to manage the basic functionalities of a hospital. This project includes features such as doctor sign-in, login, and a dashboard for doctor users. The system streamlines the management of doctors' schedules, patient records, and appointments. It aims to simplify hospital administration and improve efficiency.
 
 ## Features Implemented:
@@ -8,9 +7,10 @@ The **Hospital Management System (HMS)** is a web-based application designed to 
 - **Doctor Dashboard**: After logging in, doctors can view their profile information, manage their schedule, and monitor patient appointments.
 
 ## Features Under Development:
-- Patient management
-- Appointment scheduling system
-- Admin dashboard for hospital staff
+- Patient Management
+- Appointment Scheduling System
+- Billing, Laboratory Reports and Medical Records
+- Admin Dashboard for Hospital Staff
 
 ## Technologies Used:
 - **Frontend**: HTML, CSS, JavaScript
@@ -22,5 +22,6 @@ The **Hospital Management System (HMS)** is a web-based application designed to 
 - Integration of patient health records
 - Advanced reporting for hospital staff
 
+
 ### Live Frontend URL : [hms-frontend-react.netlify.app](https://hms-frontend-react.netlify.app)
-[hms-frontend-react.netlify.app](https://hms-frontend-react.netlify.app)
+
