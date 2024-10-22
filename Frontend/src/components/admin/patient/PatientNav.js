@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
-function DoctorNav() {
+function PatientNav() {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
 
@@ -9,7 +9,7 @@ function DoctorNav() {
     const user = await JSON.parse(localStorage.getItem("profile"));
 
     if (user) {
-      navigate("/doctor-dashboard");
+      navigate("/patient-dashboard");
     } else {
       navigate("/");
     }
@@ -29,15 +29,17 @@ function DoctorNav() {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/doctor-dashboard/appointments">
+              <NavLink to="/patient-dashboard/appointments">
                 View Appointments
               </NavLink>
             </li>
             <li>
-              <NavLink to="/doctor-dashboard/history">Patients History</NavLink>
+              <NavLink to="/patient-dashboard/history">
+                Patients History
+              </NavLink>
             </li>
             <li>
-              <NavLink to="/doctor-dashboard/laboratory">
+              <NavLink to="/patient-dashboard/laboratory">
                 Laboratory Reports
               </NavLink>
             </li>
@@ -56,7 +58,7 @@ function DoctorNav() {
             </li>
 
             <li className="profile">
-              <NavLink to="/doctor-dashboard">My Profile</NavLink>
+              <NavLink to="/patient-dashboard">My Profile</NavLink>
             </li>
           </ul>
           <button
@@ -77,4 +79,4 @@ function DoctorNav() {
   );
 }
 
-export default DoctorNav;
+export default PatientNav;

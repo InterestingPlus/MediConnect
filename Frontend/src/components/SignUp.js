@@ -10,8 +10,14 @@ function SignUp() {
     async function checkLocalUser() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
+      console.log(user);
+
       if (user) {
-        navigate("/dashboard");
+        if (user.role == "d") {
+          navigate("/doctor-dashboard");
+        } else if (user.role == "p") {
+          navigate("/patient-dashboard");
+        }
       }
     }
 

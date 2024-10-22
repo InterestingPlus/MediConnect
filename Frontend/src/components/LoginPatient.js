@@ -1,19 +1,29 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function LoginPatient() {
   const navigate = useNavigate();
 
   const [ifDisabled, setIfDisabled] = useState(false);
+  const [isErr, setIsErr] = useState(false);
 
   const [values, setValues] = useState({
-    username: "",
+    pUsername: "",
     password: "",
-    name: "",
-    age: "",
-    contact: "",
-    address: "",
   });
+
+  useEffect(() => {
+    async function checkLocalUser() {
+      const user = await JSON.parse(localStorage.getItem("profile"));
+
+      if (user) {
+        navigate("/patient-dashboard");
+      }
+    }
+
+    checkLocalUser();
+  }, []);
 
   function handleChange(e) {
     setValues({
@@ -24,59 +34,60 @@ function LoginPatient() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     setIfDisabled(true);
+    setIsErr(false);
 
-    alert("The Patient Sign-up Feature is Under Construction");
+    const { pUsername: username, password } = values;
 
-    // const { username, password, name, age, contact, address } = values;
+    if (true) {
+      const { data } = await axios.post("http://localhost:4444/login-patient", {
+        username,
+        password,
+      });
 
-    // const { data } = await axios.post("http://localhost:4444/create-doctor", {
-    //   username,
-    //   password,
-    //   name,
-    //   age,
-    //   contact,
-    //   address,
-    // });
+      if (data.status == false) {
+        setIsErr(true);
+        setIfDisabled(false);
+      }
+      if (data.status == true) {
+        setValues({
+          pUsername: "",
+          password: "",
+        });
+        setIfDisabled(false);
 
-    // console.log(data);
+        alert("Logged in Successfully");
 
-    // if (data.status === false) {
-    //   console.log("Errr :", data.msg);
-    // }
-    // if (data.status === true) {
-    //   console.log("Signed Up Successfully");
+        localStorage.setItem("profile", JSON.stringify(data.data));
 
-    //   setValues({
-    //     username: "",
-    //     password: "",
-    //     name: "",
-    //     age: "",
-    //     contact: "",
-    //     address: "",
-    //   });
+        navigate("/patient-dashboard");
 
-    //   navigate("/");
-
-    // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-    // navigate("/setAvatar");
+        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      }
+    }
   }
 
   return (
-    <main>
-      <form id="create-doctor" onSubmit={handleSubmit}>
+    <main className="form">
+      <form
+        id="create-doctor"
+        onSubmit={handleSubmit}
+        className={`${ifDisabled ? "loading" : ""}`}
+      >
         <h1>
           Login as <span>Patient</span>
         </h1>
 
+        <br />
+
         <label htmlFor="username">Username : </label>
         <input
           type="text"
-          name="username"
+          name="pUsername"
           id="username"
           value={values.username}
           onChange={(e) => handleChange(e)}
+          className={isErr ? "err" : ""}
           required
         />
 
@@ -89,58 +100,20 @@ function LoginPatient() {
           id="password"
           value={values.password}
           onChange={(e) => handleChange(e)}
+          className={isErr ? "err" : ""}
           required
         />
 
         <br />
 
-        <label htmlFor="name">Name : </label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          value={values.name}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <br />
-
-        <label htmlFor="age">Age : </label>
-        <input
-          type="number"
-          name="age"
-          id="age"
-          value={values.age}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <br />
-
-        <label htmlFor="contact">Contact : </label>
-        <input
-          type="number"
-          name="contact"
-          id="contact"
-          value={values.contact}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <br />
-
-        <label htmlFor="address">Address : </label>
-        <input
-          type="text"
-          name="address"
-          id="address"
-          value={values.address}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <br />
+        {isErr ? (
+          <>
+            <br />
+            <p>UserName or Password are not Matched</p> <br />
+          </>
+        ) : (
+          ""
+        )}
 
         <input
           type={ifDisabled ? "button" : "submit"}

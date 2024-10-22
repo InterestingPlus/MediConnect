@@ -11,7 +11,11 @@ function Login() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
       if (user) {
-        navigate("/dashboard");
+        if (user.role == "d") {
+          navigate("/doctor-dashboard");
+        } else if (user.role == "p") {
+          navigate("/patient-dashboard");
+        }
       }
     }
 

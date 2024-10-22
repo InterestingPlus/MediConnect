@@ -3,7 +3,7 @@ import axios from "axios";
 const { useEffect, useState } = require("react");
 const { useNavigate } = require("react-router-dom");
 
-function DoctorDashboard() {
+function PatientDashboard() {
   const navigate = useNavigate();
   const [localUser, setUser] = useState();
   const [doctor, setDoctor] = useState(null);
@@ -13,12 +13,12 @@ function DoctorDashboard() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
       if (user) {
-        navigate("/doctor-dashboard");
+        navigate("/patient-dashboard");
         setUser(user);
 
         const { id, username } = await user;
 
-        const data = await axios.post("http://localhost:4444/auth-doctor", {
+        const data = await axios.post("http://localhost:4444/auth-patient", {
           id,
           username,
         });
@@ -74,4 +74,4 @@ function DoctorDashboard() {
   );
 }
 
-export default DoctorDashboard;
+export default PatientDashboard;

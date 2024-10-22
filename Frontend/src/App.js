@@ -9,10 +9,12 @@ import LoginPatient from "./components/LoginPatient";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
 import Appointment from "./components/admin/doctor/Appointment";
-import Dashboard from "./components/admin/doctor/Dashboard";
+import DoctorDashboard from "./components/admin/doctor/Dashboard";
 import DoctorNav from "./components/admin/doctor/DoctorNav";
 import Laboratory from "./components/admin/doctor/Laboratory";
 import PatientHistory from "./components/admin/doctor/PatientHistory";
+import PatientDashboard from "./components/admin/patient/Dashboard";
+import PatientNav from "./components/admin/patient/PatientNav";
 import Doctor from "./components/doctor/Doctor";
 
 // https://hms-backend-tr2u.onrender.com
@@ -39,8 +41,15 @@ function App() {
           <Route path="login-patient" element={<LoginPatient />} />
         </Route>
 
-        <Route path="/dashboard" element={<DoctorNav />}>
-          <Route index element={<Dashboard />} />
+        <Route path="/doctor-dashboard" element={<DoctorNav />}>
+          <Route index element={<DoctorDashboard />} />
+          <Route path="appointments" element={<Appointment />} />
+          <Route path="history" element={<PatientHistory />} />
+          <Route path="laboratory" element={<Laboratory />} />
+          {/* <Route path="profile" element={<Profile />} /> */}
+        </Route>
+        <Route path="/patient-dashboard" element={<PatientNav />}>
+          <Route index element={<PatientDashboard />} />
           <Route path="appointments" element={<Appointment />} />
           <Route path="history" element={<PatientHistory />} />
           <Route path="laboratory" element={<Laboratory />} />

@@ -22,7 +22,7 @@ function CreateDoctor() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
       if (user) {
-        navigate("/dashboard");
+        navigate("/doctor-dashboard");
       }
     }
 

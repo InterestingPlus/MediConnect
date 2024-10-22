@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function CreatePatient() {
@@ -11,9 +12,22 @@ function CreatePatient() {
     password: "",
     name: "",
     age: "",
+    specialization: "",
     contact: "",
-    address: "",
+    availability: "",
   });
+
+  useEffect(() => {
+    async function checkLocalUser() {
+      const user = await JSON.parse(localStorage.getItem("profile"));
+
+      if (user) {
+        navigate("/patient-dashboard");
+      }
+    }
+
+    checkLocalUser();
+  }, []);
 
   function handleChange(e) {
     setValues({
@@ -24,48 +38,57 @@ function CreatePatient() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
     setIfDisabled(true);
 
-    alert("The Patient Sign-up Feature is Under Construction");
+    const {
+      username,
+      password,
+      name,
+      age,
+      specialization,
+      contact,
+      availability,
+    } = values;
 
-    // const { username, password, name, age, contact, address } = values;
+    if (true) {
+      const { data } = await axios.post("http://localhost:4444/create-patient", {
+        username,
+        password,
+        name,
+        age,
+        contact,
+      });
 
-    // const { data } = await axios.post("http://localhost:4444/create-doctor", {
-    //   username,
-    //   password,
-    //   name,
-    //   age,
-    //   contact,
-    //   address,
-    // });
+      if (data.status === false) {
+        console.log("Errr :", data.msg);
+      }
+      if (data.status === true) {
+        setValues({
+          username: "",
+          password: "",
+          name: "",
+          age: "",
+          contact: "",
+        });
 
-    // console.log(data);
+        alert("Signed Up Successfully");
 
-    // if (data.status === false) {
-    //   console.log("Errr :", data.msg);
-    // }
-    // if (data.status === true) {
-    //   console.log("Signed Up Successfully");
+        localStorage.setItem("profile", JSON.stringify(data.data));
 
-    //   setValues({
-    //     username: "",
-    //     password: "",
-    //     name: "",
-    //     age: "",
-    //     contact: "",
-    //     address: "",
-    //   });
+        navigate("/login");
 
-    //   navigate("/");
-
-    // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-    // navigate("/setAvatar");
+        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      }
+    }
   }
 
   return (
-    <main>
-      <form id="create-doctor" onSubmit={handleSubmit}>
+    <main className="form">
+      <form
+        id="create-doctor"
+        onSubmit={handleSubmit}
+        className={`${ifDisabled ? "loading" : ""}`}
+      >
         <h1>
           Sign Up as a <span>Patient</span>
         </h1>
@@ -124,18 +147,6 @@ function CreatePatient() {
           name="contact"
           id="contact"
           value={values.contact}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-
-        <br />
-
-        <label htmlFor="address">Address : </label>
-        <input
-          type="text"
-          name="address"
-          id="address"
-          value={values.address}
           onChange={(e) => handleChange(e)}
           required
         />

@@ -18,7 +18,7 @@ function LoginDoctor() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
       if (user) {
-        navigate("/dashboard");
+        navigate("/doctor-dashboard");
       }
     }
 
@@ -60,7 +60,7 @@ function LoginDoctor() {
 
         localStorage.setItem("profile", JSON.stringify(data.data));
 
-        navigate("/dashboard");
+        navigate("/doctor-dashboard");
 
         // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
       }
