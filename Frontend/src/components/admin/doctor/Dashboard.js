@@ -37,7 +37,7 @@ function Dashboard() {
   }, []);
 
   return (
-    <main id="dashboard">
+    <>
       {doctor ? (
         <>
           <img
@@ -70,7 +70,7 @@ function Dashboard() {
           <h1>Fetching Your Details...</h1>
         </div>
       )}
-    </main>
+    </>
   );
 }
 

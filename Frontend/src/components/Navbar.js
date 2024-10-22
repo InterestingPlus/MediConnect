@@ -29,6 +29,7 @@ function Navbar() {
             onClick={() => {
               setMenu(!menu);
             }}
+            id="menu"
           >
             {menu ? "menu" : "close"}
           </button>

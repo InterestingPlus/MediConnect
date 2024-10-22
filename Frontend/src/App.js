@@ -8,9 +8,15 @@ import LoginDoctor from "./components/LoginDoctor";
 import LoginPatient from "./components/LoginPatient";
 import Navbar from "./components/Navbar";
 import SignUp from "./components/SignUp";
+import Appointment from "./components/admin/doctor/Appointment";
 import Dashboard from "./components/admin/doctor/Dashboard";
 import DoctorNav from "./components/admin/doctor/DoctorNav";
+import Laboratory from "./components/admin/doctor/Laboratory";
+import PatientHistory from "./components/admin/doctor/PatientHistory";
 import Doctor from "./components/doctor/Doctor";
+
+// https://hms-backend-tr2u.onrender.com
+// http://localhost:4444
 
 function App() {
   return (
@@ -35,6 +41,10 @@ function App() {
 
         <Route path="/dashboard" element={<DoctorNav />}>
           <Route index element={<Dashboard />} />
+          <Route path="appointments" element={<Appointment />} />
+          <Route path="history" element={<PatientHistory />} />
+          <Route path="laboratory" element={<Laboratory />} />
+          {/* <Route path="profile" element={<Profile />} /> */}
         </Route>
       </Routes>
     </BrowserRouter>
