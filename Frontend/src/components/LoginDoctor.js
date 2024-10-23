@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiPath from "../isProduction";
 
 function LoginDoctor() {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ function LoginDoctor() {
     const { username, password } = values;
 
     if (true) {
-      const { data } = await axios.post("http://localhost:4444/login-doctor", {
+      const { data } = await axios.post(`${apiPath()}/login-doctor`, {
         username,
         password,
       });

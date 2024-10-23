@@ -17,6 +17,7 @@ code {
   margin: 0;
   padding: 0;
   transition: 0.2s all ease-in-out;
+  user-select: none;
 }
 
 // Loader
@@ -644,9 +645,21 @@ main#dashboard {
     }
   }
 }
+
 @media screen and (width < 750px) {
+  .role {
+    flex-wrap: wrap;
+  }
+
   ul#all-doctors {
     grid-template-columns: 1fr;
+  }
+  .services {
+    align-items: center;
+    flex-direction: column;
+    .service {
+      min-width: 100%;
+    }
   }
 }
 

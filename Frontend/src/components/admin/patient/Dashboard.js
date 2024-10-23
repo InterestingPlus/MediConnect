@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiPath from "../../../isProduction";
 
 const { useEffect, useState } = require("react");
 const { useNavigate } = require("react-router-dom");
@@ -18,7 +19,7 @@ function PatientDashboard() {
 
         const { id, username } = await user;
 
-        const data = await axios.post("http://localhost:4444/auth-patient", {
+        const data = await axios.post(`${apiPath()}/auth-patient`, {
           id,
           username,
         });

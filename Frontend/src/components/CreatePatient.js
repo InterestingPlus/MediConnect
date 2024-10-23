@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import apiPath from "../isProduction";
 
 function CreatePatient() {
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function CreatePatient() {
     } = values;
 
     if (true) {
-      const { data } = await axios.post("http://localhost:4444/create-patient", {
+      const { data } = await axios.post(`${apiPath()}/create-patient`, {
         username,
         password,
         name,

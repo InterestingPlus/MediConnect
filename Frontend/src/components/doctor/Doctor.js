@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import apiPath from "../../isProduction";
 
 function Doctor() {
   const { u } = useParams();
@@ -8,7 +9,7 @@ function Doctor() {
 
   useEffect(() => {
     async function getDoctor() {
-      const data = await axios.post("http://localhost:4444/doctor", {
+      const data = await axios.post(`${apiPath()}/doctor`, {
         username: u,
       });
 
