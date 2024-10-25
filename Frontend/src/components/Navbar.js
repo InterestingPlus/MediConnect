@@ -13,9 +13,6 @@ function Navbar() {
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
-            <li>
-              <NavLink to="/all-doctors">View All Doctors</NavLink>
-            </li>
           </ul>
           <ul>
             <li className="login">

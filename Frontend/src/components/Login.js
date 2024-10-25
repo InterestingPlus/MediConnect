@@ -11,9 +11,9 @@ function Login() {
       const user = await JSON.parse(localStorage.getItem("profile"));
 
       if (user) {
-        if (user.role == "d") {
+        if (user.role === "d") {
           navigate("/doctor-dashboard");
-        } else if (user.role == "p") {
+        } else if (user.role === "p") {
           navigate("/patient-dashboard");
         }
       }
@@ -66,16 +66,16 @@ function Login() {
 
       <Link
         to={
-          select == 2
+          select === 2
             ? "/login-doctor"
-            : select == 1
+            : select === 1
             ? "/login-patient"
-            : select == 3
+            : select === 3
             ? "/login-admin"
             : "/login"
         }
       >
-        <button className={select == 0 ? "next disable" : "next"}>Next</button>
+        <button className={select === 0 ? "next disable" : "next"}>Next</button>
       </Link>
     </main>
   );

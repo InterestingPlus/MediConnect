@@ -7,7 +7,7 @@ const { useNavigate } = require("react-router-dom");
 function PatientDashboard() {
   const navigate = useNavigate();
   const [localUser, setUser] = useState();
-  const [doctor, setDoctor] = useState(null);
+  const [patient, setPatient] = useState(null);
 
   useEffect(() => {
     async function checkLocalUser() {
@@ -25,7 +25,7 @@ function PatientDashboard() {
         });
 
         if (data.data.status) {
-          await setDoctor(data.data.data);
+          await setPatient(data.data.data);
         } else {
           localStorage.clear();
           navigate("/login");
@@ -39,27 +39,24 @@ function PatientDashboard() {
 
   return (
     <>
-      {doctor ? (
+      {patient ? (
         <>
           <img
-            src="https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+            src="https://img.freepik.com/premium-vector/patient-woman-smiling-profile-cartoon_18591-60679.jpg"
             alt="profile-pic"
           />
 
           <h1>
-            Hello, <span> {doctor?.name}. </span>
+            Hello, <span> {patient?.name}. </span>
           </h1>
           <h2>
-            Id : <span> {doctor?._id} </span>
+            Id : <span> {patient?._id} </span>
           </h2>
           <h2>
-            Username : <span> {doctor?.username} </span>
+            Username : <span> {patient?.username} </span>
           </h2>
           <h2>
-            Contact : <span> {doctor?.contact} </span>
-          </h2>
-          <h2>
-            Availability : <span> {doctor?.availability} </span>
+            Contact : <span> {patient?.contact} </span>
           </h2>
 
           <br />

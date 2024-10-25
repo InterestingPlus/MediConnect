@@ -30,13 +30,11 @@ function PatientNav() {
             </li>
             <li>
               <NavLink to="/patient-dashboard/appointments">
-                View Appointments
+                Appointments
               </NavLink>
             </li>
             <li>
-              <NavLink to="/patient-dashboard/history">
-                Patients History
-              </NavLink>
+              <NavLink to="/patient-dashboard/history"> My History </NavLink>
             </li>
             <li>
               <NavLink to="/patient-dashboard/laboratory">

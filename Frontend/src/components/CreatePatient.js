@@ -51,7 +51,7 @@ function CreatePatient() {
       availability,
     } = values;
 
-    if (true) {
+    if (ifDisabled) {
       const { data } = await axios.post(`${apiPath()}/create-patient`, {
         username,
         password,

@@ -13,6 +13,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -465,9 +466,40 @@ main.profile {
         color: #260b71db;
       }
     }
+
+    button {
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      border: none;
+      color: #fff;
+      background: rgba(149, 0, 255, 0.89);
+      font-weight: 700;
+      width: 100%;
+      cursor: pointer;
+
+      &.aptmnt {
+        background: #3f33c1;
+      }
+      &:hover {
+        background: #060f34;
+      }
+    }
   }
 }
 // Doctor Profile End
+
+// Appointment Start
+
+a button.book {
+  color: #fff;
+  background: #060f34;
+
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  font-size: 1rem;
+}
+
+// Appointment End
 
 //
 
@@ -514,6 +546,38 @@ main#dashboard {
     cursor: pointer;
   }
 }
+
+// Booktime Start
+section.date {
+  form {
+    min-width: 100%;
+
+    .booktime {
+      padding: 1rem 2rem;
+      border-radius: 20px;
+      font-size: 1.3rem;
+    }
+    textarea {
+      padding: 1rem 2rem;
+      width: 100%;
+      border-radius: 20px;
+      min-height: 18rem;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      color: #fff;
+      padding: 0.8rem 1.3rem;
+      border-radius: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.1rem;
+      background: rgb(125, 20, 246);
+    }
+  }
+}
+// Booktime End
+
 // Dashboard End
 
 // ------------------
@@ -525,6 +589,7 @@ main#dashboard {
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
+
 @media screen and (width < 1000px) {
   ul#all-doctors {
     grid-template-columns: 1fr 1fr;
@@ -646,7 +711,7 @@ main#dashboard {
   }
 }
 
-@media screen and (width < 750px) {
+@media screen and (width < 780px) {
   .role {
     flex-wrap: wrap;
   }
@@ -675,11 +740,18 @@ footer {
 }
 
 @media screen and (width > 1000px) {
+  ul#all-doctors {
+    grid-template-columns: 1fr 1fr;
+  }
+
   #flex {
     display: flex;
+    justify-content: end;
 
     #dashboard {
-      width: 80%;
+      width: 75%;
+      max-height: 100dvh;
+      overflow: auto;
     }
 
     // Dashboard Sidebar Start
@@ -688,14 +760,18 @@ footer {
       top: 0;
       left: 0;
       right: auto;
-      width: 20%;
-      min-width: fit-content;
+      z-index: 999;
+
+      width: 100%;
+      max-width: 25%;
+      height: 100vh;
+      max-height: 100dvh;
       padding: 2rem;
+      overflow: auto;
+
       background: rgba(68, 32, 115, 0.223);
       backdrop-filter: blur(10px);
-      height: 100dvh;
-      max-height: 100dvh;
-      z-index: 999;
+
       display: flex;
       flex-direction: column;
       gap: 1rem;

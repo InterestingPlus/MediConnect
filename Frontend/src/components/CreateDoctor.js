@@ -51,7 +51,7 @@ function CreateDoctor() {
       availability,
     } = values;
 
-    if (true) {
+    if (ifDisabled) {
       const { data } = await axios.post(`${apiPath()}/create-doctor`, {
         username,
         password,
