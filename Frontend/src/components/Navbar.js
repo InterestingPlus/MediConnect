@@ -11,7 +11,9 @@ function Navbar() {
         <nav className={`mobile ${menu ? "close" : ""}`}>
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
+              <NavLink to="/">
+                <i class="fa-solid fa-house"></i> Home
+              </NavLink>
             </li>
           </ul>
           <ul>
@@ -19,7 +21,9 @@ function Navbar() {
               <NavLink to="/login">Login</NavLink>
             </li>
             <li className="sign-up">
-              <NavLink to="/sign-up">Sign Up</NavLink>
+              <NavLink to="/sign-up">
+                <i class="fa-solid fa-user-plus"></i> Sign Up
+              </NavLink>
             </li>
           </ul>
           <button
@@ -28,7 +32,11 @@ function Navbar() {
             }}
             id="menu"
           >
-            {menu ? "menu" : "close"}
+            {menu ? (
+              <i class="fa-solid fa-list"></i>
+            ) : (
+              <i class="fa-solid fa-x"></i>
+            )}
           </button>
         </nav>
       </header>

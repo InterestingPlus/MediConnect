@@ -26,19 +26,23 @@ function DoctorNav() {
         <nav className={`mobile ${menu ? "close" : ""}`} id="doctor-sidebar">
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/doctor-dashboard/appointments">
-                View Appointments
+              <NavLink to="/">
+                <i class="fa-solid fa-house"></i> Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/doctor-dashboard/history">Patients History</NavLink>
+              <NavLink to="/doctor-dashboard/appointments">
+                <i class="fa-regular fa-calendar-check"></i> View Appointments
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/doctor-dashboard/history">
+                <i class="fa-solid fa-clock-rotate-left"></i> Patients History
+              </NavLink>
             </li>
             <li>
               <NavLink to="/doctor-dashboard/laboratory">
-                Laboratory Reports
+                <i class="fa-solid fa-hospital-user"></i> Laboratory Reports
               </NavLink>
             </li>
           </ul>
@@ -51,12 +55,15 @@ function DoctorNav() {
                 }}
                 className="logout"
               >
-                Logout
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
               </button>
             </li>
 
             <li className="profile">
-              <NavLink to="/doctor-dashboard">My Profile</NavLink>
+              <NavLink to="/doctor-dashboard">
+                <i class="fa-solid fa-user-doctor"></i>
+                My Profile
+              </NavLink>
             </li>
           </ul>
           <button
@@ -65,7 +72,11 @@ function DoctorNav() {
             }}
             id="menu"
           >
-            {menu ? "menu" : "close"}
+            {menu ? (
+              <i class="fa-solid fa-list"></i>
+            ) : (
+              <i class="fa-solid fa-x"></i>
+            )}
           </button>
         </nav>
       </header>

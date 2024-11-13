@@ -499,6 +499,52 @@ a button.book {
   font-size: 1rem;
 }
 
+// View Appointments Start
+section.view-appointment {
+  --orange: rgb(255, 191, 0);
+  --green: greenyellow;
+
+  p {
+    .orange {
+      color: rgb(255, 191, 0);
+      background: #464a4d94;
+      padding: 0.2rem 1rem;
+      border-radius: 20px;
+    }
+    .green {
+      color: greenyellow;
+      background: #5a606294;
+      padding: 0.2rem 1rem;
+      border-radius: 20px;
+    }
+    .red {
+      color: orangered;
+      background: #7f838794;
+      padding: 0.2rem 1rem;
+      border-radius: 20px;
+    }
+  }
+
+  select {
+    padding: 0.2rem 1rem;
+    border-radius: 20px;
+
+    &.pending {
+      color: rgb(255, 191, 0);
+      background: #464a4d94;
+    }
+    &.accepted {
+      color: greenyellow;
+      background: #5a606294;
+    }
+    &.rejected {
+      color: orangered;
+      background: #7f838794;
+    }
+  }
+}
+// View Appointments End
+
 // Appointment End
 
 //

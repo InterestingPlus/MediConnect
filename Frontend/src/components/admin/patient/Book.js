@@ -18,7 +18,10 @@ function AllDoctors() {
   if (doctors) {
     return (
       <>
-        <h1>Select Doctor to Book Appointment</h1>
+        <h1>
+          <i class="fa-solid fa-user-doctor"></i> Select Doctor to Book
+          Appointment
+        </h1>
 
         <ul id="all-doctors">
           {doctors.data.data.map((doctor, index) => {

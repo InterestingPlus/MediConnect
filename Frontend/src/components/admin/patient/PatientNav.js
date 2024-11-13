@@ -26,19 +26,23 @@ function PatientNav() {
         <nav className={`mobile ${menu ? "close" : ""}`} id="doctor-sidebar">
           <ul>
             <li>
-              <NavLink to="/">Home</NavLink>
-            </li>
-            <li>
-              <NavLink to="/patient-dashboard/appointments">
-                Appointments
+              <NavLink to="/">
+                <i class="fa-solid fa-house"></i> Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/patient-dashboard/history"> My History </NavLink>
+              <NavLink to="/patient-dashboard/appointments">
+                <i class="fa-regular fa-calendar-check"></i> Appointments
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/patient-dashboard/history">
+                <i class="fa-solid fa-clock-rotate-left"></i> My History
+              </NavLink>
             </li>
             <li>
               <NavLink to="/patient-dashboard/laboratory">
-                Laboratory Reports
+                <i class="fa-solid fa-hospital-user"></i> Laboratory Reports
               </NavLink>
             </li>
           </ul>
@@ -51,12 +55,14 @@ function PatientNav() {
                 }}
                 className="logout"
               >
-                Logout
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
               </button>
             </li>
 
             <li className="profile">
-              <NavLink to="/patient-dashboard">My Profile</NavLink>
+              <NavLink to="/patient-dashboard">
+                <i class="fa-solid fa-user"></i> My Profile
+              </NavLink>
             </li>
           </ul>
           <button
@@ -65,7 +71,11 @@ function PatientNav() {
             }}
             id="menu"
           >
-            {menu ? "menu" : "close"}
+            {menu ? (
+              <i class="fa-solid fa-list"></i>
+            ) : (
+              <i class="fa-solid fa-x"></i>
+            )}
           </button>
         </nav>
       </header>

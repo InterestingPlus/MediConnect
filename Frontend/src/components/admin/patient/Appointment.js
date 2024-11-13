@@ -38,11 +38,15 @@ function PatientAppointment() {
 
   return (
     <>
-      <h1>Appointments</h1>
+      <h1>
+        <i class="fa-regular fa-calendar-check"></i> Appointments
+      </h1>
       <Link to="/patient-dashboard/appointments/book">
-        <button className="book">Book Appointment</button>
+        <button className="book">
+          <i class="fa-regular fa-square-plus"></i> Book Appointment
+        </button>
       </Link>
-      <section>
+      <section className="view-appointment">
         <br />
         <h2>Appointments History :</h2>
         <hr />
@@ -62,6 +66,25 @@ function PatientAppointment() {
                   </p>
                   <p>
                     <b> Reason : </b> {app?.reason}
+                  </p>
+
+                  <br />
+                  <p>
+                    <b> Status : </b>
+
+                    {app?.status == "pending" ? (
+                      <b className="orange">
+                        Pending <i class="fa-regular fa-clock"></i>
+                      </b>
+                    ) : app?.status == "accepted" ? (
+                      <b className="green">
+                        Accepted <i class="fa-regular fa-circle-check"></i>
+                      </b>
+                    ) : (
+                      <b className="red">
+                        Rejected <i class="fa-solid fa-ban"></i>
+                      </b>
+                    )}
                   </p>
                   <br />
                 </li>
