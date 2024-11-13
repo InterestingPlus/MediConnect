@@ -167,3 +167,34 @@ module.exports.getAuthenticatedPatient = async (req, res) => {
     });
   }
 };
+
+module.exports.updateStatus = async (req, res) => {
+  try {
+    const { id, status } = req.body;
+
+    const data = await Appointment.findOneAndUpdate({ _id: id }, { status });
+
+    if (!data) {
+      return res.json({
+        message: "Something Went Wrong",
+        status: false,
+      });
+    }
+
+    const patientData = data.toObject();
+
+    delete patientData.password;
+
+    res.json({
+      message: "Status Updated",
+      status: true,
+      data: patientData,
+    });
+  } catch (error) {
+    res.json({
+      message: "Server Error",
+      status: false,
+      error: error.message,
+    });
+  }
+};
