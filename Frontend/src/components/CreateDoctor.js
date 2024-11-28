@@ -51,39 +51,38 @@ function CreateDoctor() {
       availability,
     } = values;
 
-    if (ifDisabled) {
-      const { data } = await axios.post(`${apiPath()}/create-doctor`, {
-        username,
-        password,
-        name,
-        age,
-        specialization,
-        contact,
-        availability,
+    const { data } = await axios.post(`${apiPath()}/create-doctor`, {
+      username,
+      password,
+      name,
+      age,
+      specialization,
+      contact,
+      availability,
+    });
+
+    if (data.status === false) {
+      alert("Errr : " + data.message);
+      setIfDisabled(false);
+    }
+    if (data.status === true) {
+      setValues({
+        username: "",
+        password: "",
+        name: "",
+        age: "",
+        specialization: "",
+        contact: "",
+        availability: "",
       });
 
-      if (data.status === false) {
-        console.log("Errr :", data.msg);
-      }
-      if (data.status === true) {
-        setValues({
-          username: "",
-          password: "",
-          name: "",
-          age: "",
-          specialization: "",
-          contact: "",
-          availability: "",
-        });
+      alert("Signed Up Successfully");
 
-        alert("Signed Up Successfully");
+      localStorage.setItem("profile", JSON.stringify(data.data));
 
-        localStorage.setItem("profile", JSON.stringify(data.data));
+      navigate("/login");
 
-        navigate("/login");
-
-        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      }
+      // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
     }
   }
 
@@ -105,6 +104,7 @@ function CreateDoctor() {
           id="username"
           value={values.username}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -117,6 +117,7 @@ function CreateDoctor() {
           id="password"
           value={values.password}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -129,6 +130,7 @@ function CreateDoctor() {
           id="name"
           value={values.name}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -141,6 +143,7 @@ function CreateDoctor() {
           id="age"
           value={values.age}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -153,6 +156,7 @@ function CreateDoctor() {
           id="specialization"
           value={values.specialization}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -165,6 +169,7 @@ function CreateDoctor() {
           id="contact"
           value={values.contact}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -177,6 +182,7 @@ function CreateDoctor() {
           id="availability"
           value={values.availability}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 

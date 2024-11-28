@@ -34,7 +34,7 @@ function Login() {
               setSelect(1);
             }}
           >
-            Patient
+            <i class="fi fi-ss-user-injured"></i> Patient
           </label>
           <input type="radio" name="role" id="patient" required />
         </span>
@@ -46,7 +46,7 @@ function Login() {
               setSelect(2);
             }}
           >
-            Doctor
+            <i class="fi fi-ss-user-md"></i> Doctor
           </label>
           <input type="radio" name="role" id="doctor" required />
         </span>
@@ -58,7 +58,7 @@ function Login() {
               setSelect(3);
             }}
           >
-            Admin
+            <i class="fi fi-ss-admin-alt"></i> Admin
           </label>
           <input type="radio" name="role" id="admin" required />
         </span>

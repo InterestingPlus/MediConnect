@@ -62,8 +62,10 @@ function DoctorAppointment() {
             {appointments.map((app, key) => {
               return (
                 <li key={key}>
+                  <img src="https://cdn-icons-png.flaticon.com/512/3952/3952988.png" />
+
                   <p>
-                    <b> Patient : </b> {app?.patientId}
+                    <b> Patient : </b> {app?.patientName}
                   </p>
                   <p>
                     <b> Time : </b> {app?.time}

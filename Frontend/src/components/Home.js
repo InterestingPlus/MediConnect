@@ -1,48 +1,53 @@
 import { useNavigate } from "react-router-dom";
+import myImg from "../doctor.png";
 
 function Home() {
   const navigate = useNavigate();
   return (
-    <main id="home">
-      <section className="hero" id="home">
-        <h1>Welcome to Our Hospital</h1>
-        <p>
-          We are committed to providing the best healthcare services to our
-          patients.
-        </p>
-        <button onClick={() => navigate("/create-patient")}>
-          Book an Appointment
-        </button>
-      </section>
+    <>
+      <main id="home">
+        <section className="hero" id="home">
+          <div>
+            <h1>Welcome to Our Hospital</h1>
+            <p>
+              We are committed to providing the best healthcare services to our
+              patients.
+            </p>
+            <button onClick={() => navigate("/create-patient")}>
+              Book an Appointment
+            </button>
+          </div>
+          <img src={myImg} alt="profile-pic" />
+        </section>
 
-      <section className="services" id="services">
-        <div className="service">
-          <h3>24/7 Emergency Care</h3>
-          <p>
-            Our emergency services are available round the clock to assist you
-            in critical situations.
-          </p>
-        </div>
-        <div className="service">
-          <h3>Expert Doctors</h3>
-          <p>
-            Our team of highly skilled doctors are specialists in various fields
-            of medicine.
-          </p>
-        </div>
-        <div className="service">
-          <h3>Advanced Technology</h3>
-          <p>
-            We use state-of-the-art technology to provide you with the best
-            healthcare solutions.
-          </p>
-        </div>
-      </section>
-
-      <footer>
-        <p>© 2024 Hospital Management System | All Rights Reserved</p>
-      </footer>
-    </main>
+        <section className="services" id="services">
+          <div className="service">
+            <h3>24/7 Emergency Care</h3>
+            <p>
+              Our emergency services are available round the clock to assist you
+              in critical situations.
+            </p>
+          </div>
+          <div className="service">
+            <h3>Expert Doctors</h3>
+            <p>
+              Our team of highly skilled doctors are specialists in various
+              fields of medicine.
+            </p>
+          </div>
+          <div className="service">
+            <h3>Advanced Technology</h3>
+            <p>
+              We use state-of-the-art technology to provide you with the best
+              healthcare solutions.
+            </p>
+          </div>
+        </section>
+        <footer>
+          <p>© 2024 Hospital Management System | All Rights Reserved</p>
+        </footer>
+      </main>
+    </>
   );
 }
 

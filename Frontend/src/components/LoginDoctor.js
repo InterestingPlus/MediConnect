@@ -62,8 +62,6 @@ function LoginDoctor() {
         localStorage.setItem("profile", JSON.stringify(data.data));
 
         navigate("/doctor-dashboard");
-
-        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
       }
     }
   }
@@ -89,6 +87,7 @@ function LoginDoctor() {
           value={values.username}
           onChange={(e) => handleChange(e)}
           className={isErr ? "err" : ""}
+          readOnly={ifDisabled}
           required
         />
 
@@ -102,6 +101,7 @@ function LoginDoctor() {
           value={values.password}
           onChange={(e) => handleChange(e)}
           className={isErr ? "err" : ""}
+          readOnly={ifDisabled}
           required
         />
 

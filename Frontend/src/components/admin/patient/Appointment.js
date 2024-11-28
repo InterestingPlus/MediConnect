@@ -38,14 +38,16 @@ function PatientAppointment() {
 
   return (
     <>
-      <h1>
-        <i class="fa-regular fa-calendar-check"></i> Appointments
-      </h1>
-      <Link to="/patient-dashboard/appointments/book">
-        <button className="book">
-          <i class="fa-regular fa-square-plus"></i> Book Appointment
-        </button>
-      </Link>
+      <div className="appointment-header">
+        <h1>
+          <i class="fa-regular fa-calendar-check"></i> Appointments
+        </h1>
+        <Link to="/patient-dashboard/appointments/book">
+          <button className="book">
+            <i class="fa-regular fa-square-plus"></i> Book Appointment
+          </button>
+        </Link>
+      </div>
       <section className="view-appointment">
         <br />
         <h2>Appointments History :</h2>
@@ -55,8 +57,10 @@ function PatientAppointment() {
             {appointments.map((app, key) => {
               return (
                 <li key={key}>
+                  <img src="https://cdn-icons-png.flaticon.com/512/3952/3952988.png" />
+
                   <p>
-                    <b> Doctor : </b> {app?.doctorId}
+                    <b> Doctor : </b> {app?.doctorName}
                   </p>
                   <p>
                     <b> Time : </b> {app?.time}
@@ -68,7 +72,6 @@ function PatientAppointment() {
                     <b> Reason : </b> {app?.reason}
                   </p>
 
-                  <br />
                   <p>
                     <b> Status : </b>
 
@@ -86,7 +89,6 @@ function PatientAppointment() {
                       </b>
                     )}
                   </p>
-                  <br />
                 </li>
               );
             })}

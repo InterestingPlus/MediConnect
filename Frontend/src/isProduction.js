@@ -5,6 +5,7 @@ function apiPath() {
     return "https://hms-backend-tr2u.onrender.com";
   } else {
     return "http://localhost:4444";
+    // return "http://192.168.129.169:4444";
   }
 }
 

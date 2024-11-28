@@ -33,9 +33,9 @@ function Navbar() {
             id="menu"
           >
             {menu ? (
-              <i class="fa-solid fa-list"></i>
+              <i class="fi fi-br-bars-sort"></i>
             ) : (
-              <i class="fa-solid fa-x"></i>
+              <i class="fi fi-br-cross"></i>
             )}
           </button>
         </nav>

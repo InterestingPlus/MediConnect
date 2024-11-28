@@ -13,9 +13,7 @@ function CreatePatient() {
     password: "",
     name: "",
     age: "",
-    specialization: "",
     contact: "",
-    availability: "",
   });
 
   useEffect(() => {
@@ -28,7 +26,7 @@ function CreatePatient() {
     }
 
     checkLocalUser();
-  }, []);
+  }, [navigate]);
 
   function handleChange(e) {
     setValues({
@@ -41,45 +39,36 @@ function CreatePatient() {
     e.preventDefault();
     setIfDisabled(true);
 
-    const {
+    const { username, password, name, age, contact } = values;
+
+    const { data } = await axios.post(`${apiPath()}/create-patient`, {
       username,
       password,
       name,
       age,
-      specialization,
       contact,
-      availability,
-    } = values;
+    });
 
-    if (ifDisabled) {
-      const { data } = await axios.post(`${apiPath()}/create-patient`, {
-        username,
-        password,
-        name,
-        age,
-        contact,
+    if (data.status === false) {
+      alert("Errr : " + data.message);
+      setIfDisabled(false);
+    }
+    if (data.status === true) {
+      setValues({
+        username: "",
+        password: "",
+        name: "",
+        age: "",
+        contact: "",
       });
 
-      if (data.status === false) {
-        console.log("Errr :", data.msg);
-      }
-      if (data.status === true) {
-        setValues({
-          username: "",
-          password: "",
-          name: "",
-          age: "",
-          contact: "",
-        });
+      alert("Signed Up Successfully");
 
-        alert("Signed Up Successfully");
+      localStorage.setItem("profile", JSON.stringify(data.data));
 
-        localStorage.setItem("profile", JSON.stringify(data.data));
+      navigate("/login");
 
-        navigate("/login");
-
-        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
-      }
+      // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
     }
   }
 
@@ -101,6 +90,7 @@ function CreatePatient() {
           id="username"
           value={values.username}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -113,6 +103,7 @@ function CreatePatient() {
           id="password"
           value={values.password}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -125,6 +116,7 @@ function CreatePatient() {
           id="name"
           value={values.name}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -137,6 +129,7 @@ function CreatePatient() {
           id="age"
           value={values.age}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
@@ -149,6 +142,7 @@ function CreatePatient() {
           id="contact"
           value={values.contact}
           onChange={(e) => handleChange(e)}
+          disabled={ifDisabled}
           required
         />
 
