@@ -471,11 +471,17 @@ main.profile {
       h1 {
         font-size: 2.3rem;
         color: transparent;
+        max-width: fit-content;
         background: linear-gradient(
           to right bottom,
+          #ffa200,
+          #ff9100,
+          #ff7b00,
           #ff5500,
           #ff2a00,
-          rgb(251, 13, 132)
+          #ff0059,
+          rgb(251, 13, 104),
+          rgb(251, 13, 164)
         );
         background-clip: text;
         -webkit-background-clip: text;
@@ -758,7 +764,7 @@ section#search-box {
       width: 100%;
       height: 3.5rem;
 
-      border: none;
+      border: 1px solid #182ea900;
       outline: none;
       border-radius: 20px;
 
@@ -778,7 +784,7 @@ section#search-box {
       position: absolute;
       right: 0;
       bottom: 0;
-      width: 20%;
+      width: 18%;
       height: 3.5rem;
       aspect-ratio: 1;
       cursor: pointer;
@@ -796,12 +802,30 @@ section#search-box {
 
       &:hover,
       &:focus {
+        width: 20%;
         background: #1e3fc4;
       }
     }
   }
 }
 // Search Box End
+
+span.top-ten {
+  display: flex;
+  padding-inline: 1.6rem;
+  align-items: center;
+  justify-content: space-between;
+
+  h3 {
+    font-weight: 600;
+    color: #002cbec9;
+  }
+
+  a {
+    font-weight: 400;
+    color: #162c96e2;
+  }
+}
 
 ul#all-doctors {
   padding: 1.4rem;
@@ -987,6 +1011,19 @@ main#book-doctor {
     max-height: 100% !important;
     margin: 0 !important;
 
+    &::-webkit-scrollbar {
+      width: 11px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #d10791b4, #d54107b4);
+      border-radius: 20px;
+      transition: 0.2s;
+
+      &:hover {
+        background: #d13852;
+      }
+    }
+
     section {
       margin: 0 !important;
       padding: 0;
@@ -1054,17 +1091,18 @@ main#book-doctor {
           left: 50%;
           transform: translateX(-50%);
           box-shadow: 0 10px 10px #060f347c;
+          transition: 0.35s cubic-bezier(0.37, 1.15, 0.67, 1.04);
         }
 
         h1 {
           margin: 0;
           position: absolute;
           font-size: 2.5rem;
-          color: #8a06e2;
           top: 10.55rem;
           left: 50%;
           transform: translateX(-50%);
           white-space: nowrap;
+          transition: 0.35s cubic-bezier(0.37, 1.15, 0.67, 1.04);
         }
         h2 {
           margin: 0;
@@ -1079,6 +1117,7 @@ main#book-doctor {
           text-align: center;
           border-bottom: 1px solid #081c6d4c;
           padding-bottom: 1rem;
+          transition: 0.35s cubic-bezier(0.37, 1.15, 0.67, 1.04);
         }
       }
 

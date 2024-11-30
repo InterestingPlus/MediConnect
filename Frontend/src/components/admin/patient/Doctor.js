@@ -26,10 +26,8 @@ function Doctor() {
   const scrollAnimation = (e) => {
     if (e.target.scrollTop > 50) {
       setShrink(true);
-      console.log("Hited!", e.target.scrollTop);
     } else {
       setShrink(false);
-      console.log("Not Hited!", e.target.scrollTop);
     }
   };
 
