@@ -1,8 +1,8 @@
 import axios from "axios";
 import apiPath from "../../../isProduction";
 
-const { useEffect, useState } = require("react");
-const { useNavigate } = require("react-router-dom");
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PatientProfile() {
   const navigate = useNavigate();

@@ -10,17 +10,17 @@ function Navbar() {
         <h1>HMS</h1>
         <nav className={`mobile ${menu ? "close" : ""}`}>
           <ul>
-            <li>
+            <li onClick={() => setMenu(true)}>
               <NavLink to="/">
                 <i class="fa-solid fa-house"></i> Home
               </NavLink>
             </li>
           </ul>
           <ul>
-            <li className="login">
+            <li className="login" onClick={() => setMenu(true)}>
               <NavLink to="/login">Login</NavLink>
             </li>
-            <li className="sign-up">
+            <li className="sign-up" onClick={() => setMenu(true)}>
               <NavLink to="/sign-up">
                 <i class="fa-solid fa-user-plus"></i> Sign Up
               </NavLink>

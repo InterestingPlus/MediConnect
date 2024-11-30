@@ -27,7 +27,7 @@ function AllDoctors() {
 
         <section id="search-box">
           <div>
-            <input type="text" />
+            <input type="text" placeholder="Search Doctor" />
             <button>
               <i class="fi fi-br-search"></i>
             </button>
