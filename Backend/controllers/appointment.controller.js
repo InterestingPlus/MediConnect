@@ -1,4 +1,6 @@
 const Appointment = require("../models/appointment.model.js");
+const Doctor = require("../models/doctor.model.js");
+const Patient = require("../models/patient.model.js");
 
 module.exports.addAppointment = async (req, res) => {
   try {
@@ -36,10 +38,23 @@ module.exports.getAppointmentsDoctor = async (req, res) => {
 
     const data = await Appointment.find({ doctorId });
 
+    const data1 = await Promise.all(
+      data.map(async (p) => {
+        const patient = await Patient.findOne({ _id: p.patientId });
+
+        const app = p.toObject();
+        app.patientName = patient.name;
+        delete app.doctorId;
+        delete app.patientId;
+
+        return app;
+      })
+    );
+
     res.json({
       message: "Data Loaded SuccessFully!",
       status: true,
-      data,
+      data: data1,
     });
   } catch (err) {
     console.log("Error ", err);
@@ -50,16 +65,30 @@ module.exports.getAppointmentsDoctor = async (req, res) => {
     });
   }
 };
+
 module.exports.getAppointmentsPatient = async (req, res) => {
   try {
     const { patientId } = req.body;
 
     const data = await Appointment.find({ patientId });
 
+    const data1 = await Promise.all(
+      data.map(async (d) => {
+        const doctor = await Doctor.findOne({ _id: d.doctorId });
+
+        const app = d.toObject();
+        app.doctorName = doctor.name;
+        delete app.doctorId;
+        delete app.patientId;
+
+        return app;
+      })
+    );
+
     res.json({
       message: "Data Loaded SuccessFully!",
       status: true,
-      data,
+      data: data1,
     });
   } catch (err) {
     console.log("Error ", err);
