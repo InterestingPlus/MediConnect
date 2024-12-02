@@ -7,7 +7,7 @@ function Navbar() {
   return (
     <>
       <header>
-        <h1>HMS</h1>
+        <h1>MediConnect</h1>
         <nav className={`mobile ${menu ? "close" : ""}`}>
           <ul>
             <li onClick={() => setMenu(true)}>

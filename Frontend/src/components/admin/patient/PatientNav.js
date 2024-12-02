@@ -24,7 +24,7 @@ function PatientNav() {
       <div id="flex">
         <header id="doctor-nav">
           <Link to="/">
-            <h1>HMS</h1>
+            <h1>MediConnect</h1>
           </Link>
 
           <NavLink to="/patient-dashboard/notification" className="icon">

@@ -9,31 +9,32 @@ function DoctorProfile() {
   const [localUser, setUser] = useState();
   const [doctor, setDoctor] = useState(null);
 
-  useEffect(() => {
-    async function checkLocalUser() {
-      const user = await JSON.parse(localStorage.getItem("profile"));
+  async function checkLocalUser() {
+    const user = await JSON.parse(localStorage.getItem("profile"));
 
-      if (user) {
-        navigate("/doctor-dashboard/profile");
-        setUser(user);
+    if (user) {
+      navigate("/doctor-dashboard/profile");
+      setUser(user);
 
-        const { id, username } = await user;
+      const { id, username } = await user;
 
-        const data = await axios.post(`${apiPath()}/auth-doctor`, {
-          id,
-          username,
-        });
+      const data = await axios.post(`${apiPath()}/auth-doctor`, {
+        id,
+        username,
+      });
 
-        if (data.data.status) {
-          await setDoctor(data.data.data);
-        } else {
-          localStorage.clear();
-          navigate("/login");
-        }
+      if (data.data.status) {
+        await setDoctor(data.data.data);
       } else {
-        navigate("/");
+        localStorage.clear();
+        navigate("/login");
       }
+    } else {
+      navigate("/");
     }
+  }
+
+  useEffect(() => {
     checkLocalUser();
   }, []);
 
@@ -64,6 +65,17 @@ function DoctorProfile() {
 
           <br />
           <button id="edit">Edit</button>
+          <br />
+          <br />
+          <button
+            onClick={() => {
+              localStorage.clear();
+              checkLocalUser();
+            }}
+            className="logout"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </button>
         </>
       ) : (
         <div id="loading">

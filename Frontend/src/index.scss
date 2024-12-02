@@ -182,7 +182,8 @@ main {
   position: relative;
   padding: 2rem;
   background: linear-gradient(to right, #c1d1f5bd, #eff0ea, #e6d5f5c2);
-  min-height: 80vh;
+  height: 100vh;
+  max-height: calc(100dvh - 5rem);
 
   .hero {
     padding: 5rem;
@@ -325,8 +326,8 @@ main {
 }
 
 form {
-  min-height: 100dvh;
-  padding: 2rem;
+  height: 100%;
+  padding: 0rem;
   // background: rgba(0, 17, 255, 0.154);
 
   position: relative;
@@ -707,6 +708,39 @@ section.date {
 
 // Dashboard End
 
+#pagination {
+  justify-content: space-between;
+  display: flex;
+  margin-top: 1rem;
+
+  button {
+    padding: 0.6rem 2rem;
+    border-radius: 20px;
+    background: #005bb5;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+main#home {
+  overflow: scroll;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 11px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, #d10791b4, #d54107b4);
+    border-radius: 20px;
+    transition: 0.2s;
+
+    &:hover {
+      background: #d13852;
+    }
+  }
+}
+
 // Heading End
 h1#list-heading {
   padding: 1rem;
@@ -963,7 +997,8 @@ main#book-doctor {
 @media screen and (width < 1000px) {
   main {
     margin-top: 64px;
-    max-height: calc(100dvh - 130px);
+    height: 100vh;
+    max-height: calc(100dvh - 64px);
     overflow: auto;
   }
 
@@ -988,6 +1023,7 @@ main#book-doctor {
     display: none !important;
 
     & ~ main#dashboard {
+      padding: 0;
       margin-top: 0 !important;
       height: calc(100dvh - 64px) !important;
       max-height: calc(100dvh - 64px) !important;
@@ -1178,6 +1214,10 @@ main#book-doctor {
     }
   }
   // Doctor Profile End
+
+  section#home {
+    margin-top: 0;
+  }
 
   #home {
     flex-direction: column-reverse;
@@ -1541,7 +1581,8 @@ main#book-doctor {
   main#dashboard {
     overflow: auto;
     max-width: 100vw !important;
-    max-height: calc(100dvh - 130px) !important;
+    height: 100dvh;
+    max-height: calc(100dvh - 128px) !important;
     margin-top: 68px;
     margin-bottom: 62px;
 
