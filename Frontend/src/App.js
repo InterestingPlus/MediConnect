@@ -26,6 +26,8 @@ import PatientNav from "./components/admin/patient/PatientNav";
 import PatientNotification from "./components/admin/patient/PatientNotification";
 import PatientProfile from "./components/admin/patient/Profile";
 
+import Logo from "./images/White.png";
+
 // https://hms-backend-tr2u.onrender.com
 // http://localhost:4444
 
@@ -33,14 +35,15 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading delay
-    setTimeout(() => setLoading(false), 2000);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
 
   if (loading) {
     return (
       <div id="custom-loader">
-        <img src="logo192.png" alt="MediConnect Logo" />
+        <img src={Logo} alt="MediConnect Logo" />
         <h1>
           Medi<span>Connect</span>
         </h1>

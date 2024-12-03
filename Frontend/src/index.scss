@@ -10,11 +10,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kumbh+Sans:wght@100..900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Cherry+Bomb+One&family=Chicle&family=DynaPuff:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kumbh+Sans:wght@100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Nova+Mono&family=Orbitron:wght@400..900&family=Playwrite+PL:wght@100..400&display=swap");
 
-@font-face {
-  font-family: "main-font";
-  src: url("../src/fonts/brahma-rounded-bold.ttf");
-}
-
 // Loader Start
 #custom-loader {
   display: flex;
@@ -24,6 +19,8 @@
   background-color: #144859;
   color: #fff;
   flex-direction: column;
+
+  animation: LoadingScale 2s alternate;
 
   h1 {
     cursor: default;
@@ -35,6 +32,8 @@
 
     font-weight: 600;
     font-family: "DynaPuff", system-ui;
+
+    animation: LoadingScale 2s alternate;
 
     span {
       font-weight: 500;
@@ -49,9 +48,44 @@
     width: 60vw;
     max-width: 150px;
     margin-top: 20px;
+
+    animation: LoadingScale 2s alternate;
   }
 }
 // Loader End
+
+@keyframes Heart {
+  0% {
+    scale: 1;
+  }
+  40% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.1;
+  }
+  58% {
+    scale: 0.9;
+  }
+  60% {
+    scale: 1;
+  }
+  100% {
+    scale: 1;
+  }
+}
+@keyframes LoadingScale {
+  0%,
+  80% {
+    scale: 1;
+    opacity: 1;
+  }
+
+  100% {
+    scale: 2;
+    opacity: 0;
+  }
+}
 
 body {
   margin: 0;
@@ -150,14 +184,11 @@ header {
     color: #fff;
 
     font-weight: 600;
-    // font-family: "main-font";
-    // font-family: "Chicle", serif;
+
     font-family: "DynaPuff", system-ui;
 
     span {
       font-weight: 500;
-      // font-family: "main-font";
-      // font-family: "Chicle", serif;
       font-family: "DynaPuff", system-ui;
 
       // color: #85db60;
@@ -170,6 +201,8 @@ header {
     img {
       margin-right: 1rem;
       width: 85px;
+
+      animation: Heart 3s ease infinite;
     }
   }
 
@@ -222,6 +255,7 @@ header {
           text-decoration: none;
           padding: 10px 20px;
           border-radius: 20px;
+          color: #ffffffd9;
 
           &:hover {
             color: #3d0547;
@@ -236,7 +270,7 @@ header {
 
         &.login {
           a {
-            color: #6f3909;
+            color: #ffffffd9;
 
             &:hover {
               color: #402004;
@@ -1827,7 +1861,7 @@ footer {
       padding: 2rem;
 
       // background: rgba(68, 32, 115, 0.223);
-      background: #fff;
+      background: #144859;
       backdrop-filter: blur(10px);
 
       display: flex;
@@ -1857,6 +1891,7 @@ footer {
 
           li {
             a {
+              color: #ffffffbd;
               font-weight: 600;
               font-size: 1.5rem;
 

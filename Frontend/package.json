@@ -1,7 +1,7 @@
 {
   "short_name": "MediConnect",
   "name": "MediConnect",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@flaticon/flaticon-uicons": "^3.3.1",
