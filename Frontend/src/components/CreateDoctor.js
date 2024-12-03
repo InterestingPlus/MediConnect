@@ -40,7 +40,7 @@ function CreateDoctor() {
   }
 
   async function handleSubmit(e) {
-    e.preventDefault();
+    // e.preventDefault();
     setIfDisabled(true);
 
     const {
@@ -64,7 +64,7 @@ function CreateDoctor() {
     });
 
     if (data.status === false) {
-      alert("Errr : " + data.message);
+      alert("Error : " + data.message);
     }
     if (data.status === true) {
       setValues({
@@ -77,8 +77,6 @@ function CreateDoctor() {
         availability: "",
       });
 
-      setIfDisabled(false);
-
       alert("Signed Up Successfully");
 
       localStorage.setItem("profile", JSON.stringify(data.data));
@@ -87,177 +85,176 @@ function CreateDoctor() {
 
       // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
     }
+    setIfDisabled(false);
   }
 
-  if (stage == 1) {
-    return (
-      <main className="form">
-        <form
-          id="create-doctor"
-          onSubmit={handleSubmit}
-          className={`${ifDisabled ? "loading" : ""}`}
-        >
-          <h1>
-            Sign Up as a <span>Doctor</span>
-          </h1>
+  return (
+    <main
+      className="create-doctor"
+      id={stage == 1 ? "first" : stage == 2 ? "second" : "third"}
+    >
+      <form
+        id="create-doctor"
+        // onSubmit={handleSubmit}
+        className={`${ifDisabled ? "loading" : ""}`}
+      >
+        <section className="stage-container">
+          <div className="stages">
+            <h1>
+              Sign Up as a <span>Doctor</span>
+            </h1>
+            <label htmlFor="username">Username : </label>
+            <input
+              type="text"
+              name="username"
+              id="username"
+              value={values.username}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="username">Username : </label>
-          <input
-            type="text"
-            name="username"
-            id="username"
-            value={values.username}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="password">Password : </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              value={values.password}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="password">Password : </label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            value={values.password}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="name">Name : </label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              value={values.name}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="name">Name : </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={values.name}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="age">Age : </label>
+            <input
+              type="number"
+              name="age"
+              id="age"
+              value={values.age}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="age">Age : </label>
-          <input
-            type="number"
-            name="age"
-            id="age"
-            value={values.age}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="specialization">Specialization : </label>
+            <input
+              type="text"
+              name="specialization"
+              id="specialization"
+              value={values.specialization}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="specialization">Specialization : </label>
-          <input
-            type="text"
-            name="specialization"
-            id="specialization"
-            value={values.specialization}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="contact">Contact : </label>
+            <input
+              type="number"
+              name="contact"
+              id="contact"
+              value={values.contact}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="contact">Contact : </label>
-          <input
-            type="number"
-            name="contact"
-            id="contact"
-            value={values.contact}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="availability">Availability : </label>
+            <input
+              type="text"
+              name="availability"
+              id="availability"
+              value={values.availability}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              required
+            />
 
-          <label htmlFor="availability">Availability : </label>
-          <input
-            type="text"
-            name="availability"
-            id="availability"
-            value={values.availability}
-            onChange={(e) => handleChange(e)}
-            disabled={ifDisabled}
-            required
-          />
-
-          <br />
-
-          {/* <input
-            type={ifDisabled ? "button" : "submit"}
-            className={ifDisabled ? "submit disable" : "submit"}
-            value="submit"
-          />
-    */}
-          <div id="pagination">
-            <button disabled>Previous</button>
-            <button
-              onClick={() => {
-                setStage(2);
-              }}
-            >
-              Next
-            </button>
+            <br />
           </div>
-        </form>
-      </main>
-    );
-  } else if (stage == 2) {
-    return (
-      <main>
-        <form>
-          <h2>Set Your Available Time</h2>
 
-          <lable htmlFor="slot">Monday</lable>
-          <input type="text" id="slot" />
+          <div className="stages">
+            <h1>Educational Qualification</h1>
 
-          <div id="pagination">
-            <button
-              onClick={() => {
+            <lable>Course : </lable>
+            <input type="text" />
+
+            <br />
+
+            <lable>Grade : </lable>
+            <input type="number" />
+          </div>
+
+          <div className="stages">
+            <h1>
+              Set Your <span>Availability</span>
+            </h1>
+
+            <label>Add Time Slots</label>
+            <input type="time" />
+            <button type="button">Add</button>
+          </div>
+        </section>
+
+        <div id="pagination">
+          <button
+            type="button"
+            className={stage == 1 ? "disabled" : ""}
+            onClick={() => {
+              if (stage == 2) {
                 setStage(1);
-              }}
-            >
-              Previous
-            </button>
-            <button
-              onClick={() => {
-                setStage(3);
-              }}
-            >
-              Next
-            </button>
-          </div>
-        </form>
-      </main>
-    );
-  } else if (stage == 3) {
-    return (
-      <>
-        <form>
-          <h2>Stage 3</h2>
-          <div id="pagination">
-            <button
-              onClick={() => {
+              } else if (stage == 3) {
                 setStage(2);
-              }}
-            >
-              Previous
-            </button>
-            <button disabled>Next</button>
-          </div>
-        </form>
-      </>
-    );
-  }
+              } else {
+                setStage(1);
+              }
+            }}
+            ifDisabled={stage == 1}
+          >
+            Previous
+          </button>
+          <button
+            type="button"
+            className={stage == 3 ? "submit" : ""}
+            onClick={() => {
+              if (stage == 1) {
+                setStage(2);
+              } else if (stage == 2) {
+                setStage(3);
+              } else {
+                setStage(3);
+                handleSubmit();
+              }
+            }}
+          >
+            {stage == 3 ? "Submit" : "Next"}
+          </button>
+        </div>
+      </form>
+    </main>
+  );
 }
 
 export default CreateDoctor;

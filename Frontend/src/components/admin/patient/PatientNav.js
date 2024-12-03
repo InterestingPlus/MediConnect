@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+// import Logo from "../../../../src/images/NewLogo2.png";
+import Logo from "../../../../src/images/Logo.png";
 
 function PatientNav() {
   const navigate = useNavigate();
@@ -24,7 +26,9 @@ function PatientNav() {
       <div id="flex">
         <header id="doctor-nav">
           <Link to="/">
-            <h1>MediConnect</h1>
+            <h1>
+              <img src={Logo} /> Medi<span>Connect</span>
+            </h1>
           </Link>
 
           <NavLink to="/patient-dashboard/notification" className="icon">

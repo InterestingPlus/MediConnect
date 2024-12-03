@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+// import Logo from "../images/NewLogo2.png";
+import Logo from "../images/Logo.png";
+
 
 function Navbar() {
   const [menu, setMenu] = useState(false);
@@ -7,7 +10,9 @@ function Navbar() {
   return (
     <>
       <header>
-        <h1>MediConnect</h1>
+        <h1>
+          <img src={Logo} /> Medi<span>Connect</span>
+        </h1>
         <nav className={`mobile ${menu ? "close" : ""}`}>
           <ul>
             <li onClick={() => setMenu(true)}>
