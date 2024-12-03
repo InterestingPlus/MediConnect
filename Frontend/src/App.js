@@ -16,6 +16,7 @@ import Laboratory from "./components/admin/doctor/Laboratory";
 import PatientHistory from "./components/admin/doctor/PatientHistory";
 import DoctorProfile from "./components/admin/doctor/Profile";
 
+import { useEffect, useState } from "react";
 import PatientAppointment from "./components/admin/patient/Appointment";
 import Book from "./components/admin/patient/Book";
 import BookTime from "./components/admin/patient/BookTime";
@@ -29,6 +30,24 @@ import PatientProfile from "./components/admin/patient/Profile";
 // http://localhost:4444
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading delay
+    setTimeout(() => setLoading(false), 2000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div id="custom-loader">
+        <img src="logo192.png" alt="MediConnect Logo" />
+        <h1>
+          Medi<span>Connect</span>
+        </h1>
+      </div>
+    );
+  }
+
   return (
     <BrowserRouter>
       <Routes>

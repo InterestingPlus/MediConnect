@@ -15,6 +15,44 @@
   src: url("../src/fonts/brahma-rounded-bold.ttf");
 }
 
+// Loader Start
+#custom-loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #144859;
+  color: #fff;
+  flex-direction: column;
+
+  h1 {
+    cursor: default;
+    font-weight: 900;
+
+    display: flex;
+    align-items: center;
+    color: #fff;
+
+    font-weight: 600;
+    font-family: "DynaPuff", system-ui;
+
+    span {
+      font-weight: 500;
+      font-family: "DynaPuff", system-ui;
+
+      color: #31c079;
+      margin-left: 2px;
+    }
+  }
+
+  img {
+    width: 60vw;
+    max-width: 150px;
+    margin-top: 20px;
+  }
+}
+// Loader End
+
 body {
   margin: 0;
   position: relative;
@@ -87,7 +125,11 @@ div {
 header {
   background: rgb(226, 233, 235);
   background: #fff;
-  padding: .2rem 2rem;
+  background: #144859;
+  //  Theme Color
+  // background: rgb(39, 135, 170);
+  // Theme Color 2
+  padding: 0.2rem 2rem;
   text-decoration: none;
   border-bottom: 3px solid rgba(12, 54, 113, 0.577);
   display: flex;
@@ -105,6 +147,7 @@ header {
     // color: #134269;
     color: #3893ba;
     color: #163754;
+    color: #fff;
 
     font-weight: 600;
     // font-family: "main-font";
@@ -1368,7 +1411,7 @@ main#book-doctor {
     padding: 1rem 2rem !important;
 
     h1 {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 900;
 
       img {
@@ -1625,7 +1668,7 @@ main#book-doctor {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
+    background: #144859;
     width: 100vw;
     padding: 10px 2rem;
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.613);

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 // import Logo from "../../../../src/images/NewLogo2.png";
-import Logo from "../../../../src/images/Logo.png";
+import Logo from "../../../../src/images/White.png";
 
 function PatientNav() {
   const navigate = useNavigate();

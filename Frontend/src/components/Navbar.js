@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 // import Logo from "../images/NewLogo2.png";
-import Logo from "../images/Logo.png";
+import Logo from "../images/White.png";
 
 
 function Navbar() {
