@@ -8,7 +8,7 @@ const doctorSchema = mongoose.Schema({
   age: Number,
   specialization: { type: String, required: true },
   contact: Number,
-  availability: { type: String, required: true },
+  availability: { type: Array, required: true },
   consultationCharge: Number,
 });
 
