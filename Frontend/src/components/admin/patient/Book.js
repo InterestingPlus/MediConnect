@@ -21,7 +21,7 @@ function AllDoctors() {
         <h1 id="list-heading">
           <b>
             <i class="fa-solid fa-user-doctor"></i> Select Doctor
-          </b>{" "}
+          </b>
           to <br /> Book Appointment
         </h1>
 

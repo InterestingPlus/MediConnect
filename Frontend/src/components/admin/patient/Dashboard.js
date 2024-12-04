@@ -52,7 +52,7 @@ function PatientDashboard() {
                   <span>
                     <h1>{doctor.name}</h1>
                     <h2>{doctor.specialization}</h2>
-                    <h3>{doctor.availability}</h3>
+                    {/* <h3>{doctor.availability}</h3> */}
                   </span>
                 </li>
               </Link>
@@ -63,7 +63,7 @@ function PatientDashboard() {
         <div id="small-loading">
           <span className="animation"></span>
           <h1>Loading Appointments...</h1>
-        </div>  
+        </div>
       )}
     </>
   );

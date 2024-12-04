@@ -173,3 +173,94 @@
   font-weight: bold;
   transition: background-color 0.3s ease;
 }
+
+
+
+
+
+
+
+
+
+
+
+// ========================================
+// Time Slots 
+#time-slots {
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .slot-container {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    div {
+      margin-top: 1rem;
+
+      h3 {
+        display: flex;
+        align-items: center;
+        gap: .5rem;
+        font-weight: 500;
+        color: #144859dc;
+        font-size: 1.5rem;
+
+
+        img {
+          width: 30px;
+          aspect-ratio: 1;
+        }
+      }
+
+      .slots {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: .7rem;
+
+        button {
+          padding: .7rem 1.4rem;
+          border-radius: 10px;
+          cursor: pointer;
+
+
+          color: #144859;
+          border: 2px solid #144859;
+          background: transparent;
+          font-weight: 600;
+          font-size: 1.2rem;
+
+          &:hover {
+            border: 2px solid #144859;
+            color: #ffffffce;
+            background: #0f3945ad;
+          }
+
+          &.selected,
+          &.selected:hover {
+            color: #fff;
+            border: 2px solid #0f3945;
+            background: #144859;
+          }
+
+          &:disabled {
+            color: #5c3c3c;
+            background: #ff7777ec;
+            cursor: not-allowed;
+
+            &:hover {
+              border: 2px solid #144859;
+              color: #ffffffce;
+              background: #ff4747ec;
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+}

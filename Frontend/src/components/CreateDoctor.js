@@ -58,6 +58,8 @@ function CreateDoctor() {
   const handleScheduleUpdate = (updatedSchedule) => {
     const value = values;
 
+    console.log(updatedSchedule);
+
     value.availability = updatedSchedule;
     setValues(value);
 

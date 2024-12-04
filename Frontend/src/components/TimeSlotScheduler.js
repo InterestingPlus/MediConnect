@@ -59,11 +59,6 @@ const TimeSlotScheduler = ({ onScheduleChange }) => {
     }));
   };
 
-  const handleSave = () => {
-    console.log("Schedule Saved: ", schedule);
-    alert("Schedule saved successfully!");
-  };
-
   return (
     <div id="scheduler-container">
       {/* Day Navigation */}

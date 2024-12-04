@@ -31,6 +31,7 @@ function PatientAppointment() {
         );
 
         setAppointments(data2.data.data.reverse());
+        // setAppointments(data2.data.data);
       }
     }
     checkLocalUser();
