@@ -38,6 +38,26 @@ function DoctorProfile() {
     checkLocalUser();
   }, []);
 
+  function returnSlots() {
+    const aval = doctor.availability[0]; // Assuming the first object holds the availability
+
+    // Ensure `aval` is an object
+    if (typeof aval !== "object" || aval === null) {
+      console.error("Availability data is not an object");
+      return <span>{doctor.availability}</span>;
+    }
+
+    // Render buttons for each day's slots
+    return Object.entries(aval).map(([day, slots], dayIndex) => (
+      <span key={dayIndex}>
+        <h3>{day}</h3>
+        {slots.map((slot, slotIndex) => (
+          <button key={slotIndex}>{slot}</button>
+        ))}
+      </span>
+    ));
+  }
+
   return (
     <>
       {doctor ? (
@@ -59,9 +79,8 @@ function DoctorProfile() {
           <h2>
             Contact : <span> {doctor?.contact} </span>
           </h2>
-          <h2>
-            Availability : <span> {doctor?.availability} </span>
-          </h2>
+
+          <h2>Availability :{returnSlots()}</h2>
 
           <br />
           <button id="edit">Edit</button>

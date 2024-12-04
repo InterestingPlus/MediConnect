@@ -1,0 +1,175 @@
+/* Container */
+#scheduler-container {
+  font-family: Arial, sans-serif;
+  border-radius: 10px;
+  color: #144859;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* Title */
+#scheduler-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Day Navigation */
+#day-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  overflow-x: auto;
+  gap: 10px;
+  padding-bottom: 0.3rem;
+
+  &::-webkit-scrollbar {
+    height: 5px;
+    cursor: pointer;
+
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #144859;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+    border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #0f3341;
+  }
+
+}
+
+.day-button {
+  flex: 1;
+  padding: 10px 15px;
+  background-color: #00578a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  min-width: 80px;
+}
+
+.day-button.active-day {
+  background-color: #ff8c42;
+}
+
+/* Selected Day Title */
+#selected-day {
+  text-align: center;
+  margin: 10px 0;
+  text-transform: capitalize;
+  background: #333;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Add Time Slot */
+#add-time-slot {
+  margin-bottom: 10px;
+}
+
+#add-slot-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+#slot-input-container {
+  display: flex;
+  gap: 10px;
+}
+
+#time-input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+#add-slot-button {
+  padding: 10px 15px;
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Slots List */
+#slots-list ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+.time-slot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 10px;
+  background: #fff;
+  color: #333;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.slot-time {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.remove-slot-button {
+  background: none;
+  color: red;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* No Slots Message */
+#no-slots-message {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* Action Buttons */
+#action-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+#save-schedule-button {
+  flex: 1;
+  padding: 12px 20px;
+  background-color: #144859;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#clear-day-button {
+  flex: 1;
+  padding: 12px 20px;
+  background-color: red;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}

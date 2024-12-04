@@ -11,11 +11,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Cherry+Bomb+One&family=Chicle&family=DynaPuff:wght@400..700&family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Kumbh+Sans:wght@100..900&family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Nova+Mono&family=Orbitron:wght@400..900&family=Playwrite+PL:wght@100..400&display=swap");
 
 // Loader Start
+body:has(#custom-loader) {
+  min-height: 100dvh;
+  overflow: hidden;
+}
+
 #custom-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100dvh;
+
+  z-index: 9999;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
   background-color: #144859;
   color: #fff;
   flex-direction: column;
@@ -33,7 +45,22 @@
     font-weight: 600;
     font-family: "DynaPuff", system-ui;
 
-    animation: LoadingScale 2s alternate;
+    animation: LoadingScale, toTop 2s alternate;
+
+    @keyframes toTop {
+      0% {
+        transform: translateY(20px);
+        opacity: 0;
+        scale: 0.8;
+      }
+
+      50%,
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+        scale: 1;
+      }
+    }
 
     span {
       font-weight: 500;
@@ -41,6 +68,26 @@
 
       color: #31c079;
       margin-left: 2px;
+
+      animation: toRight 1s alternate;
+      // animation-delay: 0.3s;
+
+      @keyframes toRight {
+
+        0%,
+        50% {
+          transform: translateX(-40px);
+          opacity: 0;
+          scale: 0.3;
+        }
+
+        80%,
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+          scale: 1;
+        }
+      }
     }
   }
 
@@ -48,33 +95,60 @@
     width: 60vw;
     max-width: 150px;
     margin-top: 20px;
+    opacity: 0;
 
-    animation: LoadingScale 2s alternate;
+    animation: LoadingScale, Heart, scaleImage 2s alternate;
+
+    @keyframes scaleImage {
+      0% {
+        opacity: 0;
+        scale: 0;
+        transform: translateY(50px);
+      }
+
+      80% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        scale: 1;
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   }
 }
+
 // Loader End
 
 @keyframes Heart {
   0% {
     scale: 1;
   }
+
   40% {
     scale: 1;
   }
+
   50% {
     scale: 1.1;
   }
+
   58% {
     scale: 0.9;
   }
+
   60% {
     scale: 1;
   }
+
   100% {
     scale: 1;
   }
 }
+
 @keyframes LoadingScale {
+
   0%,
   80% {
     scale: 1;
@@ -116,6 +190,7 @@ code {
 
 body:has(form.loading) {
   cursor: wait;
+
   * {
     cursor: wait !important;
   }
@@ -154,7 +229,45 @@ div {
       margin-bottom: 20px;
     }
   }
+
+  &#small-loading {
+    position: absolute;
+    // top: auto;
+    bottom: -5rem;
+    left: 0;
+    width: 100vw;
+    max-width: 100vw;
+    min-height: 100%;
+    overflow: hidden;
+
+    background: transparent;
+    color: #144859db;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1 {
+      text-align: center;
+      font-size: 1.3rem !important;
+      font-weight: 700;
+    }
+
+
+
+    span {
+      width: 50px;
+      aspect-ratio: 1;
+      --_c: no-repeat radial-gradient(farthest-side, #25b09b 92%, #0000);
+      background: var(--_c) top, var(--_c) left, var(--_c) right,
+        var(--_c) bottom;
+      background-size: 12px 12px;
+      animation: loader 0.8s infinite;
+      margin-bottom: 20px;
+    }
+  }
 }
+
 
 header {
   background: rgb(226, 233, 235);
@@ -200,7 +313,7 @@ header {
 
     img {
       margin-right: 1rem;
-      width: 85px;
+      width: 75px;
 
       animation: Heart 3s ease infinite;
     }
@@ -288,6 +401,7 @@ header {
               color: #ebffff;
               background: #060f34;
             }
+
             &.active {
               color: #fff;
               background: #081c6d;
@@ -321,13 +435,15 @@ main {
 
     button {
       padding: 10px 20px;
-      background-color: #161cc4;
+      background: linear-gradient(to right bottom, #144859, #14617b, #0d779a);
       color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
       margin-top: 1.5rem;
       font-size: 1.2rem;
+
+      box-shadow: 2px 2px 10px #4897b1b9;
     }
 
     img {
@@ -383,6 +499,7 @@ main {
         &:hover {
           background: #1d4ff630;
         }
+
         &.selected {
           background: #1d4ff630;
 
@@ -463,6 +580,7 @@ form {
   h1 {
     text-align: center;
     color: #091780;
+
     span {
       color: #0076d6;
     }
@@ -475,6 +593,7 @@ form {
     font-size: 1.2rem;
     color: #6081c0;
   }
+
   input {
     padding: 0.5rem 1rem;
     width: fit-content;
@@ -503,6 +622,39 @@ form {
       }
     }
   }
+
+  div.password {
+    display: flex;
+    align-items: center;
+
+    div {
+      position: relative;
+
+      input {
+        margin-top: 0;
+      }
+
+      button {
+        top: 50%;
+        right: 0.5rem;
+        transform: translateY(-50%);
+        position: absolute;
+
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+
+        height: 70%;
+        aspect-ratio: 1;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 // Create Doctor - Sign Up From Start
@@ -512,6 +664,11 @@ main.create-doctor {
     flex-direction: column;
     justify-content: space-between;
 
+
+    input.blank-err {
+      border: 2px solid rgb(255, 51, 0);
+    }
+
     section.stage-container {
       width: 100%;
       height: fit-content;
@@ -520,8 +677,29 @@ main.create-doctor {
 
       text-align: center;
 
+      &::-webkit-scrollbar {
+        width: 8px;
+        cursor: pointer;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: transparent;
+        border-radius: 10px;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: #0f3341;
+      }
+
       div.stages {
         min-width: 100%;
+
+
       }
     }
 
@@ -535,22 +713,18 @@ main.create-doctor {
 
         &.disabled {
           color: #ffffffdc;
-          background: linear-gradient(
-            to right bottom,
-            rgb(73, 116, 191),
-            rgb(47, 70, 109)
-          );
+          background: linear-gradient(to right bottom,
+              rgb(73, 116, 191),
+              rgb(47, 70, 109));
 
           cursor: not-allowed;
         }
 
         &.submit {
-          background: linear-gradient(
-            to right bottom,
-            #ff3700,
-            #b10159,
-            #840355
-          );
+          background: linear-gradient(to right bottom,
+              #ff3700,
+              #b10159,
+              #840355);
 
           &:hover {
             background: linear-gradient(to right bottom, #ffaa00, #ff00aa);
@@ -565,17 +739,20 @@ main.create-doctor {
       transform: translateX(0);
     }
   }
+
   &#second {
     div.stages {
       transform: translateX(-100%);
     }
   }
+
   &#third {
     div.stages {
       transform: translateX(-200%);
     }
   }
 }
+
 // Create Doctor - Sign Up From End
 
 ul#all-doctors {
@@ -606,11 +783,13 @@ ul#all-doctors {
       color: #081c6d;
       margin-bottom: 10px;
     }
+
     h2 {
       padding-top: 10px;
       border-top: 1px solid rgba(83, 10, 92, 0.153);
       color: #18246c8b;
     }
+
     h3 {
       color: #833d0b69;
     }
@@ -634,6 +813,7 @@ ul#all-doctors {
         &.aptmnt {
           background: #3f33c1;
         }
+
         &:hover {
           background: #060f34;
         }
@@ -667,17 +847,15 @@ main.profile {
         font-size: 2.3rem;
         color: transparent;
         max-width: fit-content;
-        background: linear-gradient(
-          to right bottom,
-          #ffa200,
-          #ff9100,
-          #ff7b00,
-          #ff5500,
-          #ff2a00,
-          #ff0059,
-          rgb(251, 13, 104),
-          rgb(251, 13, 164)
-        );
+        background: linear-gradient(to right bottom,
+            #ffa200,
+            #ff9100,
+            #ff7b00,
+            #ff5500,
+            #ff2a00,
+            #ff0059,
+            rgb(251, 13, 104),
+            rgb(251, 13, 164));
         background-clip: text;
         -webkit-background-clip: text;
       }
@@ -714,12 +892,14 @@ main.profile {
       &.aptmnt {
         background: #3f33c1;
       }
+
       &:hover {
         background: #060f34;
       }
     }
   }
 }
+
 // Doctor Profile End
 
 // Bottom Navigation
@@ -750,12 +930,14 @@ section.view-appointment {
       padding: 0.2rem 1rem;
       border-radius: 20px;
     }
+
     .green {
       color: greenyellow;
       background: #5a606294;
       padding: 0.2rem 1rem;
       border-radius: 20px;
     }
+
     .red {
       color: orangered;
       background: #7f838794;
@@ -807,16 +989,19 @@ section.view-appointment {
       color: rgb(255, 191, 0);
       background: #464a4d94;
     }
+
     &.accepted {
       color: greenyellow;
       background: #5a606294;
     }
+
     &.rejected {
       color: orangered;
       background: #7f838794;
     }
   }
 }
+
 // View Appointments End
 
 // Appointment End
@@ -834,6 +1019,7 @@ button.logout {
   cursor: pointer;
   display: block;
 }
+
 main#dashboard {
   min-height: fit-content;
   overflow-x: hidden;
@@ -843,6 +1029,7 @@ main#dashboard {
     width: 200px;
     border-radius: 50%;
   }
+
   h1 {
     margin-bottom: 1rem;
 
@@ -850,6 +1037,7 @@ main#dashboard {
       color: red;
     }
   }
+
   h2 {
     color: #0076d6;
 
@@ -879,6 +1067,7 @@ section.date {
       border-radius: 20px;
       font-size: 1.3rem;
     }
+
     textarea {
       padding: 1rem 2rem;
       width: 100%;
@@ -898,6 +1087,7 @@ section.date {
     }
   }
 }
+
 // Booktime End
 
 // Dashboard End
@@ -924,6 +1114,7 @@ main#home {
   &::-webkit-scrollbar {
     width: 11px;
   }
+
   &::-webkit-scrollbar-thumb {
     background: linear-gradient(to bottom, #d10791b4, #d54107b4);
     border-radius: 20px;
@@ -946,6 +1137,7 @@ h1#list-heading {
     color: rgb(247, 92, 138);
   }
 }
+
 // Heading End
 
 // Doctor Profile Start
@@ -976,6 +1168,7 @@ main.profile {
     }
   }
 }
+
 // Doctor Profile End
 
 // Search Box Start
@@ -1012,6 +1205,7 @@ section#search-box {
         border: 2px solid #a9189d9a;
       }
     }
+
     button {
       position: absolute;
       right: 0;
@@ -1040,6 +1234,7 @@ section#search-box {
     }
   }
 }
+
 // Search Box End
 
 span.top-ten {
@@ -1111,6 +1306,7 @@ ul#all-doctors {
         padding: 0;
         color: #7a38c099;
       }
+
       h3 {
         color: #ffb300;
       }
@@ -1129,12 +1325,15 @@ ul#all-doctors {
       img {
         border: 2px solid #b8ff85;
       }
+
       h1 {
         color: #fff;
       }
+
       h2 {
         color: #ffffffcc;
       }
+
       h3 {
         color: #ffb300;
         font-size: 0.8rem;
@@ -1174,12 +1373,14 @@ main#book-doctor {
         font-size: 2rem !important;
         font-weight: 600;
       }
+
       h2 {
         margin: 0;
       }
     }
   }
 }
+
 // Doctor Profile End
 
 @media screen and (width > 1500px) {
@@ -1209,14 +1410,15 @@ main#book-doctor {
     --webkit-position: sticky;
     top: 1.4rem !important;
   }
+
   // Search Box End
 
   // Doctor Profile Start
 
-  #flex > header:has(+ main#dashboard > main#book-doctor) {
+  #flex>header:has(+ main#dashboard > main#book-doctor) {
     display: none !important;
 
-    & ~ main#dashboard {
+    &~main#dashboard {
       padding: 0;
       margin-top: 0 !important;
       height: calc(100dvh - 64px) !important;
@@ -1244,7 +1446,8 @@ main#book-doctor {
 
       &:focus {
         outline: none;
-        border-color: #005bb5; /* Darker shade for focus */
+        border-color: #005bb5;
+        /* Darker shade for focus */
       }
     }
   }
@@ -1257,6 +1460,7 @@ main#book-doctor {
     &::-webkit-scrollbar {
       width: 11px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: linear-gradient(to bottom, #d10791b4, #d54107b4);
       border-radius: 20px;
@@ -1347,6 +1551,7 @@ main#book-doctor {
           white-space: nowrap;
           transition: 0.35s cubic-bezier(0.37, 1.15, 0.67, 1.04);
         }
+
         h2 {
           margin: 0;
           position: absolute;
@@ -1407,6 +1612,7 @@ main#book-doctor {
       }
     }
   }
+
   // Doctor Profile End
 
   section#home {
@@ -1442,7 +1648,7 @@ main#book-doctor {
   }
 
   header {
-    padding: 1rem 2rem !important;
+    padding: 1rem 1.2rem !important;
 
     h1 {
       font-size: 1.3rem;
@@ -1460,7 +1666,8 @@ main#book-doctor {
     top: 0;
     right: 0;
     max-width: 50vw;
-    padding: 2rem;
+    padding: 1rem !important;
+    padding-top: 1.4rem !important;
     background: rgba(68, 32, 115, 0.223);
     backdrop-filter: blur(10px);
     justify-content: start;
@@ -1474,9 +1681,10 @@ main#book-doctor {
       transform: translateX(100%);
 
       #menu {
+        color: #ffffffe3;
         position: absolute;
-        top: 1rem;
-        left: -100px;
+        top: 1.3rem;
+        left: -65px;
       }
     }
 
@@ -1503,6 +1711,7 @@ main#book-doctor {
       text-decoration: none;
 
       i {
+        color: #ffffffe3;
         position: absolute;
         left: 50%;
         top: 50%;
@@ -1518,6 +1727,7 @@ main#book-doctor {
         box-shadow: 0px 0px 12px rgba(23, 43, 97, 0.396);
         cursor: pointer;
       }
+
       &:focus {
         border: 0;
         color: #fff;
@@ -1530,11 +1740,16 @@ main#book-doctor {
       display: flex;
       flex-direction: column;
       gap: 2rem;
+      min-width: 100% !important;
 
       li {
+        min-width: 100% !important;
+
         a {
+          min-width: 100% !important;
           font-weight: 600;
-          font-size: 1.5rem;
+          font-size: 1.2rem;
+          white-space: nowrap;
 
           &:hover {
             color: #3d0547;
@@ -1572,6 +1787,7 @@ main#book-doctor {
               color: #ebffff;
               background: #060f34;
             }
+
             &.active {
               color: #fff;
               background: #081c6d;
@@ -1597,16 +1813,6 @@ main#book-doctor {
     gap: 4rem;
     z-index: 999;
 
-    &.close {
-      transform: translateX(100%);
-
-      #menu {
-        position: absolute;
-        top: 1rem;
-        left: -100px;
-      }
-    }
-
     #menu {
       display: flex !important;
       align-items: center;
@@ -1625,6 +1831,7 @@ main#book-doctor {
   #doctor-sidebar {
     display: none;
   }
+
   nav.bottom-navigation {
     display: block;
     position: fixed;
@@ -1652,7 +1859,7 @@ main#book-doctor {
           border-radius: 50%;
           width: 2em;
           aspect-ratio: 1;
-          color: #455a64;
+          color: #144859da;
           transition: color 0s, background 0.6s !important;
 
           i {
@@ -1714,7 +1921,7 @@ main#book-doctor {
     }
 
     a.icon {
-      color: #455a64;
+      color: #ffffffde;
       width: 2em;
       border-radius: 50%;
       aspect-ratio: 1;
@@ -1742,6 +1949,7 @@ main#book-doctor {
       }
     }
   }
+
   // Notification Icon End ===
 
   // Appointment Start
@@ -1777,11 +1985,13 @@ main#book-doctor {
       }
     }
   }
+
   // Appointment End
 
   #flex {
     max-width: 100vw !important;
   }
+
   main#dashboard {
     overflow: auto;
     max-width: 100vw !important;
@@ -1793,6 +2003,7 @@ main#book-doctor {
     &::-webkit-scrollbar {
       width: 11px;
     }
+
     &::-webkit-scrollbar-thumb {
       background: #920a67b4;
       border-radius: 20px;
@@ -1813,9 +2024,11 @@ main#book-doctor {
   ul#all-doctors {
     grid-template-columns: 1fr;
   }
+
   .services {
     align-items: center;
     flex-direction: column;
+
     .service {
       min-width: 100%;
     }
@@ -1836,6 +2049,14 @@ footer {
   ul#all-doctors {
     grid-template-columns: 1fr 1fr;
   }
+
+
+  #home {
+    max-height: calc(100dvh - 85px);
+  }
+
+
+
 
   #flex {
     display: flex;
@@ -1910,5 +2131,6 @@ footer {
       }
     }
   }
+
   // Dashboard Sidebar End
 }

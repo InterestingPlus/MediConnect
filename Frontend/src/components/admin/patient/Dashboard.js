@@ -60,7 +60,10 @@ function PatientDashboard() {
           })}
         </ul>
       ) : (
-        <b>Loading Doctors...</b>
+        <div id="small-loading">
+          <span className="animation"></span>
+          <h1>Loading Appointments...</h1>
+        </div>  
       )}
     </>
   );

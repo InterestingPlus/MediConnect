@@ -53,48 +53,55 @@ function PatientAppointment() {
         <h2>Appointments History :</h2>
         <hr />
         {appointments ? (
-          <ul>
-            {appointments.map((app, key) => {
-              return (
-                <li key={key}>
-                  <img src="https://cdn-icons-png.flaticon.com/512/3952/3952988.png" />
+          appointments.length > 0 ? (
+            <ul>
+              {appointments.map((app, key) => {
+                return (
+                  <li key={key}>
+                    <img src="https://cdn-icons-png.flaticon.com/512/3952/3952988.png" />
 
-                  <p>
-                    <b> Doctor : </b> {app?.doctorName}
-                  </p>
-                  <p>
-                    <b> Time : </b> {app?.time}
-                  </p>
-                  <p>
-                    <b> Date : </b> {app?.date}
-                  </p>
-                  <p>
-                    <b> Reason : </b> {app?.reason}
-                  </p>
+                    <p>
+                      <b> Doctor : </b> {app?.doctorName}
+                    </p>
+                    <p>
+                      <b> Time : </b> {app?.time}
+                    </p>
+                    <p>
+                      <b> Date : </b> {app?.date}
+                    </p>
+                    <p>
+                      <b> Reason : </b> {app?.reason}
+                    </p>
 
-                  <p>
-                    <b> Status : </b>
+                    <p>
+                      <b> Status : </b>
 
-                    {app?.status == "pending" ? (
-                      <b className="orange">
-                        Pending <i class="fa-regular fa-clock"></i>
-                      </b>
-                    ) : app?.status == "accepted" ? (
-                      <b className="green">
-                        Accepted <i class="fa-regular fa-circle-check"></i>
-                      </b>
-                    ) : (
-                      <b className="red">
-                        Rejected <i class="fa-solid fa-ban"></i>
-                      </b>
-                    )}
-                  </p>
-                </li>
-              );
-            })}
-          </ul>
+                      {app?.status == "pending" ? (
+                        <b className="orange">
+                          Pending <i class="fa-regular fa-clock"></i>
+                        </b>
+                      ) : app?.status == "accepted" ? (
+                        <b className="green">
+                          Accepted <i class="fa-regular fa-circle-check"></i>
+                        </b>
+                      ) : (
+                        <b className="red">
+                          Rejected <i class="fa-solid fa-ban"></i>
+                        </b>
+                      )}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          ) : (
+            <h3>Not Found Any Appointment</h3>
+          )
         ) : (
-          <h3>Loading Appointments History...</h3>
+          <div id="small-loading">
+            <span className="animation"></span>
+            <h1>Loading Appointments...</h1>
+          </div>
         )}
       </section>
     </>

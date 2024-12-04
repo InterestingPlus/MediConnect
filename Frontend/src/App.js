@@ -40,60 +40,62 @@ function App() {
     }, 2000);
   }, []);
 
-  if (loading) {
-    return (
-      <div id="custom-loader">
-        <img src={Logo} alt="MediConnect Logo" />
-        <h1>
-          Medi<span>Connect</span>
-        </h1>
-      </div>
-    );
-  }
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navbar />}>
-          <Route index element={<Home />} />
-          <Route path="sign-up" element={<SignUp />} />
-          <Route path="login" element={<Login />} />
+    <>
+      {loading ? (
+        <div id="custom-loader">
+          <img src={Logo} alt="MediConnect Logo" />
+          <h1>
+            Medi<span>Connect</span>
+          </h1>
+        </div>
+      ) : (
+        <></>
+      )}
 
-          {/* Doctors */}
-          <Route path="create-doctor" element={<CreateDoctor />} />
-          <Route path="login-doctor" element={<LoginDoctor />} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Navbar />}>
+            <Route index element={<Home />} />
+            <Route path="sign-up" element={<SignUp />} />
+            <Route path="login" element={<Login />} />
 
-          {/* Patient */}
-          {/* <Route path="all-patient" element={<AllDoctors />} /> */}
-          <Route path="create-patient" element={<CreatePatient />} />
-          <Route path="login-patient" element={<LoginPatient />} />
-        </Route>
+            {/* Doctors */}
+            <Route path="create-doctor" element={<CreateDoctor />} />
+            <Route path="login-doctor" element={<LoginDoctor />} />
 
-        <Route path="/doctor-dashboard" element={<DoctorNav />}>
-          <Route path="dashboard" element={<DoctorDashboard />} />
-          <Route path="appointments" element={<DoctorAppointment />} />
+            {/* Patient */}
+            {/* <Route path="all-patient" element={<AllDoctors />} /> */}
+            <Route path="create-patient" element={<CreatePatient />} />
+            <Route path="login-patient" element={<LoginPatient />} />
+          </Route>
 
-          <Route path="history" element={<PatientHistory />} />
-          <Route path="laboratory" element={<Laboratory />} />
-          <Route path="profile" element={<DoctorProfile />} />
-          <Route path="notification" element={<DoctorNotification />} />
-        </Route>
+          <Route path="/doctor-dashboard" element={<DoctorNav />}>
+            <Route path="dashboard" element={<DoctorDashboard />} />
+            <Route path="appointments" element={<DoctorAppointment />} />
 
-        <Route path="/patient-dashboard" element={<PatientNav />}>
-          <Route path="appointments" element={<PatientAppointment />} />
-          <Route path="appointments/book" element={<Book />} />
-          <Route path="appointments/book-next/:u" element={<BookTime />} />
-          <Route path="appointments/doctor/:u" element={<Doctor />} />
+            <Route path="history" element={<PatientHistory />} />
+            <Route path="laboratory" element={<Laboratory />} />
+            <Route path="profile" element={<DoctorProfile />} />
+            <Route path="notification" element={<DoctorNotification />} />
+          </Route>
 
-          <Route path="history" element={<PatientHistory />} />
-          <Route path="laboratory" element={<Laboratory />} />
-          <Route path="profile" element={<PatientProfile />} />
+          <Route path="/patient-dashboard" element={<PatientNav />}>
+            <Route path="appointments" element={<PatientAppointment />} />
+            <Route path="appointments/book" element={<Book />} />
+            <Route path="appointments/book-next/:u" element={<BookTime />} />
+            <Route path="appointments/doctor/:u" element={<Doctor />} />
 
-          <Route path="dashboard" element={<PatientDashboard />} />
-          <Route path="notification" element={<PatientNotification />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+            <Route path="history" element={<PatientHistory />} />
+            <Route path="laboratory" element={<Laboratory />} />
+            <Route path="profile" element={<PatientProfile />} />
+
+            <Route path="dashboard" element={<PatientDashboard />} />
+            <Route path="notification" element={<PatientNotification />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

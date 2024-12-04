@@ -70,9 +70,6 @@ function Doctor() {
             <h3>
               Age : <span> {doctor.age} </span>
             </h3>
-            <h3>
-              Availability : <span> {doctor.availability} </span>
-            </h3>
 
             <button
               className="aptmnt"
