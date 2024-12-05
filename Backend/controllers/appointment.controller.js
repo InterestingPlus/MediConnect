@@ -227,3 +227,43 @@ module.exports.updateStatus = async (req, res) => {
     });
   }
 };
+
+module.exports.checkBookedAppointments = async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    console.log("Received username:", username);
+
+    const doctor = await Doctor.findOne({ username });
+    if (!doctor) {
+      return res.json({
+        message: "No doctor found with the provided username.",
+        status: true,
+        data: [],
+      });
+    }
+
+    console.log("Doctor ID:", doctor._id);
+
+    const appointments = await Appointment.find(
+      { doctorId: doctor._id, status: { $ne: "rejected" } },
+      { date: 1, time: 1, _id: 0 }
+    );
+
+    console.log("Appointments:", appointments);
+
+    return res.json({
+      message: "Appointment Data Loaded Successfully!",
+      status: true,
+      data: appointments,
+    });
+  } catch (err) {
+    console.error("Error loading appointments:", err);
+
+    return res.status(500).json({
+      message: "Failed to get appointments!",
+      status: false,
+      error: err.message,
+    });
+  }
+};
