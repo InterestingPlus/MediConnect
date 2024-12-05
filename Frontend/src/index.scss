@@ -416,6 +416,7 @@ header {
 main {
   position: relative;
   padding: 2rem;
+  padding-top: 0;
   background: linear-gradient(to right, #c1d1f5bd, #eff0ea, #e6d5f5c2);
   height: 100vh;
   max-height: calc(100dvh - 5rem);
@@ -444,6 +445,9 @@ main {
       font-size: 1.2rem;
 
       box-shadow: 2px 2px 10px #4897b1b9;
+
+
+
     }
 
     img {
@@ -1065,7 +1069,7 @@ section.date {
     color: #060f34ba;
     max-width: fit-content;
     font-weight: 500;
-    
+
     i {
       color: transparent;
       background: linear-gradient(to right bottom, #ff0059, #ff00aa, orangered);
@@ -1138,6 +1142,39 @@ main#home {
 
     &:hover {
       background: #d13852;
+    }
+  }
+
+  section#home {
+    div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h1 {
+        max-width: fit-content;
+        color: transparent;
+        background: linear-gradient(to top right, #3f119d, #b86df5, #ff9742);
+        background-clip: text;
+        -webkit-background-clip: text;
+        text-align: center;
+      }
+
+      p {
+        font-weight: 600;
+        color: #033671a4;
+      }
+
+
+      button {
+        &:hover {
+          background: linear-gradient(to right bottom, #1a6780, #167b9c, #0d9a9a);
+          box-shadow: 0px 0px 13px 7px #1f8eb39d;
+          border-radius: 20px;
+          color: #fcff9b;
+          font-weight: 500;
+        }
+      }
     }
   }
 }
@@ -1651,11 +1688,11 @@ main#book-doctor {
       font-size: 2rem;
       font-weight: 600;
 
-      color: #390ea4;
     }
 
     p {
       font-size: 1.2rem;
+      font-weight: 500 !important;
     }
   }
 
@@ -1925,7 +1962,8 @@ main#book-doctor {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #144859;
+    // background: #144859;
+    background: linear-gradient(to right, #144859, #0f6a88);
     width: 100vw;
     padding: 10px 2rem;
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.613);
@@ -2153,3 +2191,37 @@ footer {
 
   // Dashboard Sidebar End
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Not Found! Start 
+div#not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+
+  dotlottie-player {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  h3 {
+    color: #591614cf;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}
+
+// Not Found! End

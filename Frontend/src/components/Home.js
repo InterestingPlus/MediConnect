@@ -1,61 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import myImg from "../doctor.png";
 
 function Home() {
   const navigate = useNavigate();
-
-  // gsap.registerPlugin(ScrollTrigger);
-
-  // useEffect(() => {
-  //   gsap.from("#services div", {
-  //     y: 100,
-  //     scale: 0,
-  //     opacity: 0,
-  //     duration: 0.7,
-  //   });
-
-  //   gsap.to("#services #one", {
-  //     y: 0,
-  //     scale: 1,
-  //     opacity: 1,
-  //     background: "#fff",
-  //     duration: 0.7,
-
-  //     scrollTrigger: {
-  //       trigger: "#services #one",
-  //       scroller: "#home",
-  //       start: "250 bottom",
-  //       // markers: true,
-  //       // end: "300px bottom",
-  //     },
-  //   });
-  //   gsap.to("#services #two", {
-  //     y: 0,
-  //     scale: 1,
-  //     opacity: 1,
-  //     background: "#fff",
-  //     duration: 0.7,
-
-  //     scrollTrigger: {
-  //       trigger: "#services #two",
-  //       scroller: "#home",
-  //       start: "250 bottom",
-  //     },
-  //   });
-  //   gsap.to("#services #three", {
-  //     y: 0,
-  //     scale: 1,
-  //     opacity: 1,
-  //     background: "#fff",
-  //     duration: 0.7,
-
-  //     scrollTrigger: {
-  //       trigger: "#services #three",
-  //       scroller: "#home",
-  //       start: "250 bottom",
-  //     },
-  //   });
-  // }, []);
 
   return (
     <>
@@ -71,7 +17,15 @@ function Home() {
               Book an Appointment
             </button>
           </div>
-          <img src={myImg} alt="profile-pic" />
+          {/* <img src={myImg} alt="profile-pic" /> */}
+          <dotlottie-player
+            src="https://lottie.host/3ff22e7d-8fca-4dec-847e-57b1567d3307/G1G1xa1VWB.lottie"
+            background="transparent"
+            speed="1"
+            style={{ width: "300px", height: "300px" }}
+            loop
+            autoplay
+          ></dotlottie-player>
         </section>
 
         <section className="services" id="services">

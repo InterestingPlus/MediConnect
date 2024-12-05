@@ -52,6 +52,8 @@ section#date:has(#success-booked) {
         color: #000000b1;
         font-weight: 500;
 
+        animation: booked-heading .6s alternate ease;
+
         b {
             font-weight: 700;
         }
