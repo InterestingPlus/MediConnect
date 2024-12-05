@@ -4,12 +4,18 @@ import { useNavigate, useParams } from "react-router-dom";
 import apiPath from "../../../isProduction";
 
 import Afternoon from "../../../images/afternoon.png";
+import Appointment from "../../../images/appointment.gif";
 import Morning from "../../../images/morning.png";
 import Evening from "../../../images/night.png";
+
+import "./BookTime.scss";
 
 function BookTime() {
   const navigate = useNavigate();
   const { u } = useParams();
+
+  const [booked, setBooked] = useState(false);
+
   const [doctor, setDoctor] = useState(null);
   const [patient, setPatient] = useState();
   const [loading, setLoading] = useState(false);
@@ -20,6 +26,12 @@ function BookTime() {
 
   const [selectedSlot, setSelectedSlot] = useState("");
   const isToday = new Date().toDateString() === new Date(date).toDateString();
+
+  const [bookedDateTime, setBookedDateTime] = useState([]);
+
+  const submitMp3 =
+    "https://frontent-mentor-projects.netlify.app/1%20newbie/interactive-rating-component/submit.mp3";
+  let sub = new Audio(submitMp3);
 
   const days = [
     "Sunday",
@@ -47,13 +59,27 @@ function BookTime() {
 
   useEffect(() => {
     async function getDoctor() {
-      const data = await axios.post(`${apiPath()}/doctor`, {
-        username: u,
-      });
+      try {
+        const data = await axios.post(`${apiPath()}/doctor`, {
+          username: u,
+        });
+        await setDoctor(data.data.data);
+      } catch (err) {
+        console.log("Doctor Not Found!");
+      }
 
-      console.log(data);
+      try {
+        const bookedAppointments = await axios.post(
+          `${apiPath()}/check-booked-appointments`,
+          {
+            username: u,
+          }
+        );
 
-      await setDoctor(data.data.data);
+        setBookedDateTime(bookedAppointments.data.data);
+      } catch (err) {
+        console.log("Can not Find Booked Appointments!");
+      }
     }
     getDoctor();
 
@@ -83,13 +109,25 @@ function BookTime() {
     checkLocalUser();
   }, []);
 
+  function amPM(time) {
+    const [hours, minutes] = time.split(":").map(Number);
+    if (hours < 12) {
+      return `${
+        hours === 0 ? "12" : hours.toString().padStart(2, "0")
+      }:${minutes.toString().padStart(2, "0")} AM`;
+    } else {
+      return `${
+        hours === 12 ? "12" : (hours - 12).toString().padStart(2, "0")
+      }:${minutes.toString().padStart(2, "0")} PM`;
+    }
+  }
+
   async function bookAppointment(e) {
     e.preventDefault();
 
     let isConfirm = false;
     if (selectedSlot) {
       isConfirm = window.confirm("Confirm to Book Appointment? ");
-      console.log(selectedSlot);
     }
 
     if (isConfirm) {
@@ -101,8 +139,6 @@ function BookTime() {
         reason,
       };
 
-      console.log(appointmentData);
-
       const { data } = await axios.post(
         `${apiPath()}/create-appointment`,
         appointmentData
@@ -112,13 +148,16 @@ function BookTime() {
         console.log("Err :", data.msg);
       }
       if (data.status === true) {
-        setSelectedSlot("");
-        setDate("");
-        setReason("");
+        // setSelectedSlot("");
+        // setDate("");
+        // setReason("");
 
-        alert("Appointment Booked Successfully");
+        setBooked(true);
+        sub.play();
 
-        navigate("/patient-dashboard/appointments");
+        setTimeout(() => {
+          navigate("/patient-dashboard/appointments");
+        }, 4500);
       }
     }
   }
@@ -137,7 +176,12 @@ function BookTime() {
 
   function returnSlots() {
     if (!doctor || !doctor.availability) {
-      return <p>Loading slots...</p>;
+      return (
+        <div id="loading">
+          <span className="animation"></span>
+          <h1>Loading Slots...</h1>
+        </div>
+      );
     }
 
     const day = new Date(date).getDay();
@@ -149,7 +193,7 @@ function BookTime() {
     const eveningSlots = [];
 
     // Categorize the slots
-    aval.forEach((slot) => {
+    aval?.forEach((slot) => {
       const [hours, minutes] = slot.split(":").map(Number); // Split and convert to numbers
       if (hours >= 6 && hours < 12) {
         morningSlots.push(slot);
@@ -170,20 +214,39 @@ function BookTime() {
               Morning
             </h3>
             <div className="slots">
-              {morningSlots.map((slot, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => {
-                    !isPastSlot(slot) && setSelectedSlot(slot);
-                    setReason("Demo Test");
-                  }}
-                  disabled={isPastSlot(slot)}
-                  className={selectedSlot === slot ? "selected" : ""}
-                >
-                  {slot}
-                </button>
-              ))}
+              <div className="slots">
+                {morningSlots.map((slot, index) => {
+                  const isBooked = bookedDateTime.some(
+                    (booked) => booked.date === date && booked.time === slot
+                  );
+
+                  return (
+                    <button
+                      key={index}
+                      type="button"
+                      onClick={() => {
+                        if (!isBooked && !isPastSlot(slot)) {
+                          setSelectedSlot(slot);
+                          setReason("Demo Test");
+                        }
+                      }}
+                      disabled={isPastSlot(slot)}
+                      className={`${selectedSlot === slot ? "selected" : ""} ${
+                        isBooked ? "booked" : ""
+                      }`}
+                      title={
+                        isBooked
+                          ? "Booked"
+                          : isPastSlot(slot)
+                          ? "Disabled"
+                          : null
+                      }
+                    >
+                      {amPM(slot)}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}
@@ -195,20 +258,33 @@ function BookTime() {
               Afternoon
             </h3>
             <div className="slots">
-              {afternoonSlots.map((slot, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => {
-                    !isPastSlot(slot) && setSelectedSlot(slot);
-                    setReason("Demo Test");
-                  }}
-                  disabled={isPastSlot(slot)}
-                  className={selectedSlot === slot ? "selected" : ""}
-                >
-                  {slot}
-                </button>
-              ))}
+              {afternoonSlots.map((slot, index) => {
+                const isBooked = bookedDateTime.some(
+                  (booked) => booked.date === date && booked.time === slot
+                );
+
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => {
+                      if (!isBooked && !isPastSlot(slot)) {
+                        setSelectedSlot(slot);
+                        setReason("Demo Test");
+                      }
+                    }}
+                    disabled={isPastSlot(slot)}
+                    className={`${selectedSlot === slot ? "selected" : ""} ${
+                      isBooked ? "booked" : ""
+                    }`}
+                    title={
+                      isBooked ? "Booked" : isPastSlot(slot) ? "Disabled" : null
+                    }
+                  >
+                    {amPM(slot)}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
@@ -220,20 +296,33 @@ function BookTime() {
               Evening
             </h3>
             <div className="slots">
-              {eveningSlots.map((slot, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => {
-                    !isPastSlot(slot) && setSelectedSlot(slot);
-                    setReason("Demo Test");
-                  }}
-                  disabled={isPastSlot(slot)}
-                  className={selectedSlot === slot ? "selected" : ""}
-                >
-                  {slot}
-                </button>
-              ))}
+              {eveningSlots.map((slot, index) => {
+                const isBooked = bookedDateTime.some(
+                  (booked) => booked.date === date && booked.time === slot
+                );
+
+                return (
+                  <button
+                    key={index}
+                    type="button"
+                    onClick={() => {
+                      if (!isBooked && !isPastSlot(slot)) {
+                        setSelectedSlot(slot);
+                        setReason("Demo Test");
+                      }
+                    }}
+                    disabled={isPastSlot(slot)}
+                    className={`${selectedSlot === slot ? "selected" : ""} ${
+                      isBooked ? "booked" : ""
+                    }`}
+                    title={
+                      isBooked ? "Booked" : isPastSlot(slot) ? "Disabled" : null
+                    }
+                  >
+                    {amPM(slot)}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
@@ -243,11 +332,11 @@ function BookTime() {
 
   return (
     <section className="date">
-      <h1>Schedule Appointment : </h1>
+      <h1>
+        Schedule Appointment with <i>{doctor?.name},</i>
+      </h1>
 
       <form onSubmit={bookAppointment}>
-        <label htmlFor="date">Select Date :</label>
-
         <input
           type="date"
           className="booktime"
@@ -280,6 +369,36 @@ function BookTime() {
 
         <input type="submit" />
       </form>
+
+      {booked && (
+        <div id="success-booked">
+          <h2>
+            Appointment Booked{" "}
+            <span>
+              {" "}
+              Successfully{" "}
+              <img
+                src="https://web.whatsapp.com/emoji/v1/15/1/2/single/w/40/002705.png"
+                id="right"
+              />
+            </span>
+          </h2>
+
+          <h3>
+            Time : <b>{selectedSlot}</b>
+          </h3>
+          <h3>
+            Date : <b>{date}</b>
+          </h3>
+
+          <img src={Appointment} />
+          <p>
+            Redirecting to the <br />{" "}
+            <i class="fa-regular fa-calendar-check"></i> <b>Appointments</b>{" "}
+            History...
+          </p>
+        </div>
+      )}
     </section>
   );
 }

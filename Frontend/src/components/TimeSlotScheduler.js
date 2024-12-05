@@ -117,7 +117,6 @@ const TimeSlotScheduler = ({ onScheduleChange }) => {
         </div>
       </div>
 
-      {/* Clear & Save Buttons */}
       {schedule[selectedDay].length > 0 ? (
         <button type="button" onClick={handleClearDay} id="clear-day-button">
           Clear {selectedDay}

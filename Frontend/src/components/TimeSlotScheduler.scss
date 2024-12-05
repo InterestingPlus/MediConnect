@@ -189,10 +189,13 @@
 #time-slots {
   h2 {
     font-size: 1.5rem;
+    padding-left: 1rem;
+    margin-top: 2rem;
+    color: #21311ac4 !important;
   }
 
   .slot-container {
-    margin-top: 1rem;
+    margin-top: .1rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -204,7 +207,7 @@
         display: flex;
         align-items: center;
         gap: .5rem;
-        font-weight: 500;
+        font-weight: 600;
         color: #144859dc;
         font-size: 1.5rem;
 
@@ -237,6 +240,7 @@
             border: 2px solid #144859;
             color: #ffffffce;
             background: #0f3945ad;
+            box-shadow: 0 0 10px #12baf25c;
           }
 
           &.selected,
@@ -244,6 +248,14 @@
             color: #fff;
             border: 2px solid #0f3945;
             background: #144859;
+            box-shadow: 0 0 10px #12d0f29e;
+          }
+
+
+          &.booked {
+            color: rgb(228, 228, 228);
+            background: #5f737e;
+            cursor: not-allowed;
           }
 
           &:disabled {
@@ -252,9 +264,8 @@
             cursor: not-allowed;
 
             &:hover {
-              border: 2px solid #144859;
-              color: #ffffffce;
-              background: #ff4747ec;
+              color: #5c3c3c;
+              background: #ff7777ec;
             }
           }
         }
@@ -263,4 +274,21 @@
   }
 
 
+}
+
+
+
+
+input#date {
+  height: 7rem;
+  padding: 3rem;
+  color: #144859;
+  background: linear-gradient(to right bottom, #19ff2c7e, #19ff2c46, #b4fa315c, #fff20575);
+
+  &::-webkit-calendar-picker-indicator {
+    background-color: #144859a2;
+    border-radius: 50%;
+    padding: .8rem;
+    cursor: pointer;
+  }
 }

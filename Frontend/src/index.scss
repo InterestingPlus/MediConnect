@@ -1059,6 +1059,22 @@ main#dashboard {
 
 // Booktime Start
 section.date {
+
+
+  h1 {
+    color: #060f34ba;
+    max-width: fit-content;
+    font-weight: 500;
+    
+    i {
+      color: transparent;
+      background: linear-gradient(to right bottom, #ff0059, #ff00aa, orangered);
+      background-clip: text;
+      -webkit-background-clip: text;
+      font-weight: 700;
+    }
+  }
+
   form {
     min-width: 100%;
 
