@@ -8,6 +8,10 @@ function CreatePatient() {
 
   const [ifDisabled, setIfDisabled] = useState(false);
 
+  const [constOtp, setconstOTP] = useState("");
+  const [otp, setOTP] = useState("");
+  const [verified, setVerified] = useState(false);
+
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -35,41 +39,75 @@ function CreatePatient() {
     });
   }
 
+  const handleSendOTP = async () => {
+    try {
+      if (!values.username) {
+        alert("Please enter your email.");
+        return;
+      }
+
+      console.log(values.username);
+
+      const response = await axios.post(`${apiPath()}/otp-verification`, {
+        email: values.username,
+      });
+
+      if (await response.data) {
+        setconstOTP(response.data.otp);
+      }
+
+      if (response.data.status) {
+        alert("OTP has been sent to your email.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+
+      alert("An error occurred. Please try again later.");
+    }
+  };
+
   async function handleSubmit(e) {
     e.preventDefault();
     setIfDisabled(true);
 
-    const { username, password, name, age, contact } = values;
+    if (verified) {
+      const { username, password, name, age, contact } = values;
 
-    const { data } = await axios.post(`${apiPath()}/create-patient`, {
-      username,
-      password,
-      name,
-      age,
-      contact,
-    });
-
-    if (data.status === false) {
-      alert("Errr : " + data.message);
-      setIfDisabled(false);
-    }
-    if (data.status === true) {
-      setValues({
-        username: "",
-        password: "",
-        name: "",
-        age: "",
-        contact: "",
+      const { data } = await axios.post(`${apiPath()}/create-patient`, {
+        username,
+        password,
+        name,
+        age,
+        contact,
       });
 
-      alert("Signed Up Successfully");
+      if (data.status === false) {
+        // alert("Errr : " + data.message);
+        alert("This Email-id is Already Registered! Please try Another.");
+        setIfDisabled(false);
+        setVerified(false);
+        setconstOTP("");
+        setOTP("")
+      }
+      if (data.status === true) {
+        setValues({
+          username: "",
+          password: "",
+          name: "",
+          age: "",
+          contact: "",
+        });
 
-      localStorage.setItem("profile", JSON.stringify(data.data));
+        alert("Signed Up Successfully");
 
-      navigate("/login");
+        localStorage.setItem("profile", JSON.stringify(data.data));
 
-      // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/login");
+
+        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      }
     }
+    setIfDisabled(false);
   }
 
   return (
@@ -83,9 +121,9 @@ function CreatePatient() {
           Sign Up as a <span>Patient</span>
         </h1>
 
-        <label htmlFor="username">Username : </label>
+        <label htmlFor="username">Email : </label>
         <input
-          type="text"
+          type="email"
           name="username"
           id="username"
           value={values.username}
@@ -96,7 +134,7 @@ function CreatePatient() {
 
         <br />
 
-        <label htmlFor="password">Password : </label>
+        <label htmlFor="password">Create Password : </label>
         <input
           type="password"
           name="password"
@@ -106,6 +144,53 @@ function CreatePatient() {
           disabled={ifDisabled}
           required
         />
+
+        {verified ? (
+          <p id="verified-success">Verified Successfully!</p>
+        ) : (
+          <>
+            {constOtp ? (
+              <>
+                <br />
+
+                <label htmlFor="otp">OTP : </label>
+                <input
+                  type="number"
+                  id="otp"
+                  name="otp"
+                  value={otp}
+                  onInput={(e) => setOTP(e.target.value)}
+                />
+              </>
+            ) : (
+              ""
+            )}
+
+            <br />
+
+            <button
+              type="button"
+              id="verify"
+              onClick={() => {
+                if (constOtp && otp) {
+                  console.log(constOtp, otp);
+                  if (constOtp == otp) {
+                    setVerified(true);
+                    alert("Verified Successfully!");
+                  } else {
+                    setVerified(false);
+                    alert("OTP Doesn't Match!");
+                  }
+                } else {
+                  handleSendOTP();
+                  alert("We Sending a Verification Code to Your Email...!");
+                }
+              }}
+            >
+              {constOtp ? "Verify" : "SendOTP"}
+            </button>
+          </>
+        )}
 
         <br />
 
@@ -149,7 +234,7 @@ function CreatePatient() {
         <br />
 
         <input
-          type={ifDisabled ? "button" : "submit"}
+          type={ifDisabled ? "button" : verified ? "submit" : "button"}
           className={ifDisabled ? "submit disable" : "submit"}
           value="submit"
         />

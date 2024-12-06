@@ -661,7 +661,48 @@ form {
   }
 }
 
-// Create Doctor - Sign Up From Start
+
+// Create Patient - Sign Up Form Start  
+main.form {
+  form {
+    p#verified-success {
+      font-weight: 800;
+      font-size: 1rem;
+      padding: .6rem 2rem;
+      color: #1e274d;
+      border-radius: 20px;
+      max-width: fit-content;
+      margin-top: 1rem;
+      margin-left: 1rem;
+      background: rgba(30, 197, 18, 0.827);
+    }
+    
+    button#verify {
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: .6rem 2rem;
+      margin: 1rem 0 0 1rem;
+      border-radius: 20px;
+      border: 2px solid #060f34;
+      background: #005bb5;
+      cursor: pointer;
+      
+      &:hover{
+        background: #02bcff;
+        border: 2px solid #142361;
+      }
+    }
+  }
+}
+
+// Create Patient - Sign Up Form End 
+
+
+// =============
+
+
+// Create Doctor - Sign Up Form Start
 main.create-doctor {
   form#create-doctor {
     display: flex;
@@ -1397,7 +1438,12 @@ ul#all-doctors {
 
 // ------------------
 
+
+
+
+
 // *-------*
+
 
 // Doctor Profile Start
 main#book-doctor {
