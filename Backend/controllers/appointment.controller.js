@@ -232,8 +232,6 @@ module.exports.checkBookedAppointments = async (req, res) => {
   try {
     const { username } = req.body;
 
-    console.log("Received username:", username);
-
     const doctor = await Doctor.findOne({ username });
     if (!doctor) {
       return res.json({
@@ -243,14 +241,10 @@ module.exports.checkBookedAppointments = async (req, res) => {
       });
     }
 
-    console.log("Doctor ID:", doctor._id);
-
     const appointments = await Appointment.find(
       { doctorId: doctor._id, status: { $ne: "rejected" } },
       { date: 1, time: 1, _id: 0 }
     );
-
-    console.log("Appointments:", appointments);
 
     return res.json({
       message: "Appointment Data Loaded Successfully!",
