@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 import TimeSlotScheduler from "./TimeSlotScheduler";
 
@@ -8,6 +8,10 @@ function CreateDoctor() {
   const navigate = useNavigate();
 
   const [ifDisabled, setIfDisabled] = useState(false);
+
+  const [constOtp, setconstOTP] = useState("");
+  const [otp, setOTP] = useState("");
+  const [verified, setVerified] = useState(false);
 
   const [stage, setStage] = useState(1);
   const [error, setError] = useState(false);
@@ -54,6 +58,37 @@ function CreateDoctor() {
       [e.target.name]: e.target.value,
     });
   }
+
+  const handleSendOTP = async () => {
+    try {
+      if (!values.username) {
+        alert("Please enter your email.");
+        return;
+      }
+
+      alert("We Sending a Verification Code to Your Email...!");
+      setIfDisabled(true);
+
+      console.log(constOtp);
+
+      const response = await axios.post(`${apiPath()}/otp-verification`, {
+        email: values.username,
+      });
+
+      if (await response.data) {
+        setconstOTP(response.data.otp);
+      }
+
+      if (response.data.status) {
+        alert("OTP has been sent to your email.");
+      }
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+
+      alert("An error occurred. Please try again later.");
+    }
+    setIfDisabled(false);
+  };
 
   const handleScheduleUpdate = (updatedSchedule) => {
     const value = values;
@@ -146,22 +181,22 @@ function CreateDoctor() {
             <h1>
               Sign Up as a <span>Doctor</span>
             </h1>
-            <label htmlFor="username">Username : </label>
+            <label htmlFor="username">Email : </label>
             <input
-              type="text"
+              type="email"
               name="username"
               id="username"
               className={`${checkError("username")}`}
               value={values.username}
               onChange={(e) => handleChange(e)}
-              disabled={ifDisabled}
+              disabled={ifDisabled || verified}
               autoComplete="off"
               required
             />
 
             <br />
 
-            <label htmlFor="password">Password : </label>
+            <label htmlFor="password">Create Password : </label>
             <input
               type="password"
               name="password"
@@ -169,10 +204,57 @@ function CreateDoctor() {
               className={`${checkError("password")}`}
               value={values.password}
               onChange={(e) => handleChange(e)}
-              disabled={ifDisabled}
+              disabled={ifDisabled || verified}
               autoComplete="off"
               required
             />
+
+            {verified ? (
+              <p id="verified-success">Verified Successfully!</p>
+            ) : (
+              <>
+                {constOtp ? (
+                  <>
+                    <br />
+
+                    <label htmlFor="otp">OTP : </label>
+                    <input
+                      type="number"
+                      id="otp"
+                      name="otp"
+                      value={otp}
+                      onInput={(e) => setOTP(e.target.value)}
+                    />
+                  </>
+                ) : (
+                  ""
+                )}
+
+                <br />
+
+                <button
+                  type="button"
+                  id="verify"
+                  onClick={() => {
+                    if (constOtp && otp) {
+                      console.log(constOtp, otp);
+                      if (constOtp == otp) {
+                        setVerified(true);
+                        alert("Verified Successfully!");
+                      } else {
+                        setVerified(false);
+                        alert("OTP Doesn't Match!");
+                      }
+                    } else {
+                      handleSendOTP();
+                    }
+                  }}
+                  disabled={ifDisabled}
+                >
+                  {constOtp ? "Verify" : "SendOTP"}
+                </button>
+              </>
+            )}
 
             <br />
 
@@ -231,6 +313,10 @@ function CreateDoctor() {
             />
 
             <br />
+
+            <p className="login-signUp">
+              Already have an Account? <Link to="/login-doctor">Login</Link>
+            </p>
           </div>
 
           <div className="stages">
@@ -288,7 +374,7 @@ function CreateDoctor() {
                     bubbles: true,
                     cancelable: true,
                   });
-                  formRef.current.dispatchEvent(submitEvent); // Dispatch the submit event
+                  formRef.current.dispatchEvent(submitEvent);
                 }
               }
             }}

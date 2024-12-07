@@ -663,7 +663,7 @@ form {
 
 
 // Create Patient - Sign Up Form Start  
-main.form {
+main {
   form {
     p#verified-success {
       font-weight: 800;
@@ -676,7 +676,7 @@ main.form {
       margin-left: 1rem;
       background: rgba(30, 197, 18, 0.827);
     }
-    
+
     button#verify {
       color: #fff;
       font-weight: 700;
@@ -687,8 +687,8 @@ main.form {
       border: 2px solid #060f34;
       background: #005bb5;
       cursor: pointer;
-      
-      &:hover{
+
+      &:hover {
         background: #02bcff;
         border: 2px solid #142361;
       }
@@ -1511,6 +1511,38 @@ main#book-doctor {
   }
 
   // Search Box End
+  // ================
+
+
+  // Global Form Style STart
+  main {
+
+    &#sign-up {
+      padding-top: 3rem;
+    }
+
+    form {
+
+      padding-top: 3rem;
+      text-align: left;
+
+      label {}
+
+      h1 {
+        margin-bottom: 1rem;
+      }
+
+      input {
+        transform: translateY(-10px);
+        margin-bottom: 1.2rem;
+        width: 90%;
+      }
+    }
+  }
+
+  // Global Form Style End 
+
+  // ================
 
   // Doctor Profile Start
 

@@ -51,7 +51,7 @@ function Login() {
           <input type="radio" name="role" id="doctor" required />
         </span>
 
-        <span className={select === 3 ? "selected" : ""}>
+        {/* <span className={select === 3 ? "selected" : ""}>
           <label
             htmlFor="admin"
             onClick={() => {
@@ -61,7 +61,7 @@ function Login() {
             <i class="fi fi-ss-admin-alt"></i> Admin
           </label>
           <input type="radio" name="role" id="admin" required />
-        </span>
+        </span> */}
       </div>
 
       <Link

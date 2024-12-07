@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 
 function CreatePatient() {
@@ -46,7 +46,10 @@ function CreatePatient() {
         return;
       }
 
-      console.log(values.username);
+      alert("We Sending a Verification Code to Your Email...!");
+      setIfDisabled(true);
+
+      console.log(constOtp);
 
       const response = await axios.post(`${apiPath()}/otp-verification`, {
         email: values.username,
@@ -64,6 +67,7 @@ function CreatePatient() {
 
       alert("An error occurred. Please try again later.");
     }
+    setIfDisabled(false);
   };
 
   async function handleSubmit(e) {
@@ -87,7 +91,7 @@ function CreatePatient() {
         setIfDisabled(false);
         setVerified(false);
         setconstOTP("");
-        setOTP("")
+        setOTP("");
       }
       if (data.status === true) {
         setValues({
@@ -128,7 +132,7 @@ function CreatePatient() {
           id="username"
           value={values.username}
           onChange={(e) => handleChange(e)}
-          disabled={ifDisabled}
+          disabled={ifDisabled || verified}
           required
         />
 
@@ -141,7 +145,7 @@ function CreatePatient() {
           id="password"
           value={values.password}
           onChange={(e) => handleChange(e)}
-          disabled={ifDisabled}
+          disabled={ifDisabled || verified}
           required
         />
 
@@ -183,9 +187,9 @@ function CreatePatient() {
                   }
                 } else {
                   handleSendOTP();
-                  alert("We Sending a Verification Code to Your Email...!");
                 }
               }}
+              disabled={ifDisabled}
             >
               {constOtp ? "Verify" : "SendOTP"}
             </button>
@@ -232,6 +236,10 @@ function CreatePatient() {
         />
 
         <br />
+
+        <p className="login-signUp">
+          Already have an Account? <Link to="/login-doctor">Login</Link>
+        </p>
 
         <input
           type={ifDisabled ? "button" : verified ? "submit" : "button"}

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { default as apiPath } from "../isProduction";
 
 function LoginPatient() {
@@ -113,7 +113,9 @@ function LoginPatient() {
             <p>UserName or Password are not Matched</p> <br />
           </>
         ) : (
-          ""
+          <p className="login-signUp">
+            New to Here? <Link to="/login-doctor">Create Account</Link>
+          </p>
         )}
 
         <input
