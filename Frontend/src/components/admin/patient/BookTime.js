@@ -29,6 +29,8 @@ function BookTime() {
 
   const [bookedDateTime, setBookedDateTime] = useState([]);
 
+  const [reasonStage, setReasonStage] = useState(false);
+
   const submitMp3 =
     "https://frontent-mentor-projects.netlify.app/1%20newbie/interactive-rating-component/submit.mp3";
   let sub = new Audio(submitMp3);
@@ -125,40 +127,46 @@ function BookTime() {
   async function bookAppointment(e) {
     e.preventDefault();
 
-    let isConfirm = false;
-    if (selectedSlot) {
-      isConfirm = window.confirm("Confirm to Book Appointment? ");
-    }
+    if (reasonStage) {
+      if (reason != "") {
+        let isConfirm = false;
+        if (selectedSlot) {
+          isConfirm = window.confirm("Confirm to Book Appointment? ");
+        }
 
-    if (isConfirm) {
-      const appointmentData = {
-        doctorId: doctor._id,
-        patientId: patient._id,
-        time: selectedSlot,
-        date,
-        reason,
-      };
+        if (isConfirm) {
+          const appointmentData = {
+            doctorId: doctor._id,
+            patientId: patient._id,
+            time: selectedSlot,
+            date,
+            reason,
+          };
 
-      const { data } = await axios.post(
-        `${apiPath()}/create-appointment`,
-        appointmentData
-      );
+          const { data } = await axios.post(
+            `${apiPath()}/create-appointment`,
+            appointmentData
+          );
 
-      if (data.status === false) {
-        console.log("Err :", data.msg);
+          if (data.status === false) {
+            console.log("Err :", data.msg);
+          }
+          if (data.status === true) {
+            // setSelectedSlot("");
+            // setDate("");
+            // setReason("");
+
+            setBooked(true);
+            sub.play();
+
+            setTimeout(() => {
+              navigate("/patient-dashboard/appointments");
+            }, 4500);
+          }
+        }
       }
-      if (data.status === true) {
-        // setSelectedSlot("");
-        // setDate("");
-        // setReason("");
-
-        setBooked(true);
-        sub.play();
-
-        setTimeout(() => {
-          navigate("/patient-dashboard/appointments");
-        }, 4500);
-      }
+    } else if (selectedSlot) {
+      setReasonStage(true);
     }
   }
 
@@ -227,7 +235,6 @@ function BookTime() {
                       onClick={() => {
                         if (!isBooked && !isPastSlot(slot)) {
                           setSelectedSlot(slot);
-                          setReason("Demo Test");
                         }
                       }}
                       disabled={isPastSlot(slot)}
@@ -398,6 +405,31 @@ function BookTime() {
             History...
           </p>
         </div>
+      )}
+
+      {reasonStage ? (
+        <>
+          <form onSubmit={bookAppointment} id="reason-from">
+            <h2>Describe Your Reason : </h2>
+
+            <textarea
+              onInput={(e) => {
+                setReason(e.target.value);
+                setReasonStage(e.target.value);
+              }}
+            ></textarea>
+
+            <input type="submit" />
+            <div
+              id="hide"
+              onClick={() => {
+                setReasonStage(false);
+              }}
+            ></div>
+          </form>
+        </>
+      ) : (
+        ""
       )}
     </section>
   );

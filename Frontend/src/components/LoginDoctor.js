@@ -81,9 +81,9 @@ function LoginDoctor() {
 
         <br />
 
-        <label htmlFor="username">Username : </label>
+        <label htmlFor="username">Email : </label>
         <input
-          type="text"
+          type="email"
           name="username"
           id="username"
           value={values.username}
@@ -132,7 +132,7 @@ function LoginDoctor() {
           </>
         ) : (
           <p className="login-signUp">
-            New to Here? <Link to="/login-doctor">Create Account</Link>
+            New to Here? <Link to="/create-doctor">Create Account</Link>
           </p>
         )}
 

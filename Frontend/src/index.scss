@@ -34,6 +34,12 @@ body:has(#custom-loader) {
 
   animation: LoadingScale 2s alternate;
 
+
+  video {
+    width: 80vw;
+
+  }
+
   h1 {
     cursor: default;
     font-weight: 900;
@@ -93,11 +99,11 @@ body:has(#custom-loader) {
 
   img {
     width: 60vw;
-    max-width: 150px;
+    max-width: 300px;
     margin-top: 20px;
-    opacity: 0;
+    opacity: 1;
 
-    animation: LoadingScale, Heart, scaleImage 2s alternate;
+    // animation: LoadingScale, Heart, scaleImage 2s alternate;
 
     @keyframes scaleImage {
       0% {

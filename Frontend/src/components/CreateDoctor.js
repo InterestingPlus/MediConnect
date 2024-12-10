@@ -116,37 +116,41 @@ function CreateDoctor() {
 
     setIfDisabled(true);
 
-    const { data } = await axios.post(`${apiPath()}/create-doctor`, {
-      username,
-      password,
-      name,
-      age,
-      specialization,
-      contact,
-      availability,
-    });
-
-    if (data.status === false) {
-      alert("Error : " + data.message);
-    }
-    if (data.status === true) {
-      setValues({
-        username: "",
-        password: "",
-        name: "",
-        age: "",
-        specialization: "",
-        contact: "",
-        availability: "",
+    if (verified) {
+      const { data } = await axios.post(`${apiPath()}/create-doctor`, {
+        username,
+        password,
+        name,
+        age,
+        specialization,
+        contact,
+        availability,
       });
 
-      alert("Signed Up Successfully");
+      if (data.status === false) {
+        alert("Error : " + data.message);
+      }
+      if (data.status === true) {
+        setValues({
+          username: "",
+          password: "",
+          name: "",
+          age: "",
+          specialization: "",
+          contact: "",
+          availability: "",
+        });
 
-      localStorage.setItem("profile", JSON.stringify(data.data));
+        alert("Signed Up Successfully");
 
-      navigate("/login");
+        localStorage.setItem("profile", JSON.stringify(data.data));
 
-      // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+        navigate("/login");
+
+        // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
+      }
+    } else {
+      alert("Please Verify Your Email Address!");
     }
 
     setIfDisabled(false);

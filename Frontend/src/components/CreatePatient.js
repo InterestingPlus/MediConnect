@@ -238,7 +238,7 @@ function CreatePatient() {
         <br />
 
         <p className="login-signUp">
-          Already have an Account? <Link to="/login-doctor">Login</Link>
+          Already have an Account? <Link to="/login-patient">Login</Link>
         </p>
 
         <input

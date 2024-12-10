@@ -26,7 +26,8 @@ import PatientNav from "./components/admin/patient/PatientNav";
 import PatientNotification from "./components/admin/patient/PatientNotification";
 import PatientProfile from "./components/admin/patient/Profile";
 
-import Logo from "./images/White.png";
+// import Logo from "./images/White.png";
+import LoadingAnimation from "./images/Loader.gif";
 
 // https://hms-backend-tr2u.onrender.com
 // http://localhost:4444
@@ -44,7 +45,8 @@ function App() {
     <>
       {loading ? (
         <div id="custom-loader">
-          <img src={Logo} alt="MediConnect Logo" />
+          {/* <img src={Logo} alt="MediConnect Logo" /> */}
+          <img src={LoadingAnimation} />
           <h1>
             Medi<span>Connect</span>
           </h1>

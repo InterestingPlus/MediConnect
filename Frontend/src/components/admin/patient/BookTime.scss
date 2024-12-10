@@ -126,3 +126,81 @@ section#date:has(#success-booked) {
 
     }
 }
+
+
+
+
+
+#reason-from {
+    position: fixed;
+    top: 0;
+    height: 100dvh;
+
+
+    padding: 1.3rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+
+
+    input,
+    textarea,
+    h2 {
+        z-index: 6;
+    }
+
+    h2 {
+        color: #f6f3ffe3 !important;
+        margin-bottom: .5rem;
+        left: 0;
+        font-weight: 400;
+    }
+
+    textarea {
+        max-width: 50vw;
+        transform: translateX(10vw);
+    }
+
+    input {
+        cursor: pointer;
+        transform: translateX(10vw);
+    }
+
+    div#hide {
+        background: #5c6174a6;
+        backdrop-filter: blur(5px);
+        position: absolute;
+        top: 0;
+        left: 0;
+
+        height: 100dvh;
+        width: 100vw;
+        z-index: 1;
+    }
+}
+
+@media screen and (width < 1000px) {
+    #reason-from {
+        margin-top: 84px;
+        max-height: calc(100dvh - 144px);
+
+        textarea {
+            max-width: 100%;
+            transform: translateX(0);
+        }
+
+        input {
+            cursor: pointer;
+            transform: translateX(0);
+        }
+
+        div#hide {
+            max-height: calc(100dvh - 144px);
+        }
+    }
+
+
+}

@@ -81,9 +81,9 @@ function LoginPatient() {
 
         <br />
 
-        <label htmlFor="username">Username : </label>
+        <label htmlFor="username">Email : </label>
         <input
-          type="text"
+          type="email"
           name="pUsername"
           id="username"
           value={values.username}
@@ -114,7 +114,7 @@ function LoginPatient() {
           </>
         ) : (
           <p className="login-signUp">
-            New to Here? <Link to="/login-doctor">Create Account</Link>
+            New to Here? <Link to="/create-patient">Create Account</Link>
           </p>
         )}
 
