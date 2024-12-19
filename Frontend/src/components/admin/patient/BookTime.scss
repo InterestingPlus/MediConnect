@@ -195,11 +195,18 @@ section#date:has(#success-booked) {
         input {
             cursor: pointer;
             transform: translateX(0);
+
+            &:disabled {
+                color: rgb(212, 212, 246);
+                background: #324078e6;
+                cursor: not-allowed;
+            }
         }
 
         div#hide {
             max-height: calc(100dvh - 144px);
         }
+
     }
 
 

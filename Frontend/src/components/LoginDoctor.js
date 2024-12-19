@@ -95,32 +95,30 @@ function LoginDoctor() {
 
         <br />
 
+        <label htmlFor="password">Password : </label>
         <div className="password">
-          <label htmlFor="password">Password : </label>
-          <div>
-            <input
-              type={eye ? "password" : "text"}
-              name="password"
-              id="password"
-              value={values.password}
-              onChange={(e) => handleChange(e)}
-              className={isErr ? "err" : ""}
-              readOnly={ifDisabled}
-              required
-            />
-            <button
-              type="button"
-              onClick={() => {
-                setEye(!eye);
-              }}
-            >
-              {eye ? (
-                <i class="fi fi-ss-eye-crossed"></i>
-              ) : (
-                <i class="fi fi-ss-eye"></i>
-              )}
-            </button>
-          </div>
+          <input
+            type={eye ? "password" : "text"}
+            name="password"
+            id="password"
+            value={values.password}
+            onChange={(e) => handleChange(e)}
+            className={isErr ? "err" : ""}
+            readOnly={ifDisabled}
+            required
+          />
+          <button
+            type="button"
+            onClick={() => {
+              setEye(!eye);
+            }}
+          >
+            {eye ? (
+              <i class="fi fi-ss-eye-crossed"></i>
+            ) : (
+              <i class="fi fi-ss-eye"></i>
+            )}
+          </button>
         </div>
 
         <br />

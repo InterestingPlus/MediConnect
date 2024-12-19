@@ -22,7 +22,7 @@ function BookTime() {
 
   const today = new Date().toISOString().split("T")[0];
   const [date, setDate] = useState(today);
-  const [reason, setReason] = useState();
+  const [reason, setReason] = useState("");
 
   const [selectedSlot, setSelectedSlot] = useState("");
   const isToday = new Date().toDateString() === new Date(date).toDateString();
@@ -277,7 +277,6 @@ function BookTime() {
                     onClick={() => {
                       if (!isBooked && !isPastSlot(slot)) {
                         setSelectedSlot(slot);
-                        setReason("Demo Test");
                       }
                     }}
                     disabled={isPastSlot(slot)}
@@ -315,7 +314,6 @@ function BookTime() {
                     onClick={() => {
                       if (!isBooked && !isPastSlot(slot)) {
                         setSelectedSlot(slot);
-                        setReason("Demo Test");
                       }
                     }}
                     disabled={isPastSlot(slot)}
@@ -363,7 +361,7 @@ function BookTime() {
                 }`
               : new Date().getDate() + 1 == new Date(date).getDate() &&
                 new Date().getMonth() == new Date(date).getMonth()
-              ? `Tom, ${new Date(date).getDate()} ${
+              ? `Tomorrow, ${new Date(date).getDate()} ${
                   months[new Date(date).getMonth()]
                 }`
               : `${days[new Date().getDay() + 1]}, ${new Date(
@@ -382,7 +380,6 @@ function BookTime() {
           <h2>
             Appointment Booked{" "}
             <span>
-              {" "}
               Successfully{" "}
               <img
                 src="https://web.whatsapp.com/emoji/v1/15/1/2/single/w/40/002705.png"
@@ -419,7 +416,7 @@ function BookTime() {
               }}
             ></textarea>
 
-            <input type="submit" />
+            <input type="submit" disabled={reason == ""} />
             <div
               id="hide"
               onClick={() => {

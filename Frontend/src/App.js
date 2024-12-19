@@ -27,6 +27,7 @@ import PatientNotification from "./components/admin/patient/PatientNotification"
 import PatientProfile from "./components/admin/patient/Profile";
 
 // import Logo from "./images/White.png";
+import NotFound from "./components/NotFound";
 import LoadingAnimation from "./images/Loader.gif";
 
 // https://hms-backend-tr2u.onrender.com
@@ -95,6 +96,9 @@ function App() {
             <Route path="dashboard" element={<PatientDashboard />} />
             <Route path="notification" element={<PatientNotification />} />
           </Route>
+
+          {/* 404 Page */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>

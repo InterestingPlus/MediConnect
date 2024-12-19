@@ -12,6 +12,10 @@ function CreatePatient() {
   const [otp, setOTP] = useState("");
   const [verified, setVerified] = useState(false);
 
+  const [showMessage, setShowMessage] = useState(false);
+
+  const [eye, setEye] = useState(true);
+
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -29,6 +33,13 @@ function CreatePatient() {
       }
     }
 
+    setTimeout(() => {
+      setValues({
+        username: "",
+        password: "",
+      });
+    }, 1000); // To Prevent Default AutoComplete
+
     checkLocalUser();
   }, [navigate]);
 
@@ -37,6 +48,30 @@ function CreatePatient() {
       ...values,
       [e.target.name]: e.target.value,
     });
+  }
+
+  function nameValidation(e) {
+    const value = e.target.value;
+
+    const sanitizedValue = value.replace(/[^A-Za-z\s]/g, "");
+
+    setValues((prev) => {
+      prev.name = sanitizedValue;
+      return prev;
+    });
+  }
+
+  function ageValidation() {
+    if (values.age !== "") {
+      const numericAge = parseInt(values.age, 10);
+      if (numericAge < 1 || numericAge > 120) {
+        alert("Age must be between 1 and 120.");
+        setValues((prev) => {
+          prev.age = "";
+          return prev;
+        });
+      }
+    }
   }
 
   const handleSendOTP = async () => {
@@ -48,7 +83,7 @@ function CreatePatient() {
 
       alert("We Sending a Verification Code to Your Email...!");
       setIfDisabled(true);
-
+      setShowMessage(true);
       console.log(constOtp);
 
       const response = await axios.post(`${apiPath()}/otp-verification`, {
@@ -64,7 +99,7 @@ function CreatePatient() {
       }
     } catch (error) {
       console.error("Error sending OTP:", error);
-
+      setShowMessage(false);
       alert("An error occurred. Please try again later.");
     }
     setIfDisabled(false);
@@ -83,6 +118,7 @@ function CreatePatient() {
         name,
         age,
         contact,
+        profileImg: dataUrl,
       });
 
       if (data.status === false) {
@@ -110,9 +146,80 @@ function CreatePatient() {
 
         // localStorage.setItem("chat-app-user", JSON.stringify(data.user));
       }
+    } else {
+      alert("Please, Verify your Email First!");
     }
     setIfDisabled(false);
   }
+
+  // Image Data URL Generating
+  const [dataUrl, setDataUrl] = useState(null); // Stores the Data URL
+  const [loading, setLoading] = useState(false);
+
+  // Compress the image using <canvas>
+  const compressImage = (file, maxWidth, maxHeight, quality, callback) => {
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        // Create an off-screen canvas
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        // Calculate the new dimensions
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+
+        // Draw the resized image onto the canvas
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Convert the canvas to a Data URL (Base64) with the desired quality
+        const compressedDataUrl = canvas.toDataURL("image/jpeg", quality); // JPEG for compression
+        callback(compressedDataUrl);
+      };
+
+      img.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      alert("Please select an image file.");
+      return;
+    }
+
+    // Only allow JPG and PNG files
+    const allowedTypes = ["image/jpeg", "image/png"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("Only JPG and PNG files are allowed.");
+      return;
+    }
+
+    setLoading(true);
+
+    // Compress the image before generating the Data URL
+    compressImage(file, 800, 800, 0.8, (compressedDataUrl) => {
+      setDataUrl(compressedDataUrl); // Save the compressed Data URL
+      setLoading(false);
+    });
+  };
 
   return (
     <main className="form">
@@ -125,6 +232,32 @@ function CreatePatient() {
           Sign Up as a <span>Patient</span>
         </h1>
 
+        {/* Image DATA */}
+        <div style={{ padding: "20px", maxWidth: "500px", margin: "auto" }}>
+          <h2>Upload and Convert Image to Data URL</h2>
+          <input
+            type="file"
+            accept="image/jpeg,image/png"
+            onChange={handleFileChange}
+          />
+          {loading && <p>Processing image...</p>}
+          {dataUrl && (
+            <div>
+              <h3>Preview:</h3>
+              <img
+                src={dataUrl}
+                alt="Uploaded"
+                style={{
+                  maxWidth: "40%",
+                  marginTop: "10px",
+                  borderRadius: "50%",
+                }}
+              />
+            </div>
+          )}
+        </div>
+        {/* Image DATA */}
+
         <label htmlFor="username">Email : </label>
         <input
           type="email"
@@ -133,21 +266,41 @@ function CreatePatient() {
           value={values.username}
           onChange={(e) => handleChange(e)}
           disabled={ifDisabled || verified}
+          placeholder="demo@gmail.com"
           required
         />
 
         <br />
 
         <label htmlFor="password">Create Password : </label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          value={values.password}
-          onChange={(e) => handleChange(e)}
-          disabled={ifDisabled || verified}
-          required
-        />
+        <div className="password">
+          <input
+            type={eye ? "password" : "text"}
+            name="password"
+            id="password"
+            value={values.password}
+            onChange={(e) => handleChange(e)}
+            disabled={ifDisabled || verified}
+            placeholder="Create a Strong Password"
+            required
+          />
+          <button
+            type="button"
+            onClick={() => {
+              setEye(!eye);
+            }}
+          >
+            {eye ? (
+              <i class="fi fi-ss-eye-crossed"></i>
+            ) : (
+              <i class="fi fi-ss-eye"></i>
+            )}
+          </button>
+        </div>
+
+        {showMessage && (
+          <p>Check your 'Spam', if you Haven't Receive the Code </p>
+        )}
 
         {verified ? (
           <p id="verified-success">Verified Successfully!</p>
@@ -181,9 +334,11 @@ function CreatePatient() {
                   if (constOtp == otp) {
                     setVerified(true);
                     alert("Verified Successfully!");
+                    setShowMessage(false);
                   } else {
                     setVerified(false);
                     alert("OTP Doesn't Match!");
+                    setShowMessage(true);
                   }
                 } else {
                   handleSendOTP();
@@ -204,8 +359,12 @@ function CreatePatient() {
           name="name"
           id="name"
           value={values.name}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => {
+            handleChange(e);
+            nameValidation(e);
+          }}
           disabled={ifDisabled}
+          placeholder="Enter your Name"
           required
         />
 
@@ -216,9 +375,16 @@ function CreatePatient() {
           type="number"
           name="age"
           id="age"
+          min="0"
+          max="120"
           value={values.age}
-          onChange={(e) => handleChange(e)}
+          onChange={(e) => {
+            handleChange(e);
+            ageValidation(e);
+          }}
+          onBlur={ageValidation()}
           disabled={ifDisabled}
+          placeholder="Enter your age"
           required
         />
 
@@ -229,9 +395,12 @@ function CreatePatient() {
           type="number"
           name="contact"
           id="contact"
+          min="1000000000"
+          max="9999999999"
           value={values.contact}
           onChange={(e) => handleChange(e)}
           disabled={ifDisabled}
+          placeholder="Enter your Mobile Number"
           required
         />
 

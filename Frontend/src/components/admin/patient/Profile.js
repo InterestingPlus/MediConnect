@@ -42,7 +42,11 @@ function PatientProfile() {
       {patient ? (
         <section id="profile">
           <img
-            src="https://img.freepik.com/premium-vector/patient-woman-smiling-profile-cartoon_18591-60679.jpg"
+            src={
+              patient?.profileImg
+                ? patient.profileImg
+                : "https://img.freepik.com/premium-vector/patient-woman-smiling-profile-cartoon_18591-60679.jpg"
+            }
             alt="profile-pic"
           />
 
