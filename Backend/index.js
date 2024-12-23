@@ -3,7 +3,7 @@ const cors = require("cors");
 const path = require("path");
 require("dotenv").config();
 
-const mongoose = require("mongoose");
+const mongoose = require("mongoose");   
 
 const {
   getDoctor,

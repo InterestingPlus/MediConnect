@@ -10,8 +10,6 @@ const doctorSchema = mongoose.Schema({
   contact: Number,
   availability: { type: Array, required: true },
   consultationCharge: Number,
-
-  profileImg: String,
 });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);

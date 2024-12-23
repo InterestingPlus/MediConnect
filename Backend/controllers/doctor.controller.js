@@ -10,7 +10,6 @@ module.exports.addDoctor = async (req, res) => {
       specialization,
       contact,
       availability,
-      profileImg,
     } = req.body;
 
     const result = await Doctor.create({
@@ -21,7 +20,6 @@ module.exports.addDoctor = async (req, res) => {
       specialization,
       contact,
       availability,
-      profileImg,
     });
 
     console.log(
