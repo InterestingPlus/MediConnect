@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
+import "./Create.scss";
 
 function CreatePatient() {
   const navigate = useNavigate();
@@ -222,7 +223,7 @@ function CreatePatient() {
   };
 
   return (
-    <main className="form">
+    <main className="form create-patient">
       <form
         id="create-doctor"
         onSubmit={handleSubmit}
@@ -233,7 +234,7 @@ function CreatePatient() {
         </h1>
 
         {/* Image DATA */}
-        <div style={{ padding: "20px", maxWidth: "500px", margin: "auto" }}>
+        <div className="upload">
           <h2>Upload and Convert Image to Data URL</h2>
           <input
             type="file"
@@ -244,15 +245,7 @@ function CreatePatient() {
           {dataUrl && (
             <div>
               <h3>Preview:</h3>
-              <img
-                src={dataUrl}
-                alt="Uploaded"
-                style={{
-                  maxWidth: "40%",
-                  marginTop: "10px",
-                  borderRadius: "50%",
-                }}
-              />
+              <img src={dataUrl} alt="Uploaded" />
             </div>
           )}
         </div>
@@ -269,8 +262,6 @@ function CreatePatient() {
           placeholder="demo@gmail.com"
           required
         />
-
-        <br />
 
         <label htmlFor="password">Create Password : </label>
         <div className="password">
@@ -308,8 +299,6 @@ function CreatePatient() {
           <>
             {constOtp ? (
               <>
-                <br />
-
                 <label htmlFor="otp">OTP : </label>
                 <input
                   type="number"
@@ -322,8 +311,6 @@ function CreatePatient() {
             ) : (
               ""
             )}
-
-            <br />
 
             <button
               type="button"
@@ -351,8 +338,6 @@ function CreatePatient() {
           </>
         )}
 
-        <br />
-
         <label htmlFor="name">Name : </label>
         <input
           type="text"
@@ -367,8 +352,6 @@ function CreatePatient() {
           placeholder="Enter your Name"
           required
         />
-
-        <br />
 
         <label htmlFor="age">Age : </label>
         <input
@@ -388,8 +371,6 @@ function CreatePatient() {
           required
         />
 
-        <br />
-
         <label htmlFor="contact">Contact : </label>
         <input
           type="number"
@@ -403,8 +384,6 @@ function CreatePatient() {
           placeholder="Enter your Mobile Number"
           required
         />
-
-        <br />
 
         <p className="login-signUp">
           Already have an Account? <Link to="/login-patient">Login</Link>

@@ -1,0 +1,128 @@
+// Patient Sign Up Form Start
+
+main.create-patient {
+  form#create-doctor {
+    max-width: 500px !important;
+    text-align: left;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      visibility: hidden;
+    }
+
+    div.upload {
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+
+      h2 {
+        color: #141414;
+      }
+
+      div {
+        img {
+          max-width: 40%;
+          margin-top: 10px;
+          border-radius: 50%;
+          aspect-ratio: 1;
+          object-fit: cover;
+        }
+      }
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+    input {
+      width: 100%;
+      margin-top: 0;
+    }
+
+    label {
+      margin-bottom: 0;
+      padding-bottom: 0.3rem;
+      text-align: left;
+      position: relative;
+      left: 0;
+    }
+
+    .password {
+      width: 100%;
+      position: relative;
+
+      button {
+        position: absolute;
+        top: 50%;
+      }
+    }
+
+    p {
+      margin-top: 1rem;
+    }
+
+    .submit {
+      margin-top: 0.4rem;
+    }
+  }
+}
+
+@media screen and (width < 800px) {
+  main.create-patient {
+    form#create-doctor {
+      input {
+        margin-top: 0.6rem;
+      }
+
+      .password {
+        button {
+          top: 30% !important;
+        }
+      }
+
+      .submit {
+        margin-top: 2rem;
+      }
+    }
+  }
+}
+
+// Patient Sign Up Form End
+
+// Doctor Sign Up Form Start
+main.create-doctor {
+  form#create-doctor {
+    padding-block: 1rem;
+
+    .stage-container {
+      max-width: 500px !important;
+      padding-bottom: 2rem;
+
+      .stages {
+        display: flex;
+        flex-direction: column !important;
+        align-items: start;
+
+        label {
+          padding-bottom: 0.4rem;
+        }
+
+        input {
+          width: 100%;
+        }
+
+        #scheduler-container {
+          max-width: 500px !important;
+        }
+      }
+    }
+
+    #pagination {
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+}
+// Doctor Sign Up Form End

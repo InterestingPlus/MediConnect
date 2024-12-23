@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.scss";
 
+import Logo from "../images/White.png";
+
 function Home() {
   const navigate = useNavigate();
 
@@ -29,35 +31,47 @@ function Home() {
           ></dotlottie-player>
         </section>
 
-        <section>
+        <br />
+        <hr />
+        <br />
+        <br />
+
+        <section className="about">
           <div>
             <h3>
               Find Trusted Doctors, Book Appointments, and Access Your Medical
               Records – All in One Place.
             </h3>
-
+            <br />
             <p>
               At MediConnect, we bridge the gap between patients and healthcare
               professionals by providing an efficient, seamless, and
-              user-friendly platform. Whether you need to consult a specialized
-              doctor, schedule an appointment at your convenience, or review
-              your medical history and reports online—MediConnect simplifies
-              your healthcare journey.
-              <br />
-              <br />
+              user-friendly platform.
+              <br /> <br />
+              Whether you need to consult a specialized doctor, schedule an
+              appointment at your convenience, or review your medical history
+              and reports online—MediConnect simplifies your healthcare journey.
+              <br /> <br />
               With real-time reminders, appointment updates, and personalized
               notifications, we ensure you never miss an important visit.
               Doctors can manage their schedules, accept bookings, and provide
               detailed prescriptions with ease, enhancing the patient experience
               at every step.
-              <br />
-              <br />
+              <br /> <br />
               Experience the future of healthcare with a platform designed for
               your convenience and peace of mind.
             </p>
 
-            <h3>Simplify Your Healthcare Journey Today.</h3>
-            <button>Get Started Now</button>
+            <h4>Simplify Your Healthcare Journey Today.</h4>
+            <button
+              onClick={() =>
+                setTimeout(() => {
+                  navigate("/create-patient");
+                }, 600)
+              }
+            >
+              Get Started Now
+            </button>
           </div>
         </section>
 
@@ -100,32 +114,12 @@ function Home() {
           </div>
         </section>
 
-        <section className="services" id="services">
-          <div className="service" id="one">
-            <h3>24/7 Emergency Care</h3>
-            <p>
-              Our emergency services are available round the clock to assist you
-              in critical situations.
-            </p>
-          </div>
-          <div className="service" id="two">
-            <h3>Expert Doctors</h3>
-            <p>
-              Our team of highly skilled doctors are specialists in various
-              fields of medicine.
-            </p>
-          </div>
-          <div className="service" id="three">
-            <h3>Advanced Technology</h3>
-            <p>
-              We use state-of-the-art technology to provide you with the best
-              healthcare solutions.
-            </p>
-          </div>
-        </section>
-
         <footer>
-          <p>© 2024 Hospital Management System | All Rights Reserved</p>
+          <img src={Logo} />
+          <p>
+            © 2024 MediConnect <br /> Hospital Management System <br /> | All
+            Rights Reserved |
+          </p>
         </footer>
       </main>
     </>

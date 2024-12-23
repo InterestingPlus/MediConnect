@@ -10,7 +10,7 @@ function LoginPatient() {
   const [isErr, setIsErr] = useState(false);
 
   const [values, setValues] = useState({
-    pUsername: "",
+    username: "",
     password: "",
   });
 
@@ -38,7 +38,7 @@ function LoginPatient() {
     setIfDisabled(true);
     setIsErr(false);
 
-    const { pUsername: username, password } = values;
+    const { username, password } = values;
 
     if (true) {
       const { data } = await axios.post(`${apiPath()}/login-patient`, {
@@ -52,7 +52,7 @@ function LoginPatient() {
       }
       if (data.status == true) {
         setValues({
-          pUsername: "",
+          username: "",
           password: "",
         });
         setIfDisabled(false);
@@ -84,7 +84,7 @@ function LoginPatient() {
         <label htmlFor="username">Email : </label>
         <input
           type="email"
-          name="pUsername"
+          name="username"
           id="username"
           value={values.username}
           onChange={(e) => handleChange(e)}

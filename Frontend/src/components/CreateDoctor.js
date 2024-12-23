@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 import TimeSlotScheduler from "./TimeSlotScheduler";
+import "./Create.scss";
 
 function CreateDoctor() {
   const navigate = useNavigate();
@@ -327,8 +328,6 @@ function CreateDoctor() {
               required
             />
 
-            <br />
-
             <label htmlFor="password">Create Password : </label>
             <input
               type="password"
@@ -353,8 +352,6 @@ function CreateDoctor() {
               <>
                 {constOtp ? (
                   <>
-                    <br />
-
                     <label htmlFor="otp">OTP : </label>
                     <input
                       type="number"
@@ -367,8 +364,6 @@ function CreateDoctor() {
                 ) : (
                   ""
                 )}
-
-                <br />
 
                 <button
                   type="button"
@@ -396,8 +391,6 @@ function CreateDoctor() {
               </>
             )}
 
-            <br />
-
             <label htmlFor="name">Name : </label>
             <input
               type="text"
@@ -413,8 +406,6 @@ function CreateDoctor() {
               disabled={ifDisabled}
               required
             />
-
-            <br />
 
             <label htmlFor="age">Age : </label>
             <input
@@ -432,8 +423,6 @@ function CreateDoctor() {
               required
             />
 
-            <br />
-
             <label htmlFor="specialization">Specialization : </label>
             <input
               type="text"
@@ -446,8 +435,6 @@ function CreateDoctor() {
               placeholder="Specialization"
               required
             />
-
-            <br />
 
             <label htmlFor="contact">Contact : </label>
             <input
@@ -469,19 +456,15 @@ function CreateDoctor() {
               placeholder="Enter your Mobile Number"
               required
             />
-
-            <br />
           </div>
 
           <div className="stages">
             <h1>Educational Qualification</h1>
 
-            <lable>Course : </lable>
-            <input type="text" />
+            <label for="course">Course : </label>
+            <input type="text" id="course" name="course" />
 
-            <br />
-
-            <lable>Grade : </lable>
+            <label>Grade : </label>
             <input type="number" />
           </div>
 
