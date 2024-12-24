@@ -30,6 +30,7 @@ function CreateDoctor() {
     specialization: "",
     contact: "",
     availability: "",
+    consultationCharge: 100,
   });
 
   useEffect(() => {
@@ -120,6 +121,7 @@ function CreateDoctor() {
     specialization,
     contact,
     availability,
+    consultationCharge,
   } = values;
 
   function nameValidation(e) {
@@ -161,6 +163,7 @@ function CreateDoctor() {
         contact,
         availability,
         profileImg: dataUrl,
+        consultationCharge,
       });
 
       if (data.status === false) {
@@ -175,6 +178,7 @@ function CreateDoctor() {
           specialization: "",
           contact: "",
           availability: "",
+          consultationCharge: 0,
         });
 
         alert("Signed Up Successfully");
@@ -344,7 +348,7 @@ function CreateDoctor() {
                 autoComplete="off"
                 placeholder="Create a Strong Password"
                 required
-              />{" "}
+              />
               <button
                 type="button"
                 onClick={() => {
@@ -450,6 +454,18 @@ function CreateDoctor() {
               onChange={(e) => handleChange(e)}
               disabled={ifDisabled}
               placeholder="Specialization"
+              required
+            />
+
+            <label htmlFor="consultationCharge">Consultation Charge(₹) :</label>
+            <input
+              type="number"
+              name="consultationCharge"
+              id="consultationCharge"
+              value={values.consultationCharge}
+              onChange={(e) => handleChange(e)}
+              disabled={ifDisabled}
+              placeholder="Appointment Fee"
               required
             />
 
