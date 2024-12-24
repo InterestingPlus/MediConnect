@@ -36,7 +36,7 @@ function SignUp() {
               setSelect(1);
             }}
           >
-            Patient
+            <i class="fi fi-ss-user-injured"></i> Patient
           </label>
           <input type="radio" name="role" id="patient" required />
         </span>
@@ -48,7 +48,7 @@ function SignUp() {
               setSelect(2);
             }}
           >
-            Doctor
+            <i class="fi fi-ss-user-md"></i> Doctor
           </label>
           <input type="radio" name="role" id="doctor" required />
         </span>

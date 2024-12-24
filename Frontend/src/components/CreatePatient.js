@@ -235,7 +235,7 @@ function CreatePatient() {
 
         {/* Image DATA */}
         <div className="upload">
-          <h2>Upload and Convert Image to Data URL</h2>
+          <h2>Upload Profile Photo</h2>
           <input
             type="file"
             accept="image/jpeg,image/png"

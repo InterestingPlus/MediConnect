@@ -15,6 +15,8 @@ function CreateDoctor() {
   const [verified, setVerified] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
+  const [eye, setEye] = useState(true);
+
   const [stage, setStage] = useState(1);
   const [error, setError] = useState(false);
 
@@ -158,6 +160,7 @@ function CreateDoctor() {
         specialization,
         contact,
         availability,
+        profileImg: dataUrl,
       });
 
       if (data.status === false) {
@@ -193,7 +196,7 @@ function CreateDoctor() {
 
   function checkError(key) {
     if (error) {
-      if (values[key].length < 1) {
+      if (values[key]?.length < 1) {
         return "blank-err";
       } else {
         return "";
@@ -290,7 +293,7 @@ function CreateDoctor() {
 
             {/* Image DATA */}
             <div style={{ padding: "20px", maxWidth: "500px", margin: "auto" }}>
-              <h2>Upload and Convert Image to Data URL</h2>
+              <h2>Upload Profile Photo</h2>
               <input
                 type="file"
                 accept="image/jpeg,image/png"
@@ -329,18 +332,32 @@ function CreateDoctor() {
             />
 
             <label htmlFor="password">Create Password : </label>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className={`${checkError("password")}`}
-              value={values.password}
-              onChange={(e) => handleChange(e)}
-              disabled={ifDisabled || verified}
-              autoComplete="off"
-              placeholder="Create a Strong Password"
-              required
-            />
+            <div className="password">
+              <input
+                type={eye ? "password" : "text"}
+                name="password"
+                id="password"
+                className={`${checkError("password")}`}
+                value={values.password}
+                onChange={(e) => handleChange(e)}
+                disabled={ifDisabled || verified}
+                autoComplete="off"
+                placeholder="Create a Strong Password"
+                required
+              />{" "}
+              <button
+                type="button"
+                onClick={() => {
+                  setEye(!eye);
+                }}
+              >
+                {eye ? (
+                  <i class="fi fi-ss-eye-crossed"></i>
+                ) : (
+                  <i class="fi fi-ss-eye"></i>
+                )}
+              </button>
+            </div>
 
             {showMessage && (
               <p>Check your 'Spam', if you Haven't Receive the Code </p>

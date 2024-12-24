@@ -42,7 +42,11 @@ function Doctor() {
           <div className="main">
             <img
               id="doctor-pic"
-              src="https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+              src={
+                doctor?.profileImg
+                  ? doctor.profileImg
+                  : "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+              }
               alt="profile-pic"
             />
 

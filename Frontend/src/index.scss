@@ -73,7 +73,6 @@ body:has(#custom-loader) {
       // animation-delay: 0.3s;
 
       @keyframes toRight {
-
         0%,
         50% {
           transform: translateX(-40px);
@@ -97,7 +96,6 @@ body:has(#custom-loader) {
     margin-top: 20px;
     opacity: 1;
     mix-blend-mode: lighten;
-
 
     // animation: LoadingScale, Heart, scaleImage 2s alternate;
 
@@ -150,7 +148,6 @@ body:has(#custom-loader) {
 }
 
 @keyframes LoadingScale {
-
   0%,
   80% {
     scale: 1;
@@ -255,8 +252,6 @@ div {
       font-weight: 700;
     }
 
-
-
     span {
       width: 50px;
       aspect-ratio: 1;
@@ -269,7 +264,6 @@ div {
     }
   }
 }
-
 
 header {
   background: rgb(226, 233, 235);
@@ -447,9 +441,6 @@ main {
       font-size: 1.2rem;
 
       box-shadow: 2px 2px 10px #4897b1b9;
-
-
-
     }
 
     img {
@@ -628,11 +619,9 @@ form {
       }
     }
   }
-
 }
 
 div.password {
-
   display: flex !important;
   align-items: center !important;
   position: relative;
@@ -656,18 +645,16 @@ div.password {
     justify-content: center;
     font-size: 1rem;
     cursor: pointer;
-
   }
 }
 
-
-// Create Patient - Sign Up Form Start  
+// Create Patient - Sign Up Form Start
 main {
   form {
     p#verified-success {
       font-weight: 800;
       font-size: 1rem;
-      padding: .6rem 2rem;
+      padding: 0.6rem 2rem;
       color: #1e274d;
       border-radius: 20px;
       max-width: fit-content;
@@ -680,7 +667,7 @@ main {
       color: #fff;
       font-weight: 700;
       letter-spacing: 1px;
-      padding: .6rem 2rem;
+      padding: 0.6rem 2rem;
       margin: 1rem 0 0 1rem;
       border-radius: 20px;
       border: 2px solid #060f34;
@@ -695,11 +682,9 @@ main {
   }
 }
 
-// Create Patient - Sign Up Form End 
-
+// Create Patient - Sign Up Form End
 
 // =============
-
 
 // Create Doctor - Sign Up Form Start
 main.create-doctor {
@@ -712,7 +697,6 @@ main.create-doctor {
       aspect-ratio: 1;
       object-fit: cover;
     }
-
 
     input.blank-err {
       border: 2px solid rgb(255, 51, 0);
@@ -747,8 +731,6 @@ main.create-doctor {
 
       div.stages {
         min-width: 100%;
-
-
       }
     }
 
@@ -762,18 +744,22 @@ main.create-doctor {
 
         &.disabled {
           color: #ffffffdc;
-          background: linear-gradient(to right bottom,
-              rgb(73, 116, 191),
-              rgb(47, 70, 109));
+          background: linear-gradient(
+            to right bottom,
+            rgb(73, 116, 191),
+            rgb(47, 70, 109)
+          );
 
           cursor: not-allowed;
         }
 
         &.submit {
-          background: linear-gradient(to right bottom,
-              #ff3700,
-              #b10159,
-              #840355);
+          background: linear-gradient(
+            to right bottom,
+            #ff3700,
+            #b10159,
+            #840355
+          );
 
           &:hover {
             background: linear-gradient(to right bottom, #ffaa00, #ff00aa);
@@ -896,15 +882,17 @@ main.profile {
         font-size: 2.3rem;
         color: transparent;
         max-width: fit-content;
-        background: linear-gradient(to right bottom,
-            #ffa200,
-            #ff9100,
-            #ff7b00,
-            #ff5500,
-            #ff2a00,
-            #ff0059,
-            rgb(251, 13, 104),
-            rgb(251, 13, 164));
+        background: linear-gradient(
+          to right bottom,
+          #ffa200,
+          #ff9100,
+          #ff7b00,
+          #ff5500,
+          #ff2a00,
+          #ff0059,
+          rgb(251, 13, 104),
+          rgb(251, 13, 164)
+        );
         background-clip: text;
         -webkit-background-clip: text;
       }
@@ -1076,6 +1064,8 @@ main#dashboard {
 
   img {
     width: 200px;
+    aspect-ratio: 1;
+    object-fit: cover;
     border-radius: 50%;
   }
 
@@ -1108,8 +1098,6 @@ main#dashboard {
 
 // Booktime Start
 section.date {
-
-
   h1 {
     color: #060f34ba;
     max-width: fit-content;
@@ -1210,10 +1198,14 @@ main#home {
         color: #033671a4;
       }
 
-
       button {
         &:hover {
-          background: linear-gradient(to right bottom, #1a6780, #167b9c, #0d9a9a);
+          background: linear-gradient(
+            to right bottom,
+            #1a6780,
+            #167b9c,
+            #0d9a9a
+          );
           box-shadow: 0px 0px 13px 7px #1f8eb39d;
           border-radius: 20px;
           color: #fcff9b;
@@ -1442,12 +1434,7 @@ ul#all-doctors {
 
 // ------------------
 
-
-
-
-
 // *-------*
-
 
 // Doctor Profile Start
 main#book-doctor {
@@ -1517,20 +1504,18 @@ main#book-doctor {
   // Search Box End
   // ================
 
-
   // Global Form Style STart
   main {
-
     &#sign-up {
       padding-top: 3rem;
     }
 
     form {
-
       padding-top: 3rem;
       text-align: left;
 
-      label {}
+      label {
+      }
 
       h1 {
         margin-bottom: 1rem;
@@ -1544,16 +1529,16 @@ main#book-doctor {
     }
   }
 
-  // Global Form Style End 
+  // Global Form Style End
 
   // ================
 
   // Doctor Profile Start
 
-  #flex>header:has(+ main#dashboard > main#book-doctor) {
+  #flex > header:has(+ main#dashboard > main#book-doctor) {
     display: none !important;
 
-    &~main#dashboard {
+    & ~ main#dashboard {
       padding: 0;
       margin-top: 0 !important;
       height: calc(100dvh - 64px) !important;
@@ -1769,7 +1754,6 @@ main#book-doctor {
       width: 80vw;
       font-size: 2rem;
       font-weight: 600;
-
     }
 
     p {
@@ -2186,16 +2170,13 @@ footer {
     grid-template-columns: 1fr 1fr;
   }
 
-
   #home {
     max-height: calc(100dvh - 85px);
   }
 
-
   #time-slots {
     padding-left: 2rem;
   }
-
 
   #flex {
     display: flex;
@@ -2271,20 +2252,10 @@ footer {
     }
   }
 
-
   // Dashboard Sidebar End
 
-
-
-
-
-
-
-
   form {
-
     &#create-doctor {
-
       padding-block: 3rem;
 
       overflow-y: auto;
@@ -2299,19 +2270,13 @@ footer {
         margin-top: 0;
         min-width: 400px;
       }
-
     }
   }
 
-
-
-
-
   // Doctor Profile Start
 
-  #flex>header:has(+ main#dashboard > main#book-doctor) {
-
-    &~main#dashboard {
+  #flex > header:has(+ main#dashboard > main#book-doctor) {
+    & ~ main#dashboard {
       padding: 0;
       height: 100dvh !important;
       transition: 0 !important;
@@ -2344,7 +2309,6 @@ footer {
   }
 
   main#book-doctor {
-
     min-height: 100dvh;
 
     &::-webkit-scrollbar {
@@ -2375,7 +2339,6 @@ footer {
           font-size: 1.6rem !important;
         }
       }
-
 
       button.aptmnt {
         bottom: 5.5rem;
@@ -2504,27 +2467,13 @@ footer {
   }
 
   // Doctor Profile End
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Not Found! Start 
+// Not Found! Start
 div#not-found {
   display: flex;
   flex-direction: column;
   justify-content: center;
-
 
   dotlottie-player {
     position: relative;

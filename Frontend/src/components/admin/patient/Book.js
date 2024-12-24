@@ -55,7 +55,11 @@ function AllDoctors() {
                 >
                   <li key={index}>
                     <img
-                      src="https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                      src={
+                        doctor?.profileImg
+                          ? doctor.profileImg
+                          : "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                      }
                       alt="profile-pic"
                     />
                     <span>
