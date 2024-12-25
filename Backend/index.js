@@ -30,12 +30,17 @@ const {
 } = require("./controllers/appointment.controller.js");
 
 const { otpVerification } = require("./controllers/email.controller.js");
+const {
+  getAllNotifications,
+  deleteNotification,
+} = require("./controllers/notification.controller.js");
 
 const app = express();
 
 // Middleware for enabling multiple origins in CORS
 const corsOptions = {
-  origin: ["http://localhost:3000", "https://MediConnect-hms.netlify.app"],
+  // origin: ["http://localhost:3000", "https://MediConnect-hms.netlify.app"],
+  origin: "*",
   methods: "GET,POST,DELETE",
 };
 
@@ -44,18 +49,16 @@ const server = http.createServer(app);
 
 // Initialize Socket.IO
 const io = new Server(server, {
-  cors: corsOptions, 
+  cors: corsOptions,
 });
 
 // Add Socket.IO connection
 io.on("connection", (socket) => {
-  console.log("New client connected:", socket.id);
+  // console.log("New client connected:", socket.id);
 
   socket.on("status", (data) => {
-    console.log("Notification received:", data);
     io.emit("new-notification", data);
   });
- 
 });
 module.exports = { io };
 
@@ -99,6 +102,9 @@ app.post("/update-status", updateStatus);
 app.post("/check-booked-appointments", checkBookedAppointments);
 
 app.post("/otp-verification", otpVerification);
+
+app.post("/get-all-notification", getAllNotifications);
+app.post("/delete-notification", deleteNotification);
 
 // Start the server with Socket.IO
 server.listen(PORT, () => {

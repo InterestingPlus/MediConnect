@@ -1,7 +1,7 @@
 const Appointment = require("../models/appointment.model.js");
 const Doctor = require("../models/doctor.model.js");
 const Patient = require("../models/patient.model.js");
-const { createNotification } = require("./notification.controller.js");
+const Notification = require("../models/notification.model.js");
 
 module.exports.addAppointment = async (req, res) => {
   try {
@@ -103,7 +103,7 @@ module.exports.getAppointmentsPatient = async (req, res) => {
 
 module.exports.updateStatus = async (req, res) => {
   try {
-    const { id, status } = req.body;
+    const { id, status,  } = req.body;
 
     const data = await Appointment.findOneAndUpdate({ _id: id }, { status });
 
@@ -114,16 +114,20 @@ module.exports.updateStatus = async (req, res) => {
     //   });
     // }
 
-    await createNotification(
-      data.patientId,
-      "patient",
-      "status",
-      `Your appointment has been ${status}.`
-    );
+    if (data) {
+      const notification = await Notification.create({
+        recipientId: data.patientId,
+        recipientType: "patient",
+        type: "status",
+        message: `Your appointment has been ${status}.`,
+      });
 
-    console.log(data);
+      console.log("new Notification", notification);
+    }
+
     res.json({
       message: "Appointment status updated successfully!",
+      data,
     });
   } catch (error) {
     res.json({ error: "Failed to update appointment status." });
@@ -154,7 +158,7 @@ module.exports.checkBookedAppointments = async (req, res) => {
       data: appointments,
     });
   } catch (err) {
-    console.error("Error loading appointments:", err);
+    console.log("Error loading appointments:", err);
 
     return res.status(500).json({
       message: "Failed to get appointments!",
