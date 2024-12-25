@@ -56,7 +56,7 @@ function PatientDashboard() {
                   <span>
                     <h1>{doctor.name}</h1>
                     <h2>{doctor.specialization}</h2>
-                    {/* <h3>{doctor.availability}</h3> */}
+                    <h3>Fee : {doctor?.consultationCharge}₹</h3>
                   </span>
                 </li>
               </Link>

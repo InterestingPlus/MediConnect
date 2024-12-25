@@ -63,8 +63,9 @@ function AllDoctors() {
                       alt="profile-pic"
                     />
                     <span>
-                      <h1>{doctor.name}</h1>
-                      <h2>{doctor.specialization}</h2>
+                      <h1>{doctor?.name}</h1>
+                      <h2>{doctor?.specialization}</h2>
+                      <h3>Fee : {doctor?.consultationCharge}₹</h3>
                     </span>
                   </li>
                 </Link>

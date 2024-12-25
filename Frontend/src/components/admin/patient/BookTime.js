@@ -71,6 +71,7 @@ function BookTime() {
       }
 
       try {
+
         const bookedAppointments = await axios.post(
           `${apiPath()}/check-booked-appointments`,
           {
@@ -113,6 +114,9 @@ function BookTime() {
 
   function amPM(time) {
     const [hours, minutes] = time.split(":").map(Number);
+
+    console.log(doctor);
+
     if (hours < 12) {
       return `${
         hours === 0 ? "12" : hours.toString().padStart(2, "0")

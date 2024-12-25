@@ -1,0 +1,60 @@
+div.notification {
+  ul.notifications {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    list-style-type: none;
+    gap: 1rem;
+
+    li {
+      display: flex;
+      width: 100%;
+      align-items: start;
+      justify-content: space-between;
+      gap: 1.7rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      background: rgba(58, 65, 105, 0.445);
+
+      div {
+        display: flex;
+        flex-direction: column;
+
+        h2 {
+          font-size: 1.46rem;
+        }
+        p {
+          line-height: 1.2rem;
+          font-size: 1.2rem;
+          margin-bottom: 0.6rem;
+        }
+      }
+
+      button {
+        color: #fff;
+        background: rgba(57, 47, 44, 0.254);
+
+        font-size: 1.3rem;
+        border-radius: 50px;
+
+        border: none;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+
+        i {
+          position: relative;
+          top: 3px;
+        }
+
+        &:hover {
+          background: linear-gradient(red, orangered);
+        }
+      }
+    }
+  }
+}
