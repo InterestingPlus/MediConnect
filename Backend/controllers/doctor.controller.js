@@ -14,6 +14,7 @@ module.exports.addDoctor = async (req, res) => {
       consultationCharge,
     } = req.body;
 
+
     const result = await Doctor.create({
       username,
       password,

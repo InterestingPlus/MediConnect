@@ -45,6 +45,7 @@ module.exports.getAppointmentsDoctor = async (req, res) => {
 
         const app = p.toObject();
         app.patientName = patient.name;
+        app.patientImg = patient.profileImg;
         delete app.doctorId;
         delete app.patientId;
 
@@ -79,6 +80,7 @@ module.exports.getAppointmentsPatient = async (req, res) => {
 
         const app = d.toObject();
         app.doctorName = doctor.name;
+        app.doctorImg = doctor.profileImg;
         delete app.doctorId;
         delete app.patientId;
 
@@ -103,7 +105,7 @@ module.exports.getAppointmentsPatient = async (req, res) => {
 
 module.exports.updateStatus = async (req, res) => {
   try {
-    const { id, status,  } = req.body;
+    const { id, status } = req.body;
 
     const data = await Appointment.findOneAndUpdate({ _id: id }, { status });
 
