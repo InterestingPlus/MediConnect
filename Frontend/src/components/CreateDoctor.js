@@ -105,12 +105,8 @@ function CreateDoctor() {
   const handleScheduleUpdate = (updatedSchedule) => {
     const value = values;
 
-    console.log(updatedSchedule);
-
-    value.availability = updatedSchedule;
+    value.availability = [updatedSchedule];
     setValues(value);
-
-    console.log(values);
   };
 
   const {
@@ -155,15 +151,15 @@ function CreateDoctor() {
 
     if (verified) {
       const { data } = await axios.post(`${apiPath()}/create-doctor`, {
-        username,
-        password,
-        name,
-        age,
-        specialization,
-        contact,
-        availability,
+        username: values.username,
+        password: values.password,
+        name: values.name,
+        age: values.age,
+        specialization: values.specialization,
+        contact: values.contact,
+        availability: values.availability,
         profileImg: dataUrl,
-        consultationCharge,
+        consultationCharge: values.consultationCharge,
       });
 
       if (data.status === false) {

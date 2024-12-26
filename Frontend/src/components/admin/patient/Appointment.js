@@ -59,7 +59,13 @@ function PatientAppointment() {
               {appointments.map((app, key) => {
                 return (
                   <li key={key}>
-                    <img src="https://cdn-icons-png.flaticon.com/512/3952/3952988.png" />
+                    <img
+                      src={
+                        app?.doctorImg
+                          ? app.doctorImg
+                          : "https://cdn-icons-png.flaticon.com/512/3952/3952988.png"
+                      }
+                    />
 
                     <p>
                       <b> Doctor : </b> {app?.doctorName}
