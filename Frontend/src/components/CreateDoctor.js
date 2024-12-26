@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
-import TimeSlotScheduler from "./TimeSlotScheduler";
 import "./Create.scss";
+import TimeSlotScheduler from "./TimeSlotScheduler";
 
 function CreateDoctor() {
   const navigate = useNavigate();
@@ -19,6 +19,9 @@ function CreateDoctor() {
 
   const [stage, setStage] = useState(1);
   const [error, setError] = useState(false);
+
+  const [allCategories, setAllCategories] = useState([]);
+  const [customCategory, setCustomCategory] = useState("");
 
   const formRef = useRef(null);
 
@@ -58,6 +61,20 @@ function CreateDoctor() {
       [e.target.name]: e.target.value,
     });
   }
+
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const data = await axios.get(`${apiPath()}/get-all-categories`);
+
+        setAllCategories(data.data.data);
+      } catch (err) {
+        alert("Can't Fetch All Categories..!");
+      }
+    }
+
+    getCategories();
+  }, []);
 
   function nameValidation(e) {
     const value = e.target.value;
@@ -105,8 +122,12 @@ function CreateDoctor() {
   const handleScheduleUpdate = (updatedSchedule) => {
     const value = values;
 
-    value.availability = [updatedSchedule];
+    console.log(updatedSchedule);
+
+    value.availability = updatedSchedule;
     setValues(value);
+
+    console.log(values);
   };
 
   const {
@@ -149,17 +170,38 @@ function CreateDoctor() {
 
     setIfDisabled(true);
 
+    if (values.specialization == "other" && customCategory != "") {
+      const newValue = values;
+
+      setValues((prev) => {
+        prev.specialization = customCategory;
+        console.log(prev);
+        return prev;
+      });
+
+      setLoading(false);
+
+      console.log(customCategory, values.specialization);
+
+      return;
+      try {
+        await axios.post(`${apiPath()}/add-category`, { name: customCategory });
+      } catch (err) {
+        alert("Can't Add New Category..!");
+      }
+    }
+
     if (verified) {
       const { data } = await axios.post(`${apiPath()}/create-doctor`, {
-        username: values.username,
-        password: values.password,
-        name: values.name,
-        age: values.age,
-        specialization: values.specialization,
-        contact: values.contact,
-        availability: values.availability,
+        username,
+        password,
+        name,
+        age,
+        specialization,
+        contact,
+        availability,
         profileImg: dataUrl,
-        consultationCharge: values.consultationCharge,
+        consultationCharge,
       });
 
       if (data.status === false) {
@@ -441,7 +483,7 @@ function CreateDoctor() {
             />
 
             <label htmlFor="specialization">Specialization : </label>
-            <input
+            {/* <input
               type="text"
               name="specialization"
               id="specialization"
@@ -451,7 +493,49 @@ function CreateDoctor() {
               disabled={ifDisabled}
               placeholder="Specialization"
               required
-            />
+            /> */}
+
+            <select
+              name="specialization"
+              id="specialization"
+              className={`${checkError("specialization")}`}
+              onChange={(e) => handleChange(e)}
+              placeholder="Specialization"
+              disabled={ifDisabled}
+              required
+            >
+              <option selected disabled>
+                Select Category
+              </option>
+
+              {allCategories?.map((category) => {
+                return <option value={category.name}>{category.name}</option>;
+              })}
+
+              <option value="other">Other</option>
+            </select>
+
+            {values.specialization == "other" ? (
+              <input
+                type="text"
+                onInput={(e) => {
+                  setCustomCategory(e.target.value);
+
+                  // Replace Numbers
+                  const value = e.target.value;
+
+                  const sanitizedValue = value.replace(/[^A-Za-z\s]/g, "");
+
+                  setCustomCategory(sanitizedValue);
+                }}
+                value={customCategory}
+                id="custom-category"
+                placeholder="Enter Your Specialization"
+                required
+              />
+            ) : (
+              ""
+            )}
 
             <label htmlFor="consultationCharge">Consultation Charge(₹) :</label>
             <input

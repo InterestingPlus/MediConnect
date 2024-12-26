@@ -39,6 +39,7 @@ main.create-patient {
     input {
       width: 100%;
       margin-top: 0;
+      color: #05292e;
     }
 
     label {
@@ -119,8 +120,21 @@ main.create-doctor {
           padding-bottom: 0.4rem;
         }
 
-        input {
+        input,
+        select {
           width: 100%;
+          color: #05292e;
+        }
+
+        select {
+          border: 1px solid #1b084e;
+          border-radius: 50px;
+          padding: .5rem .8rem;
+          font-weight: 700;
+        }
+
+        #custom-category {
+          margin-top: 1rem;
         }
 
         #scheduler-container {
@@ -141,6 +155,7 @@ main.create-doctor {
     form#create-doctor {
       .stage-container {
         margin-top: 0.5rem;
+
         input {
           margin-top: 0.5rem;
         }
