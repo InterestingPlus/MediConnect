@@ -34,6 +34,10 @@ const {
   getAllNotifications,
   deleteNotification,
 } = require("./controllers/notification.controller.js");
+const {
+  getAllCategories,
+  addCategory,
+} = require("./controllers/category.controller.js");
 
 const app = express();
 
@@ -82,6 +86,8 @@ mongoose
 app.get("/", (req, res) => {
   res.send("MediConnect : Hospital Management System Backend!");
 });
+
+// Doctor Route
 app.get("/get-doctor", getAllDoctors);
 app.get("/top-doctor", TopDoctors);
 app.post("/doctor", getDoctor);
@@ -90,10 +96,12 @@ app.post("/login-doctor", loginDoctor);
 app.post("/create-doctor", addDoctor);
 app.post("/auth-doctor", getAuthenticatedDoctor);
 
+// Patient Route
 app.post("/login-patient", loginPatient);
 app.post("/create-patient", addPatient);
 app.post("/auth-patient", getAuthenticatedPatient);
 
+// Appointment Route
 app.post("/create-appointment", addAppointment);
 app.post("/get-appointments-patient", getAppointmentsPatient);
 app.post("/get-appointments-doctor", getAppointmentsDoctor);
@@ -101,10 +109,16 @@ app.post("/update-status", updateStatus);
 
 app.post("/check-booked-appointments", checkBookedAppointments);
 
+// NodeMailer Route
 app.post("/otp-verification", otpVerification);
 
+// Notification Route
 app.post("/get-all-notification", getAllNotifications);
 app.post("/delete-notification", deleteNotification);
+
+// Category Route
+app.post("/add-category", addCategory);
+app.get("/get-all-categories", getAllCategories);
 
 // Start the server with Socket.IO
 server.listen(PORT, () => {
