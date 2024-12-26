@@ -173,17 +173,10 @@ function CreateDoctor() {
     if (values.specialization == "other" && customCategory != "") {
       const newValue = values;
 
-      setValues((prev) => {
-        prev.specialization = customCategory;
-        console.log(prev);
-        return prev;
-      });
+      newValue.specialization = customCategory;
 
-      setLoading(false);
+      setValues(newValue);
 
-      console.log(customCategory, values.specialization);
-
-      return;
       try {
         await axios.post(`${apiPath()}/add-category`, { name: customCategory });
       } catch (err) {
