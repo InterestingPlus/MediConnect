@@ -4,15 +4,20 @@ module.exports.addCategory = async (req, res) => {
   try {
     const { name } = req.body;
 
-    const category = await Category.create({
+    const isUnique = await Category.findOne({
       name,
     });
 
-    console.log("New Category Has Added = ", name);
+    if (!isUnique) {
+      await Category.create({
+        name,
+      });
+
+      console.log("New Category Has Added = ", name);
+    }
 
     return res.status(200).json({
       message: "New Category Has Added Successfully",
-      data: category,
       status: true,
     });
   } catch (err) {
