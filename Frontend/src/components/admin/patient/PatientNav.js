@@ -3,9 +3,17 @@ import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 // import Logo from "../../../../src/images/NewLogo2.png";
 import Logo from "../../../../src/images/White.png";
 
+import { io } from "socket.io-client";
+import apiPath from "../../../isProduction";
+import axios from "axios";
+
 function PatientNav() {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
+
+  const [notifications, setNotifications] = useState();
+
+  const socket = io(apiPath());
 
   async function checkLocalUser() {
     const user = await JSON.parse(localStorage.getItem("profile"));
@@ -19,6 +27,15 @@ function PatientNav() {
 
   useEffect(() => {
     checkLocalUser();
+  }, []);
+
+  useEffect(() => {
+    socket.on("new-notification", (data) => {
+      console.log(data);
+      setNotifications((prev) => {
+        return [data, ...prev];
+      });
+    });
   }, []);
 
   return (

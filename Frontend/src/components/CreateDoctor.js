@@ -67,7 +67,11 @@ function CreateDoctor() {
       try {
         const data = await axios.get(`${apiPath()}/get-all-categories`);
 
-        setAllCategories(data.data.data);
+        const sortedCategory = data.data.data.map((category) => {
+          return category.name;
+        });
+
+        setAllCategories(sortedCategory.sort());
       } catch (err) {
         alert("Can't Fetch All Categories..!");
       }
@@ -122,24 +126,9 @@ function CreateDoctor() {
   const handleScheduleUpdate = (updatedSchedule) => {
     const value = values;
 
-    console.log(updatedSchedule);
-
     value.availability = updatedSchedule;
     setValues(value);
-
-    console.log(values);
   };
-
-  const {
-    username,
-    password,
-    name,
-    age,
-    specialization,
-    contact,
-    availability,
-    consultationCharge,
-  } = values;
 
   function nameValidation(e) {
     const value = e.target.value;
@@ -183,6 +172,17 @@ function CreateDoctor() {
         alert("Can't Add New Category..!");
       }
     }
+
+    const {
+      username,
+      password,
+      name,
+      age,
+      specialization,
+      contact,
+      availability,
+      consultationCharge,
+    } = values;
 
     if (verified) {
       const { data } = await axios.post(`${apiPath()}/create-doctor`, {
@@ -502,7 +502,7 @@ function CreateDoctor() {
               </option>
 
               {allCategories?.map((category) => {
-                return <option value={category.name}>{category.name}</option>;
+                return <option value={category}>{category}</option>;
               })}
 
               <option value="other">Other</option>
