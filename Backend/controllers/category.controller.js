@@ -14,6 +14,11 @@ module.exports.addCategory = async (req, res) => {
       });
 
       console.log("New Category Has Added = ", name);
+    } else {
+      return res.status(200).json({
+        message: "Category Has Already Added",
+        status: true,
+      });
     }
 
     return res.status(200).json({
