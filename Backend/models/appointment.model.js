@@ -12,6 +12,7 @@ const appointmentSchema = mongoose.Schema(
       enum: ["pending", "accepted", "rejected", "visited"],
       default: "pending",
     },
+    presciption: { type: String },
   },
   { timestamps: true }
 );

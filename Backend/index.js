@@ -8,7 +8,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const {
-  getDoctor,
+  getDoctor,  
   getAllDoctors,
   addDoctor,
   loginDoctor,
