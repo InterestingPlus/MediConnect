@@ -5,11 +5,15 @@ import apiPath from "../../../isProduction";
 import "../Appointment.scss";
 
 import { io } from "socket.io-client";
+import ReviewPopup from "./ReviewPopup";
 
 function PatientAppointment() {
   const navigate = useNavigate();
 
   const [appointments, setAppointments] = useState(null);
+
+  const [userId, setUserId] = useState(false);
+  const [showReviewPopup, setShowReviewPopup] = useState({});
 
   const socket = io(apiPath());
 
@@ -18,6 +22,8 @@ function PatientAppointment() {
       const user = await JSON.parse(localStorage.getItem("profile"));
       if (user) {
         const { id, username } = await user;
+        setUserId(await user.id);
+
         const data = await axios.post(`${apiPath()}/auth-patient`, {
           id,
           username,
@@ -56,6 +62,24 @@ function PatientAppointment() {
     const tenMinutes = 10 * 60 * 1000;
     return now - createdTime <= tenMinutes; // Check if createdAt is within the last 10 minutes
   };
+
+  useEffect(() => {
+    async function addingReview() {
+      try {
+        const data = await axios.post(`${apiPath()}/check-review`, { userId });
+
+        if (data) {
+          console.log(data.data);
+          setShowReviewPopup(data.data.data);
+        } else {
+          setShowReviewPopup({});
+        }
+      } catch (err) {
+        alert("Something Went Wrong!");
+      }
+    }
+    addingReview();
+  }, [appointments]);
 
   return (
     <>
@@ -160,6 +184,8 @@ function PatientAppointment() {
           </div>
         )}
       </section>
+
+      <ReviewPopup reviewInfo={showReviewPopup} />
     </>
   );
 }

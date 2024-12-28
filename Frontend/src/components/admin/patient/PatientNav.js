@@ -71,6 +71,7 @@ function PatientNav() {
           </Link>
           <NavLink
             to="/patient-dashboard/notification"
+            className="icon"
             onClick={() => {
               setBell(false);
             }}
@@ -94,7 +95,7 @@ function PatientNav() {
                   setBell(false);
                 }}
               >
-                <NavLink to="/patient-dashboard/notification" className="icon">
+                <NavLink to="/patient-dashboard/notification">
                   {notificationBell ? (
                     <i className="fi fi-bs-bell-notification-social-media"></i>
                   ) : (
