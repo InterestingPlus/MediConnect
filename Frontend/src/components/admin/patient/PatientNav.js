@@ -2,16 +2,17 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 // import Logo from "../../../../src/images/NewLogo2.png";
 import Logo from "../../../../src/images/White.png";
+import "../Notification.scss";
 
 import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
-import axios from "axios";
 
 function PatientNav() {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
 
-  const [notifications, setNotifications] = useState();
+  const [notifications, setNotifications] = useState(false);
+  const [notificationBell, setBell] = useState(false);
 
   const socket = io(apiPath());
 
@@ -31,12 +32,33 @@ function PatientNav() {
 
   useEffect(() => {
     socket.on("new-notification", (data) => {
-      console.log(data);
-      setNotifications((prev) => {
-        return [data, ...prev];
-      });
+      console.log([data]);
+      setNotifications([data]);
+      setBell(true);
     });
   }, []);
+
+  function showNotification(notification) {
+    if (notification) {
+      if (notification) {
+        setTimeout(() => {
+          setNotifications(false);
+        }, 8000);
+      }
+      return (
+        <Link id="notification-popup">
+          <h2>You Have a New Notification</h2>
+          <hr />
+          <p>{notification[0]?.message}</p>
+          <p>{notification[0]?.status}</p>
+
+          <span className="progress"></span>
+        </Link>
+      );
+    } else {
+      return <></>;
+    }
+  }
 
   return (
     <>
@@ -47,36 +69,54 @@ function PatientNav() {
               <img src={Logo} /> Medi<span>Connect</span>
             </h1>
           </Link>
-
-          <NavLink to="/patient-dashboard/notification" className="icon">
-            <i class="fi fi-bs-bell" id="notification"></i>
+          <NavLink
+            to="/patient-dashboard/notification"
+            onClick={() => {
+              setBell(false);
+            }}
+          >
+            {notificationBell ? (
+              <i className="fi fi-bs-bell-notification-social-media"></i>
+            ) : (
+              <i className="fi fi-bs-bell"></i>
+            )}
           </NavLink>
 
           <nav className={`mobile ${menu ? "close" : ""}`} id="doctor-sidebar">
             <ul>
               <li>
                 <NavLink to="/patient-dashboard/dashboard">
-                  <i class="fa-solid fa-house"></i> Home
+                  <i className="fa-solid fa-house"></i> Home
                 </NavLink>
               </li>
-              <li>
+              <li
+                onClick={() => {
+                  setBell(false);
+                }}
+              >
                 <NavLink to="/patient-dashboard/notification">
-                  <i class="fi fi-bs-bell"></i> Notification
+                  {notificationBell ? (
+                    <i className="fi fi-bs-bell-notification-social-media"></i>
+                  ) : (
+                    <i className="fi fi-bs-bell"></i>
+                  )}{" "}
+                  Notification
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/patient-dashboard/appointments">
-                  <i class="fa-regular fa-calendar-check"></i> Appointments
+                  <i className="fa-regular fa-calendar-check"></i> Appointments
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/patient-dashboard/history">
-                  <i class="fa-solid fa-clock-rotate-left"></i> My History
+                  <i className="fa-solid fa-clock-rotate-left"></i> My History
                 </NavLink>
               </li>
               <li>
                 <NavLink to="/patient-dashboard/laboratory">
-                  <i class="fa-solid fa-hospital-user"></i> Laboratory Reports
+                  <i className="fa-solid fa-hospital-user"></i> Laboratory
+                  Reports
                 </NavLink>
               </li>
             </ul>
@@ -89,16 +129,17 @@ function PatientNav() {
                   }}
                   className="logout"
                 >
-                  <i class="fa-solid fa-right-from-bracket"></i> Logout
+                  <i className="fa-solid fa-right-from-bracket"></i> Logout
                 </button>
               </li>
 
               <li className="profile">
                 <NavLink to="/patient-dashboard/profile">
-                  <i class="fa-solid fa-user"></i> My Profile
+                  <i className="fa-solid fa-user"></i> My Profile
                 </NavLink>
               </li>
             </ul>
+
             <button
               onClick={() => {
                 setMenu(!menu);
@@ -106,9 +147,9 @@ function PatientNav() {
               id="menu"
             >
               {menu ? (
-                <i class="fi fi-ss-dot-pending"></i>
+                <i className="fi fi-ss-dot-pending"></i>
               ) : (
-                <i class="fi fi-ss-cross-circle"></i>
+                <i className="fi fi-ss-cross-circle"></i>
               )}
             </button>
           </nav>
@@ -123,31 +164,33 @@ function PatientNav() {
         <ul>
           <li title="Home">
             <NavLink to="/patient-dashboard/dashboard">
-              <i class="fa-solid fa-house"></i>
+              <i className="fa-solid fa-house"></i>
             </NavLink>
           </li>
           <li title="History">
             <NavLink to="/patient-dashboard/history">
-              <i class="fa-solid fa-clock-rotate-left"></i>
+              <i className="fa-solid fa-clock-rotate-left"></i>
             </NavLink>
           </li>
           <li id="main-btn" title="Appointments">
             <NavLink to="/patient-dashboard/appointments">
-              <i class="fa-regular fa-calendar-check"></i>
+              <i className="fa-regular fa-calendar-check"></i>
             </NavLink>
           </li>
           <li title="Laboratory">
             <NavLink to="/patient-dashboard/laboratory">
-              <i class="fa-solid fa-hospital-user"></i>
+              <i className="fa-solid fa-hospital-user"></i>
             </NavLink>
           </li>
           <li title="Profile">
             <NavLink to="/patient-dashboard/profile">
-              <i class="fa-solid fa-user"></i>
+              <i className="fa-solid fa-user"></i>
             </NavLink>
           </li>
         </ul>
       </nav>
+
+      {showNotification(notifications)}
     </>
   );
 }

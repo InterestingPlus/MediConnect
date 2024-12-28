@@ -58,3 +58,62 @@ div.notification {
     }
   }
 }
+
+#notification-popup {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  transform: translateX(200%);
+
+  padding: 1.5rem;
+  border-radius: 20px;
+
+  color: #000000ca;
+  background: #fff;
+
+  animation: notification 1s alternate, hideNotification 8s alternate;
+  text-decoration: none;
+
+  .progress {
+    width: 0%;
+    height: 3px;
+
+    position: absolute;
+    bottom: 0;
+    background: red;
+
+    animation: progress 8s alternate;
+  }
+}
+
+@keyframes notification {
+  from {
+    transform: translateX(200%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hideNotification {
+  0%,
+  90% {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(200%);
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+  to {
+    width: calc(100% - 3rem);
+  }
+}

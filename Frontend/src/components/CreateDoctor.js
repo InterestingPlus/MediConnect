@@ -454,7 +454,7 @@ function CreateDoctor() {
                 handleChange(e);
                 nameValidation(e);
               }}
-              placeholder="Enter your Name"
+              placeholder="Enter your Full Name (without 'Dr.')"
               disabled={ifDisabled}
               required
             />

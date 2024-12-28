@@ -58,9 +58,7 @@ function LoginDoctor() {
           password: "",
         });
         setIfDisabled(false);
-
-        alert("Logged in Successfully");
-
+ 
         localStorage.setItem("profile", JSON.stringify(data.data));
 
         navigate("/doctor-dashboard");

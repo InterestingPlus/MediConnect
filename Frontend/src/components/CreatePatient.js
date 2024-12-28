@@ -349,7 +349,7 @@ function CreatePatient() {
             nameValidation(e);
           }}
           disabled={ifDisabled}
-          placeholder="Enter your Name"
+          placeholder="Enter your Full Name"
           required
         />
 

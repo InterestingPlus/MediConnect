@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
+import "../Appointment.scss";
 
 const socket = io(apiPath());
 
@@ -55,6 +56,8 @@ function DoctorAppointment() {
       };
 
       socket.emit("status", notification);
+
+      checkLocalUser();
     } else {
       alert("Something Went Wrong!");
     }
@@ -66,7 +69,7 @@ function DoctorAppointment() {
         <i class="fa-regular fa-calendar-check"></i> Appointments :
       </h1>
 
-      <section className="view-appointment">
+      <section className="view-appointment" id="doctor">
         <br />
         <h2>Scheduled Appointments :</h2>
         <hr />
@@ -76,6 +79,28 @@ function DoctorAppointment() {
               {appointments?.map((app, key) => {
                 return (
                   <li key={key}>
+                    {app?.status == "accepted" ? (
+                      <input
+                        type="checkbox"
+                        onClick={() => {
+                          const confirmVisited = window.confirm(
+                            "Are you Sure to Mark as Visited?"
+                          );
+
+                          if (confirmVisited) {
+                            updateStatus(app._id, "visited");
+                          }
+                        }}
+                        value={app?.status == "visited"}
+                        checked={app?.status == "visited"}
+                        disabled={app?.status == "visited"}
+                      />
+                    ) : app?.status == "visited" ? (
+                      <input type="checkbox" checked="true" disabled />
+                    ) : (
+                      ""
+                    )}
+
                     <img
                       src={
                         app?.patientImg
@@ -99,45 +124,58 @@ function DoctorAppointment() {
                     <br />
                     <p>
                       <b> Status : </b>
-
-                      <select
-                        className={
-                          app?.status == "pending"
-                            ? "pending"
-                            : app?.status == "accepted"
-                            ? "accepted"
-                            : "rejected"
-                        }
-                        onChange={(e) => {
-                          updateStatus(app._id, e.target.value, app);
-                          checkLocalUser();
-                        }}
-                        disabled={app.status !== "pending"}
-                      >
-                        <option
-                          className="orange"
-                          selected={app?.status == "pending"}
-                          value="pending"
+                      {app?.status != "visited" ? (
+                        <select
+                          className={
+                            app?.status == "pending"
+                              ? "pending"
+                              : app?.status == "accepted"
+                              ? "accepted"
+                              : "rejected"
+                          }
+                          onChange={(e) => {
+                            updateStatus(app._id, e.target.value, app);
+                            checkLocalUser();
+                          }}
+                          disabled={app.status !== "pending"}
                         >
-                          Pending <i class="fa-regular fa-clock"></i>
-                        </option>
-                        <option
-                          className="green"
-                          selected={app?.status == "accepted"}
-                          value="accepted"
-                        >
-                          Accepted <i class="fa-regular fa-circle-check"></i>
-                        </option>
-                        <option
-                          className="red"
-                          selected={app?.status == "rejected"}
-                          value="rejected"
-                        >
-                          Rejected <i class="fa-solid fa-ban"></i>
-                        </option>
-                      </select>
+                          <option
+                            className="orange"
+                            selected={app?.status == "pending"}
+                            value="pending"
+                          >
+                            Pending <i class="fa-regular fa-clock"></i>
+                          </option>
+                          <option
+                            className="green"
+                            selected={app?.status == "accepted"}
+                            value="accepted"
+                          >
+                            Accepted <i class="fa-regular fa-circle-check"></i>
+                          </option>
+                          <option
+                            className="red"
+                            selected={app?.status == "rejected"}
+                            value="rejected"
+                          >
+                            Rejected <i class="fa-solid fa-ban"></i>
+                          </option>
+                        </select>
+                      ) : (
+                        <span style={{ color: "green" }}>Visited</span>
+                      )}
                     </p>
                     <br />
+
+                    {app?.status == "visited" ? (
+                      app?.prescription ? (
+                        <Link to="">View Prescription</Link>
+                      ) : (
+                        <Link to="">Add Prescription</Link>
+                      )
+                    ) : (
+                      ""
+                    )}
                   </li>
                 );
               })}

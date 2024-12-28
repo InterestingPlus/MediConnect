@@ -2,11 +2,16 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../../../isProduction";
+import "../Appointment.scss";
+
+import { io } from "socket.io-client";
 
 function PatientAppointment() {
   const navigate = useNavigate();
 
   const [appointments, setAppointments] = useState(null);
+
+  const socket = io(apiPath());
 
   useEffect(() => {
     async function checkLocalUser() {
@@ -35,7 +40,22 @@ function PatientAppointment() {
       }
     }
     checkLocalUser();
+
+    socket.on("new-notification", (data) => {
+      if (data?.type.toLowerCase().includes("status")) {
+        checkLocalUser();
+      } else {
+        alert(data?.type.toLowerCase());
+      }
+    });
   }, []);
+
+  const isNewAppointment = (createdAt) => {
+    const now = Date.now();
+    const createdTime = new Date(createdAt).getTime();
+    const tenMinutes = 10 * 60 * 1000;
+    return now - createdTime <= tenMinutes; // Check if createdAt is within the last 10 minutes
+  };
 
   return (
     <>
@@ -56,9 +76,14 @@ function PatientAppointment() {
         {appointments ? (
           appointments.length > 0 ? (
             <ul>
-              {appointments.map((app, key) => {
+              {appointments.map((app) => {
                 return (
-                  <li key={key}>
+                  <li
+                    key={app._id}
+                    className={`${
+                      isNewAppointment(app?.createdAt) ? "new" : ""
+                    } ${app.status == "visited" ? "visited" : ""}`}
+                  >
                     <img
                       src={
                         app?.doctorImg
@@ -71,7 +96,7 @@ function PatientAppointment() {
                       <b> Doctor : </b> {app?.doctorName}
                     </p>
                     <p>
-                      <b> Time : </b> {app?.time}
+                      <b> Time : </b> {app?.time} {app.createdAt}
                     </p>
                     <p>
                       <b> Date : </b> {app?.date}
@@ -91,12 +116,26 @@ function PatientAppointment() {
                         <b className="green">
                           Accepted <i class="fa-regular fa-circle-check"></i>
                         </b>
-                      ) : (
+                      ) : app?.status == "rejected" ? (
                         <b className="red">
                           Rejected <i class="fa-solid fa-ban"></i>
                         </b>
+                      ) : (
+                        <b className="green" style={{ color: "green" }}>
+                          Visited <i class="fa-regular fa-circle-check"></i>
+                        </b>
                       )}
                     </p>
+
+                    {app?.status == "visited" ? (
+                      app?.prescription ? (
+                        <Link to="/">View Prescription</Link>
+                      ) : (
+                        "Prescription Will be Shown Here"
+                      )
+                    ) : (
+                      ""
+                    )}
                   </li>
                 );
               })}

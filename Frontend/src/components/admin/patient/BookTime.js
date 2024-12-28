@@ -71,7 +71,6 @@ function BookTime() {
       }
 
       try {
-
         const bookedAppointments = await axios.post(
           `${apiPath()}/check-booked-appointments`,
           {
@@ -418,6 +417,7 @@ function BookTime() {
                 setReason(e.target.value);
                 setReasonStage(e.target.value);
               }}
+              placeholder="Describe Your Problem!"
             ></textarea>
 
             <input type="submit" disabled={reason == ""} />
