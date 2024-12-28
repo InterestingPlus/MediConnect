@@ -8,7 +8,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 
 const {
-  getDoctor,  
+  getDoctor,
   getAllDoctors,
   addDoctor,
   loginDoctor,
@@ -38,6 +38,10 @@ const {
   getAllCategories,
   addCategory,
 } = require("./controllers/category.controller.js");
+const {
+  addReview,
+  checkReview,
+} = require("./controllers/review.controller.js");
 
 const app = express();
 
@@ -106,7 +110,6 @@ app.post("/create-appointment", addAppointment);
 app.post("/get-appointments-patient", getAppointmentsPatient);
 app.post("/get-appointments-doctor", getAppointmentsDoctor);
 app.post("/update-status", updateStatus);
-
 app.post("/check-booked-appointments", checkBookedAppointments);
 
 // NodeMailer Route
@@ -119,6 +122,10 @@ app.post("/delete-notification", deleteNotification);
 // Category Route
 app.post("/add-category", addCategory);
 app.get("/get-all-categories", getAllCategories);
+
+// Review Route
+app.post("/add-review", addReview);
+app.post("/check-review", checkReview);
 
 // Start the server with Socket.IO
 server.listen(PORT, () => {
