@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.css": "/static/css/main.0d30c074.css",
-    "main.js": "/static/js/main.dc20b3c4.js",
+    "main.css": "/static/css/main.96da5870.css",
+    "main.js": "/static/js/main.e24ddb20.js",
     "static/js/453.201b76ce.chunk.js": "/static/js/453.201b76ce.chunk.js",
     "static/media/404.gif": "/static/media/404.4be2a9ca0fe717992e26.gif",
+    "static/media/shooting-star.gif": "/static/media/shooting-star.e8c53dab446aa669ce5e.gif",
     "static/media/appointment.gif": "/static/media/appointment.8d88b22c87f4edde8e1d.gif",
     "static/media/White.png": "/static/media/White.025447d688ac97573f81.png",
     "static/media/Loader.gif": "/static/media/Loader.67ea2ba26db3fea278dd.gif",
@@ -11,12 +12,12 @@
     "static/media/afternoon.png": "/static/media/afternoon.6811f3b58df2459cce39.png",
     "static/media/morning.png": "/static/media/morning.41151bfed353da332a6d.png",
     "index.html": "/index.html",
-    "main.0d30c074.css.map": "/static/css/main.0d30c074.css.map",
-    "main.dc20b3c4.js.map": "/static/js/main.dc20b3c4.js.map",
+    "main.96da5870.css.map": "/static/css/main.96da5870.css.map",
+    "main.e24ddb20.js.map": "/static/js/main.e24ddb20.js.map",
     "453.201b76ce.chunk.js.map": "/static/js/453.201b76ce.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0d30c074.css",
-    "static/js/main.dc20b3c4.js"
+    "static/css/main.96da5870.css",
+    "static/js/main.e24ddb20.js"
   ]
 }
