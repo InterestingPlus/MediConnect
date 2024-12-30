@@ -42,6 +42,7 @@ const {
   addReview,
   checkReview,
 } = require("./controllers/review.controller.js");
+const { dietSuggestions } = require("./controllers/suggestion.controller.js");
 
 const app = express();
 
@@ -126,6 +127,9 @@ app.get("/get-all-categories", getAllCategories);
 // Review Route
 app.post("/add-review", addReview);
 app.post("/check-review", checkReview);
+
+// Google Gemini
+app.post("/diet-suggestions", dietSuggestions);
 
 // Start the server with Socket.IO
 server.listen(PORT, () => {
