@@ -114,8 +114,6 @@ function BookTime() {
   function amPM(time) {
     const [hours, minutes] = time.split(":").map(Number);
 
-    console.log(doctor);
-
     if (hours < 12) {
       return `${
         hours === 0 ? "12" : hours.toString().padStart(2, "0")
@@ -129,6 +127,7 @@ function BookTime() {
 
   async function bookAppointment(e) {
     e.preventDefault();
+    setLoading(true);
 
     if (reasonStage) {
       if (reason != "") {
@@ -152,13 +151,11 @@ function BookTime() {
           );
 
           if (data.status === false) {
-            console.log("Err :", data.msg);
+            alert(
+              "This Time Slot is Currently Not Available! Please Select Different Time Slot..!"
+            );
           }
           if (data.status === true) {
-            // setSelectedSlot("");
-            // setDate("");
-            // setReason("");
-
             setBooked(true);
             sub.play();
 
@@ -171,6 +168,7 @@ function BookTime() {
     } else if (selectedSlot) {
       setReasonStage(true);
     }
+    setLoading(false);
   }
 
   const isPastSlot = (slot) => {
@@ -420,7 +418,14 @@ function BookTime() {
               placeholder="Describe Your Problem!"
             ></textarea>
 
-            <input type="submit" disabled={reason == ""} />
+            {loading ? (
+              <div id="loading">
+                <span className="animation"></span>
+              </div>
+            ) : (
+              <input type="submit" disabled={reason == ""} />
+            )}
+
             <div
               id="hide"
               onClick={() => {

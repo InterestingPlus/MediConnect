@@ -169,6 +169,16 @@ section#date:has(#success-booked) {
         transform: translateX(10vw);
     }
 
+    #loading {
+        background: transparent;
+        position: relative;
+        max-width: 100px !important;
+        max-height: 100px !important;
+
+        margin-top: 1rem;
+        z-index: 99;
+    }
+
     div#hide {
         background: #5c6174a6;
         backdrop-filter: blur(5px);

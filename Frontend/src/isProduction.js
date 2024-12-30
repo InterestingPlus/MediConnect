@@ -1,5 +1,5 @@
 function apiPath() {
-  const isProduction = true;
+  const isProduction = false;
 
   if (isProduction) {
     return "https://hms-backend-production-7d9d.up.railway.app";

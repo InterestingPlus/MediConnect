@@ -33,7 +33,7 @@ function PatientDashboard() {
       <h1> Dashboard </h1>
 
       <span className="top-ten">
-        <h3> Top 10 Doctors </h3>
+        <h3> Top Doctors </h3>
         <Link to="/patient-dashboard/appointments/book">View All</Link>
       </span>
 

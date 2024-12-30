@@ -1,0 +1,174 @@
+ul#all-doctors {
+    margin-bottom: 2rem;
+}
+
+button {
+    &.load-more-button {
+        text-align: center;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+        cursor: pointer;
+
+        border: none;
+        border-radius: 20px;
+        padding: .6rem 1.6rem;
+        color: #fff;
+        background: #144859;
+    }
+}
+
+p.loading-more {
+    color: #144859;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+
+li {
+    position: relative;
+
+    animation: filter .5s alternate;
+}
+
+
+ul#all-doctors {
+    .rating {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+
+
+
+        display: flex !important;
+        gap: 0.3rem !important;
+        margin-top: 0.3rem !important;
+
+        i {
+            color: rgb(255, 166, 0);
+        }
+    }
+}
+
+.filter-container {
+    margin: 2rem 0;
+    padding: 1.2rem 1.3rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+
+    h3 {
+        margin-bottom: .2rem;
+        color: #144859;
+        width: 100%;
+
+        display: flex;
+        justify-content: space-between;
+        cursor: pointer;
+
+        i {
+            &#down {
+                animation: rotate .5s alternate;
+            }
+        }
+    }
+
+    hr {
+        margin-bottom: .6rem;
+    }
+
+    section {
+        display: flex;
+        flex-wrap: wrap;
+        gap: .6rem;
+
+        animation: filter .45s alternate;
+
+        .filter-group {
+            min-width: 300px;
+            margin-bottom: 15px;
+
+
+
+            &>label {
+                display: block;
+                font-weight: bold;
+                margin-bottom: 5px;
+                color: #1c3d48d0;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 8px;
+                font-size: 14px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+
+                &:focus,
+                &:hover {
+                    border: 2px solid #144859;
+                    outline: none;
+                }
+            }
+
+            select {
+                background-color: #fff;
+            }
+
+            &#sort {
+                margin-bottom: 0;
+
+                div {
+                    display: flex;
+                    gap: 1rem;
+                    flex-wrap: wrap;
+                    color: #366384a5;
+                    font-weight: 500;
+
+                    label {
+                        white-space: nowrap;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-bottom: 0;
+                        gap: .3rem;
+
+                        input {
+                            accent-color: #144859;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes filter {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+@keyframes rotate {
+    from {
+        transform: rotate(180deg);
+    }
+
+    to {
+
+        transform: rotate(0deg);
+    }
+}

@@ -476,18 +476,6 @@ function CreateDoctor() {
             />
 
             <label htmlFor="specialization">Specialization : </label>
-            {/* <input
-              type="text"
-              name="specialization"
-              id="specialization"
-              className={`${checkError("specialization")}`}
-              value={values.specialization}
-              onChange={(e) => handleChange(e)}
-              disabled={ifDisabled}
-              placeholder="Specialization"
-              required
-            /> */}
-
             <select
               name="specialization"
               id="specialization"
