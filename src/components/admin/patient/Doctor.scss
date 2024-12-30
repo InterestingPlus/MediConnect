@@ -1,0 +1,205 @@
+main#book-doctor {
+  flex-direction: column;
+
+  section {
+    position: relative;
+
+    button.aptmnt {
+      z-index: 99;
+    }
+
+    div.main {
+      h1 {
+        white-space: nowrap !important;
+      }
+    }
+  }
+
+  section.profile-review {
+    padding: 2rem;
+    padding-bottom: 8rem;
+
+    #reviews {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+
+      .review {
+        width: 100%;
+        padding: 2rem 1.8rem;
+        background: #fff;
+        border-radius: 10px;
+
+        .patient {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+
+          img {
+            max-width: 55px;
+            aspect-ratio: 1;
+          }
+          h2 {
+            color: rgba(0, 0, 0, 0.776);
+            font-size: 1.25rem !important;
+          }
+        }
+
+        .rating {
+          display: flex;
+          gap: 0.4rem;
+          margin-top: 1rem;
+
+          i {
+            color: rgb(255, 166, 0);
+          }
+        }
+
+        .review-info {
+          margin-top: 1rem;
+          h2 {
+            font-size: 1.3rem !important;
+          }
+          p {
+            font-size: 1.15rem !important;
+            color: #232f3dc4;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width> 1000px) {
+  main#book-doctor {
+    flex-direction: column;
+    max-height: 100dvh;
+
+    section {
+      .top {
+        padding-bottom: 2rem !important;
+      }
+
+      div.main {
+        width: 70% !important;
+        max-width: 70% !important;
+
+        h1 {
+          white-space: nowrap;
+        }
+      }
+      button.aptmnt {
+        max-width: 66% !important;
+        z-index: 99;
+        bottom: 2rem !important;
+      }
+    }
+  }
+  body {
+    max-height: 100dvh;
+    overflow-y: hidden;
+  }
+}
+
+main#book-doctor {
+  flex-direction: column;
+
+  section {
+    position: relative;
+
+    button.aptmnt {
+      z-index: 99;
+    }
+  }
+
+  section.profile-review {
+    padding: 2rem;
+    padding-bottom: 8rem;
+
+    #reviews {
+      display: flex;
+      flex-direction: column;
+      gap: 1.6rem;
+
+      .review {
+        width: 100%;
+        padding: 1.8rem 2rem;
+        background: #fff;
+        border-radius: 10px;
+
+        .patient {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          width: 100%;
+
+          img {
+            max-width: 60px;
+            aspect-ratio: 1;
+          }
+          h2 {
+            color: rgba(0, 0, 0, 0.776);
+            font-size: 2.8rem;
+          }
+        }
+
+        .rating {
+          display: flex;
+          gap: 0.4rem;
+          margin-top: 1rem;
+
+          i {
+            color: rgb(255, 166, 0);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width < 1000px) {
+  main#book-doctor {
+    section {
+      div.main {
+        h1 {
+          white-space: nowrap;
+          font-size: 1.5rem !important;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (width> 1000px) {
+  main#book-doctor {
+    flex-direction: column;
+    max-height: 100dvh;
+
+    section {
+      .top {
+        padding-bottom: 2rem !important;
+      }
+
+      div.main {
+        width: 70% !important;
+        max-width: 70% !important;
+
+        h1 {
+          white-space: nowrap;
+        }
+      }
+      button.aptmnt {
+        max-width: 66% !important;
+        z-index: 99;
+        bottom: 2rem !important;
+      }
+    }
+  }
+  body {
+    max-height: 100dvh;
+    overflow-y: hidden;
+  }
+}
