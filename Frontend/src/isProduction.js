@@ -1,8 +1,8 @@
 function apiPath() {
-  const isProduction = false;
+  const isProduction = true;
 
   if (isProduction) {
-    return "https://hms-backend-production-9ee9.up.railway.app";
+    return "https://hms-backend-production-7d9d.up.railway.app";
     // return "https://hms-backend-tr2u.onrender.com";
   } else {
     return "http://localhost:4444";

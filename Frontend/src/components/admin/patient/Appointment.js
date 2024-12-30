@@ -13,7 +13,7 @@ function PatientAppointment() {
   const [appointments, setAppointments] = useState(null);
 
   const [userId, setUserId] = useState(false);
-  const [showReviewPopup, setShowReviewPopup] = useState({});
+  const [showReviewPopup, setShowReviewPopup] = useState(false);
 
   const socket = io(apiPath());
 
@@ -185,7 +185,7 @@ function PatientAppointment() {
         )}
       </section>
 
-      <ReviewPopup reviewInfo={showReviewPopup} />
+      {showReviewPopup ? <ReviewPopup reviewInfo={showReviewPopup} /> : <></>}
     </>
   );
 }

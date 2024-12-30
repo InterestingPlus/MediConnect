@@ -10,7 +10,7 @@ main#book-doctor {
 
     div.main {
       h1 {
-        white-space: wrap !important;
+        white-space: nowrap !important;
       }
     }
   }
@@ -42,7 +42,7 @@ main#book-doctor {
           }
           h2 {
             color: rgba(0, 0, 0, 0.776);
-            font-size: 2.65rem;
+            font-size: 1.25rem !important;
           }
         }
 
@@ -53,6 +53,19 @@ main#book-doctor {
 
           i {
             color: rgb(255, 166, 0);
+          }
+        }
+
+        .review-info {
+          margin-top: 1rem;
+          h2 {
+            font-size: 1.3rem !important;
+          }
+          p {
+            font-size: 1.15rem !important;
+            color: #232f3dc4;
+            font-weight: 600;
+            letter-spacing: 0.5px;
           }
         }
       }
@@ -129,7 +142,7 @@ main#book-doctor {
           }
           h2 {
             color: rgba(0, 0, 0, 0.776);
-            font-size: 2.4rem;
+            font-size: 2.8rem;
           }
         }
 
@@ -153,7 +166,7 @@ main#book-doctor {
       div.main {
         h1 {
           white-space: nowrap;
-          font-size: 1rem !important;
+          font-size: 1.5rem !important;
         }
       }
     }

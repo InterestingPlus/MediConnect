@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "./Home.scss";
 
 import Logo from "../images/White.png";
+import MediConnect from "../images/MediConnect.mp4";
 
 function Home() {
   const navigate = useNavigate();
@@ -61,6 +62,8 @@ function Home() {
               Experience the future of healthcare with a platform designed for
               your convenience and peace of mind.
             </p>
+
+            <video src={MediConnect} loop="true" autoPlay="true"></video>
 
             <h4>Simplify Your Healthcare Journey Today.</h4>
             <button

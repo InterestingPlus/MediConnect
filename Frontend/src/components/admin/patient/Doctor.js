@@ -99,7 +99,7 @@ function Doctor() {
             </div>
           </section>
 
-          <section className="profile-review">
+          <section className="profile-review" id="review">
             <h2>Reviews</h2>
             <hr />
 
@@ -111,7 +111,12 @@ function Doctor() {
                   return (
                     <div className="review">
                       <div className="patient">
-                        <img src={review?.patientImg} />
+                        <img
+                          src={
+                            review?.patientImg ||
+                            "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                          }
+                        />
                         <h2>{review?.patientName}</h2>
                       </div>
 

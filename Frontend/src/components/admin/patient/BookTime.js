@@ -367,7 +367,7 @@ function BookTime() {
               ? `Tomorrow, ${new Date(date).getDate()} ${
                   months[new Date(date).getMonth()]
                 }`
-              : `${days[new Date().getDay() + 1]}, ${new Date(
+              : `${days[new Date(date).getDay()]}, ${new Date(
                   date
                 ).getDate()} ${months[new Date(date).getMonth()]}`}
           </h2>

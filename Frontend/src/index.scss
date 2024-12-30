@@ -1460,7 +1460,7 @@ main#book-doctor {
 
       h1 {
         margin: 0;
-        font-size: 2rem !important;
+        font-size: 2rem;
         font-weight: 600;
       }
 
@@ -1485,6 +1485,12 @@ main#book-doctor {
     height: 100vh;
     max-height: calc(100dvh - 64px);
     overflow: auto;
+  }
+
+  div.main {
+    h1 {
+      font-size: 1.55rem !important;
+    }
   }
 
   main#dashboard {
@@ -1513,9 +1519,6 @@ main#book-doctor {
     form {
       padding-top: 3rem;
       text-align: left;
-
-      label {
-      }
 
       h1 {
         margin-bottom: 1rem;
@@ -1708,7 +1711,7 @@ main#book-doctor {
           }
 
           h1 {
-            font-size: 1.6rem !important;
+            font-size: 1.48rem !important;
             color: #d4dbf1;
             top: -0.35rem;
             left: 5.8rem;
@@ -2050,11 +2053,10 @@ main#book-doctor {
       padding: 0;
       position: relative;
       text-decoration: none;
- 
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       #notification {
         position: absolute;
@@ -2422,7 +2424,7 @@ footer {
         h1 {
           margin: 0;
           position: absolute;
-          font-size: 2.5rem;
+          font-size: 2rem !important;
           top: 10.55rem;
           left: 50%;
           transform: translateX(-50%);
