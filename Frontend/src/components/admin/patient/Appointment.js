@@ -112,7 +112,9 @@ function PatientAppointment() {
                       src={
                         app?.doctorImg
                           ? app.doctorImg
-                          : "https://cdn-icons-png.flaticon.com/512/3952/3952988.png"
+                          : app.doctorGender == "female"
+                          ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+                          : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
                       }
                     />
 

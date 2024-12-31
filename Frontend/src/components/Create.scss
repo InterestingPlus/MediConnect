@@ -92,6 +92,41 @@ main.create-patient {
 
 // Patient Sign Up Form End
 
+// Gender Group Start
+#gender {
+  display: flex !important;
+  // justify-content: center;
+  gap: 1rem;
+  max-width: 100%;
+
+  label {
+    margin: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem;
+    color: #3a3737ee;
+    font-weight: 500;
+
+    input {
+      min-width: 20px !important;
+      margin: 0 !important;
+      position: relative;
+      top: 34%;
+    }
+  }
+}
+
+@media screen and (width > 1000px) {
+  #gender {
+    label {
+      input {
+        top: 0;
+      }
+    }
+  }
+}
+// Gender Group End
+
 // Doctor Sign Up Form Start
 main.create-doctor {
   form#create-doctor {
@@ -129,7 +164,7 @@ main.create-doctor {
         select {
           border: 1px solid #1b084e;
           border-radius: 50px;
-          padding: .5rem .8rem;
+          padding: 0.5rem 0.8rem;
           font-weight: 700;
         }
 

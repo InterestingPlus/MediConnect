@@ -113,8 +113,11 @@ function Doctor() {
                       <div className="patient">
                         <img
                           src={
-                            review?.patientImg ||
-                            "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                            review?.patientImg
+                              ? review?.patientImg
+                              : review?.gender == "female"
+                              ? "https://cdn-icons-png.flaticon.com/512/2784/2784518.png"
+                              : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png"
                           }
                         />
                         <h2>{review?.patientName}</h2>

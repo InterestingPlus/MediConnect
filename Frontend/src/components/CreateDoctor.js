@@ -30,8 +30,13 @@ function CreateDoctor() {
     password: "",
     name: "",
     age: "",
+    gender: "",
     specialization: "",
     contact: "",
+    country: "",
+    state: "",
+    district: "",
+    city: "",
     availability: "",
     consultationCharge: 100,
   });
@@ -178,8 +183,13 @@ function CreateDoctor() {
       password,
       name,
       age,
+      gender,
       specialization,
       contact,
+      country,
+      state,
+      district,
+      city,
       availability,
       consultationCharge,
     } = values;
@@ -190,8 +200,10 @@ function CreateDoctor() {
         password,
         name,
         age,
+        gender,
         specialization,
         contact,
+        address: { country, state, district, city },
         availability,
         profileImg: dataUrl,
         consultationCharge,
@@ -206,8 +218,13 @@ function CreateDoctor() {
           password: "",
           name: "",
           age: "",
+          gender: "",
           specialization: "",
           contact: "",
+          country: "",
+          state: "",
+          district: "",
+          city: "",
           availability: "",
           consultationCharge: 0,
         });
@@ -475,6 +492,32 @@ function CreateDoctor() {
               required
             />
 
+            <label htmlFor="gender">Gender : </label>
+
+            <div id="gender">
+              <label htmlFor="male" className="gener">
+                <span>Male</span>
+                <input
+                  type="radio"
+                  id="male"
+                  value="male"
+                  name="gender"
+                  onChange={handleChange}
+                  select
+                />
+              </label>
+              <label htmlFor="female" className="gener">
+                <span>Female</span>
+                <input
+                  type="radio"
+                  id="female"
+                  value="female"
+                  name="gender"
+                  onChange={handleChange}
+                />
+              </label>
+            </div>
+
             <label htmlFor="specialization">Specialization : </label>
             <select
               name="specialization"
@@ -527,6 +570,19 @@ function CreateDoctor() {
               onChange={(e) => handleChange(e)}
               disabled={ifDisabled}
               placeholder="Appointment Fee"
+              required
+            />
+
+            <label htmlFor="country">Country : </label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              className={`${checkError("country")}`}
+              value={values.country}
+              onChange={handleChange}
+              disabled={ifDisabled}
+              placeholder="Country"
               required
             />
 
