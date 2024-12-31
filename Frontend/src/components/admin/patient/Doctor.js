@@ -16,7 +16,7 @@ function Doctor() {
   useEffect(() => {
     async function getDoctor() {
       try {
-        const data = await axios.post(`${apiPath()}/doctor`, {
+        const data = await axios.post(`${await apiPath()}/doctor`, {
           username: u,
         });
 

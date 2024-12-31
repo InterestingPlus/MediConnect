@@ -18,7 +18,7 @@ function PatientProfile() {
 
       const { id, username } = await user;
 
-      const data = await axios.post(`${apiPath()}/auth-patient`, {
+      const data = await axios.post(`${await apiPath()}/auth-patient`, {
         id,
         username,
       });
@@ -42,7 +42,7 @@ function PatientProfile() {
       {patient ? (
         <section id="profile">
           <img
-          className="white"
+            className="white"
             src={
               patient?.profileImg
                 ? patient.profileImg

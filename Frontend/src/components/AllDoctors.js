@@ -8,7 +8,7 @@ function AllDoctors() {
 
   useEffect(() => {
     async function getDoctors() {
-      const data = await axios.get(`${apiPath()}/get-doctor`);
+      const data = await axios.get(`${await apiPath()}/get-doctor`);
 
       setDoctors(data);
     }

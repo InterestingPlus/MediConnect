@@ -41,7 +41,7 @@ function LoginPatient() {
     const { username, password } = values;
 
     if (true) {
-      const { data } = await axios.post(`${apiPath()}/login-patient`, {
+      const { data } = await axios.post(`${await apiPath()}/login-patient`, {
         username,
         password,
       });

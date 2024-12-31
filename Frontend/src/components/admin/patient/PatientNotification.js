@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../Notification.scss";
 
+import axios from "axios";
 import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
-import axios from "axios";
 
-const socket = io(apiPath());
-
-const PatientNotification = () => {
+const PatientNotification = async () => {
   const [user, setUser] = useState();
   const [notifications, setNotifications] = useState();
   const [deletedNotification, setDeletedNotification] = useState();
+
+  const socket = io(await apiPath());
 
   useEffect(() => {
     const fetchNotifications = async () => {
@@ -23,9 +23,12 @@ const PatientNotification = () => {
 
         setUser(user_data);
 
-        const response = await axios.post(`${apiPath()}/get-all-notification`, {
-          recipientId: user_data.id,
-        });
+        const response = await axios.post(
+          `${await apiPath()}/get-all-notification`,
+          {
+            recipientId: user_data.id,
+          }
+        );
 
         if (response.data.status) {
           setNotifications(response.data.data || []);
@@ -51,7 +54,7 @@ const PatientNotification = () => {
 
   async function handleDelete(notification_id) {
     try {
-      await axios.post(`${apiPath()}/delete-notification`, {
+      await axios.post(`${await apiPath()}/delete-notification`, {
         id: notification_id,
       });
 

@@ -62,7 +62,7 @@ function BookTime() {
   useEffect(() => {
     async function getDoctor() {
       try {
-        const data = await axios.post(`${apiPath()}/doctor`, {
+        const data = await axios.post(`${await apiPath()}/doctor`, {
           username: u,
         });
         await setDoctor(data.data.data);
@@ -72,7 +72,7 @@ function BookTime() {
 
       try {
         const bookedAppointments = await axios.post(
-          `${apiPath()}/check-booked-appointments`,
+          `${await apiPath()}/check-booked-appointments`,
           {
             username: u,
           }
@@ -93,7 +93,7 @@ function BookTime() {
 
         const { id, username } = await user;
 
-        const data = await axios.post(`${apiPath()}/auth-patient`, {
+        const data = await axios.post(`${await apiPath()}/auth-patient`, {
           id,
           username,
         });
@@ -146,7 +146,7 @@ function BookTime() {
           };
 
           const { data } = await axios.post(
-            `${apiPath()}/create-appointment`,
+            `${await apiPath()}/create-appointment`,
             appointmentData
           );
 

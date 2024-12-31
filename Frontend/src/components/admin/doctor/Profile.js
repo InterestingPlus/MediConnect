@@ -18,7 +18,7 @@ function DoctorProfile() {
 
       const { id, username } = await user;
 
-      const data = await axios.post(`${apiPath()}/auth-doctor`, {
+      const data = await axios.post(`${await apiPath()}/auth-doctor`, {
         id,
         username,
       });
