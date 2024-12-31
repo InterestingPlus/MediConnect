@@ -1,0 +1,28 @@
+section.view-appointment {
+  ul {
+    display: flex;
+    flex-direction: column;
+
+    li {
+      position: relative;
+
+      &.new {
+        &::after {
+          content: "New";
+          position: absolute;
+          color: #fff;
+          background: rgb(93, 120, 255);
+          top: -10px;
+          right: -10px;
+
+          padding: 0.2rem 0.8rem;
+          border-radius: 20px;
+        }
+      }
+
+      &.visited {
+        background: #70c8dea5;
+      }
+    }
+  }
+}
