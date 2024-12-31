@@ -94,6 +94,7 @@ module.exports.getAppointmentsPatient = async (req, res) => {
         const app = d.toObject();
         app.doctorName = doctor.name;
         app.doctorImg = doctor.profileImg;
+        app.doctorGender = doctor?.gender;
         delete app.doctorId;
         delete app.patientId;
 

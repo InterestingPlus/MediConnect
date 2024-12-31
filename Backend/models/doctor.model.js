@@ -6,8 +6,10 @@ const doctorSchema = mongoose.Schema({
 
   name: { type: String, required: true },
   age: Number,
+  gender: { type: String, enum: ["male", "female"] },
   specialization: { type: String, required: true },
   contact: Number,
+  address: { type: Object },
   availability: { type: Array, required: true },
   consultationCharge: Number,
   profileImg: String,
