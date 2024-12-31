@@ -16,7 +16,7 @@ function PatientDashboard() {
       if (user) {
         navigate("/patient-dashboard/dashboard");
 
-        const data = await axios.get(`${await apiPath()}/top-doctor`);
+        const data = await axios.get(`${apiPath()}/top-doctor`);
 
         setDoctors(data.data.data);
 
@@ -66,7 +66,7 @@ function PatientDashboard() {
       ) : (
         <div id="small-loading">
           <span className="animation"></span>
-          <h1>Loading Doctors...</h1>
+          <h1>Loading Appointments...</h1>
         </div>
       )}
     </>

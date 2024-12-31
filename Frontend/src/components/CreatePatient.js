@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 import "./Create.scss";
-import SelectLocation from "./SelectLocation";
 
 function CreatePatient() {
   const navigate = useNavigate();
@@ -23,10 +22,6 @@ function CreatePatient() {
     password: "",
     name: "",
     age: "",
-    gender: "",
-    country: "",
-    state2: "",
-    city: "",
     contact: "",
   });
 
@@ -67,8 +62,8 @@ function CreatePatient() {
     });
   }
 
-  function ageValidation(location) {
-    if (values["location"] == "") {
+  function ageValidation() {
+    if (values.age !== "") {
       const numericAge = parseInt(values.age, 10);
       if (numericAge < 1 || numericAge > 120) {
         alert("Age must be between 1 and 120.");
@@ -87,15 +82,12 @@ function CreatePatient() {
         return;
       }
 
-      if (constOtp) {
-        return;
-      }
-
       alert("We Sending a Verification Code to Your Email...!");
       setIfDisabled(true);
       setShowMessage(true);
+      console.log(constOtp);
 
-      const response = await axios.post(`${await apiPath()}/otp-verification`, {
+      const response = await axios.post(`${apiPath()}/otp-verification`, {
         email: values.username,
       });
 
@@ -119,26 +111,13 @@ function CreatePatient() {
     setIfDisabled(true);
 
     if (verified) {
-      const {
-        username,
-        password,
-        name,
-        age,
-        gender,
-        country,
-        state2,
-        district,
-        city,
-        contact,
-      } = values;
+      const { username, password, name, age, contact } = values;
 
-      const { data } = await axios.post(`${await apiPath()}/create-patient`, {
+      const { data } = await axios.post(`${apiPath()}/create-patient`, {
         username,
         password,
         name,
         age,
-        gender,
-        address: { country, state: state2, district, city },
         contact,
         profileImg: dataUrl,
       });
@@ -157,11 +136,6 @@ function CreatePatient() {
           password: "",
           name: "",
           age: "",
-          gender: "",
-          country: "",
-          state: "",
-          district: "",
-          city: "",
           contact: "",
         });
 
@@ -265,7 +239,7 @@ function CreatePatient() {
           <input
             type="file"
             accept="image/jpeg,image/png"
-            onInput={handleFileChange}
+            onChange={handleFileChange}
           />
           {loading && <p>Processing image...</p>}
           {dataUrl && (
@@ -283,7 +257,7 @@ function CreatePatient() {
           name="username"
           id="username"
           value={values.username}
-          onInput={(e) => handleChange(e)}
+          onChange={(e) => handleChange(e)}
           disabled={ifDisabled || verified}
           placeholder="demo@gmail.com"
           required
@@ -296,7 +270,7 @@ function CreatePatient() {
             name="password"
             id="password"
             value={values.password}
-            onInput={(e) => handleChange(e)}
+            onChange={(e) => handleChange(e)}
             disabled={ifDisabled || verified}
             placeholder="Create a Strong Password"
             required
@@ -370,7 +344,7 @@ function CreatePatient() {
           name="name"
           id="name"
           value={values.name}
-          onInput={(e) => {
+          onChange={(e) => {
             handleChange(e);
             nameValidation(e);
           }}
@@ -387,7 +361,7 @@ function CreatePatient() {
           min="0"
           max="120"
           value={values.age}
-          onInput={(e) => {
+          onChange={(e) => {
             handleChange(e);
             ageValidation(e);
           }}
@@ -397,34 +371,6 @@ function CreatePatient() {
           required
         />
 
-        <label htmlFor="gender">Gender : </label>
-
-        <div id="gender">
-          <label htmlFor="male">
-            <span>Male</span>
-            <input
-              type="radio"
-              id="male"
-              value="male"
-              name="gender"
-              onInput={handleChange}
-              selected
-              required
-            />
-          </label>
-          <label htmlFor="female">
-            <span>Female</span>
-            <input
-              type="radio"
-              id="female"
-              value="female"
-              name="gender"
-              onInput={handleChange}
-              required
-            />
-          </label>
-        </div>
-
         <label htmlFor="contact">Contact : </label>
         <input
           type="number"
@@ -433,13 +379,11 @@ function CreatePatient() {
           min="1000000000"
           max="9999999999"
           value={values.contact}
-          onInput={(e) => handleChange(e)}
+          onChange={(e) => handleChange(e)}
           disabled={ifDisabled}
           placeholder="Enter your Mobile Number"
           required
         />
-
-        <SelectLocation setValues={setValues} />
 
         <p className="login-signUp">
           Already have an Account? <Link to="/login-patient">Login</Link>
@@ -450,10 +394,6 @@ function CreatePatient() {
           className={ifDisabled ? "submit disable" : "submit"}
           value="submit"
         />
-
-        <br />
-
-        <p>.</p>
       </form>
     </main>
   );

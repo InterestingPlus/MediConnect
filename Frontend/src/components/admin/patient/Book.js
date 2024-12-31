@@ -8,6 +8,7 @@ import DoctorFilter from "./DoctorFilter";
 function AllDoctors() {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
+  const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Current page
   const [hasMore, setHasMore] = useState(true); // Check if more data is available
@@ -17,12 +18,14 @@ function AllDoctors() {
     specialization: "",
     minRating: "",
     maxFee: "",
-    gender: "",
     country: "",
-    state2: "",
+    state: "",
+    district: "",
     city: "",
     sortBy: "",
   });
+
+  console.log(doctors);
 
   // Fetch doctors with pagination
   useEffect(() => {
@@ -30,7 +33,7 @@ function AllDoctors() {
       try {
         setLoading(true);
         const response = await axios.get(
-          `${await apiPath()}/get-doctor?page=${page}`
+          `${apiPath()}/get-doctor?page=${page}`
         );
         const { data } = response.data;
 
@@ -55,7 +58,7 @@ function AllDoctors() {
     try {
       setLoading(true);
 
-      const response = await axios.post(`${await apiPath()}/search-doctor`, {
+      const response = await axios.post(`${apiPath()}/search-doctor`, {
         search,
       });
 
@@ -63,6 +66,9 @@ function AllDoctors() {
       setDoctors(data);
       setHasMore(false);
       setLoading(false);
+
+      if (data.length === 0) setNotFound(true);
+      else setNotFound(false);
     } catch (err) {
       alert("Cannot Search Doctors!");
       setLoading(false);
@@ -74,9 +80,11 @@ function AllDoctors() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${await apiPath()}/get-doctor?page=${page}&limit=8`
+        `${apiPath()}/get-doctor?page=${page}&limit=8`
       );
       const { data } = response.data;
+
+      console.log(page);
 
       if (data.length > 0) {
         setDoctors((prevDoctors) => {
@@ -125,32 +133,33 @@ function AllDoctors() {
         );
       }
 
-      // Filter by location (country, state, city)
+      // Filter by location (country, state, district, city)
       if (filters.country) {
         filtered = filtered.filter((doctor) =>
-          doctor?.address?.country
+          doctor?.location?.country
             ?.toLowerCase()
-            ?.includes(filters.country?.toLowerCase())
+            .includes(filters.country?.toLowerCase())
         );
       }
-      if (filters.state2) {
+      if (filters.state) {
         filtered = filtered.filter((doctor) =>
-          doctor?.address?.state
+          doctor?.location?.state
             ?.toLowerCase()
-            ?.includes(filters.state2?.toLowerCase())
+            .includes(filters.state?.toLowerCase())
+        );
+      }
+      if (filters.district) {
+        filtered = filtered.filter((doctor) =>
+          doctor?.location?.district
+            ?.toLowerCase()
+            .includes(filters.district?.toLowerCase())
         );
       }
       if (filters.city) {
         filtered = filtered.filter((doctor) =>
-          doctor?.address?.city
+          doctor?.location?.city
             ?.toLowerCase()
-            ?.includes(filters.city?.toLowerCase())
-        );
-      }
-      if (filters.gender) {
-        filtered = filtered.filter(
-          (doctor) =>
-            doctor?.gender?.toLowerCase() == filters.gender?.toLowerCase()
+            .includes(filters.city?.toLowerCase())
         );
       }
 
@@ -158,9 +167,9 @@ function AllDoctors() {
       if (filters.sortBy === "alphabetical") {
         filtered.sort((a, b) => a.name.localeCompare(b.name));
       } else if (filters.sortBy === "fee") {
-        filtered.sort((a, b) => a?.consultationCharge - b?.consultationCharge);
+        filtered.sort((a, b) => a.consultationCharge - b.consultationCharge);
       } else if (filters.sortBy === "rating") {
-        filtered.sort((a, b) => b?.avgRating - a?.avgRating);
+        filtered.sort((a, b) => b.rating + a.rating);
       }
 
       setFilteredDoctors(filtered); // Update the filtered doctors state
@@ -207,7 +216,6 @@ function AllDoctors() {
               >
                 <li>
                   <img
-                    className="white"
                     src={
                       doctor?.profileImg
                         ? doctor.profileImg

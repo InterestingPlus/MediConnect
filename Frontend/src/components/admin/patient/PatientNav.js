@@ -7,14 +7,14 @@ import "../Notification.scss";
 import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
 
-async function PatientNav() {
+function PatientNav() {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
 
   const [notifications, setNotifications] = useState(false);
   const [notificationBell, setBell] = useState(false);
 
-  const socket = io(await apiPath());
+  const socket = io(apiPath());
 
   async function checkLocalUser() {
     const user = await JSON.parse(localStorage.getItem("profile"));

@@ -62,7 +62,7 @@ function BookTime() {
   useEffect(() => {
     async function getDoctor() {
       try {
-        const data = await axios.post(`${await apiPath()}/doctor`, {
+        const data = await axios.post(`${apiPath()}/doctor`, {
           username: u,
         });
         await setDoctor(data.data.data);
@@ -72,7 +72,7 @@ function BookTime() {
 
       try {
         const bookedAppointments = await axios.post(
-          `${await apiPath()}/check-booked-appointments`,
+          `${apiPath()}/check-booked-appointments`,
           {
             username: u,
           }
@@ -93,7 +93,7 @@ function BookTime() {
 
         const { id, username } = await user;
 
-        const data = await axios.post(`${await apiPath()}/auth-patient`, {
+        const data = await axios.post(`${apiPath()}/auth-patient`, {
           id,
           username,
         });
@@ -146,7 +146,7 @@ function BookTime() {
           };
 
           const { data } = await axios.post(
-            `${await apiPath()}/create-appointment`,
+            `${apiPath()}/create-appointment`,
             appointmentData
           );
 
@@ -194,13 +194,7 @@ function BookTime() {
     }
 
     const day = new Date(date).getDay();
-
-    let aval;
-    if (doctor?.availability.length > 0) {
-      aval = doctor?.availability[0][days[day]];
-    } else {
-      aval = false;
-    }
+    const aval = doctor.availability[0][days[day]];
 
     // Categories for different times of the day
     const morningSlots = [];
@@ -208,21 +202,16 @@ function BookTime() {
     const eveningSlots = [];
 
     // Categorize the slots
-    if (aval) {
-      aval?.forEach((slot) => {
-        const [hours, minutes] = slot.split(":").map(Number); // Split and convert to numbers
-        if (hours >= 6 && hours < 12) {
-          morningSlots.push(slot);
-        } else if (hours >= 12 && hours < 18) {
-          afternoonSlots.push(slot);
-        } else {
-          eveningSlots.push(slot);
-        }
-      });
-    } else {
-      alert("Something Went Wrong!");
-      navigate("/");
-    }
+    aval?.forEach((slot) => {
+      const [hours, minutes] = slot.split(":").map(Number); // Split and convert to numbers
+      if (hours >= 6 && hours < 12) {
+        morningSlots.push(slot);
+      } else if (hours >= 12 && hours < 18) {
+        afternoonSlots.push(slot);
+      } else {
+        eveningSlots.push(slot);
+      }
+    });
 
     // Render the categorized slots
     return (

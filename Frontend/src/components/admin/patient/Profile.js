@@ -18,7 +18,7 @@ function PatientProfile() {
 
       const { id, username } = await user;
 
-      const data = await axios.post(`${await apiPath()}/auth-patient`, {
+      const data = await axios.post(`${apiPath()}/auth-patient`, {
         id,
         username,
       });
@@ -42,13 +42,10 @@ function PatientProfile() {
       {patient ? (
         <section id="profile">
           <img
-            className="white"
             src={
               patient?.profileImg
                 ? patient.profileImg
-                : patient?.gender == "female"
-                ? "https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
-                : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png"
+                : "https://img.freepik.com/premium-vector/patient-woman-smiling-profile-cartoon_18591-60679.jpg"
             }
             alt="profile-pic"
           />
@@ -84,15 +81,6 @@ function PatientProfile() {
         <div id="loading">
           <span className="animation"></span>
           <h1>Fetching Your Details...</h1>
-          <button
-            onClick={() => {
-              localStorage.clear();
-              checkLocalUser();
-            }}
-            className="logout"
-          >
-            <i class="fa-solid fa-right-from-bracket"></i> Logout
-          </button>
         </div>
       )}
     </>

@@ -2,11 +2,6 @@ ul#all-doctors {
   margin-bottom: 2rem;
 }
 
-
-#search-box {
-  z-index: 9;
-}
-
 button {
   &.load-more-button {
     text-align: center;
@@ -97,7 +92,7 @@ ul#all-doctors {
       min-width: 300px;
       margin-bottom: 15px;
 
-      &>label {
+      & > label {
         display: block;
         font-weight: bold;
         margin-bottom: 5px;

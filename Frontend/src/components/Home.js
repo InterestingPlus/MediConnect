@@ -1,28 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import "./Home.scss";
 
-import { useEffect } from "react";
-import MediConnect from "../images/MediConnect.mp4";
 import Logo from "../images/White.png";
+import MediConnect from "../images/MediConnect.mp4";
 
 function Home() {
   const navigate = useNavigate();
-
-  async function checkLocalUser() {
-    const user = await JSON.parse(localStorage.getItem("profile"));
-
-    if (user?.role == "p") {
-      navigate("/patient-dashboard/dashboard");
-    } else if (user?.role == "d") {
-      navigate("/doctor-dashboard/dashboard");
-    } else {
-      navigate("/");
-    }
-  }
-
-  useEffect(() => {
-    checkLocalUser();
-  }, []);
 
   return (
     <>

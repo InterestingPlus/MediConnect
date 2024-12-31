@@ -36,21 +36,11 @@ main.create-patient {
     flex-direction: column;
     align-items: start;
 
-    input,
-    select {
+    input {
       width: 100%;
       margin-top: 0;
       color: #05292e;
     }
-
-
-    select {
-      border: 1px solid #1b084e;
-      border-radius: 50px;
-      padding: 0.5rem 0.8rem;
-      font-weight: 700;
-    }
-
 
     label {
       margin-bottom: 0;
@@ -135,7 +125,6 @@ main.create-patient {
     }
   }
 }
-
 // Gender Group End
 
 // Doctor Sign Up Form Start

@@ -43,7 +43,7 @@ function LoginDoctor() {
     const { username, password } = values;
 
     if (true) {
-      const { data } = await axios.post(`${await apiPath()}/login-doctor`, {
+      const { data } = await axios.post(`${apiPath()}/login-doctor`, {
         username,
         password,
       });
@@ -58,7 +58,7 @@ function LoginDoctor() {
           password: "",
         });
         setIfDisabled(false);
-
+ 
         localStorage.setItem("profile", JSON.stringify(data.data));
 
         navigate("/doctor-dashboard");

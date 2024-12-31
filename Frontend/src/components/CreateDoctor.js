@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 import "./Create.scss";
-import SelectLocation from "./SelectLocation";
 import TimeSlotScheduler from "./TimeSlotScheduler";
 
 function CreateDoctor() {
@@ -35,7 +34,8 @@ function CreateDoctor() {
     specialization: "",
     contact: "",
     country: "",
-    state2: "",
+    state: "",
+    district: "",
     city: "",
     availability: "",
     consultationCharge: 100,
@@ -70,7 +70,7 @@ function CreateDoctor() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const data = await axios.get(`${await apiPath()}/get-all-categories`);
+        const data = await axios.get(`${apiPath()}/get-all-categories`);
 
         const sortedCategory = data.data.data.map((category) => {
           return category.name;
@@ -103,15 +103,13 @@ function CreateDoctor() {
         return;
       }
 
-      if (constOtp) {
-        return;
-      }
-
       alert("We Sending a Verification Code to Your Email...!");
       setShowMessage(true);
       setIfDisabled(true);
 
-      const response = await axios.post(`${await apiPath()}/otp-verification`, {
+      console.log(constOtp);
+
+      const response = await axios.post(`${apiPath()}/otp-verification`, {
         email: values.username,
       });
 
@@ -174,26 +172,10 @@ function CreateDoctor() {
       setValues(newValue);
 
       try {
-        await axios.post(`${await apiPath()}/add-category`, {
-          name: customCategory,
-        });
+        await axios.post(`${apiPath()}/add-category`, { name: customCategory });
       } catch (err) {
         alert("Can't Add New Category..!");
       }
-    }
-
-    if (!values.availability) {
-      alert("Please add Time Slots!");
-      setStage(3);
-      setIfDisabled(false);
-      return;
-    }
-
-    if (!values.city) {
-      alert("Set Your Location!");
-      setStage(1);
-      setIfDisabled(false);
-      return;
     }
 
     const {
@@ -205,14 +187,15 @@ function CreateDoctor() {
       specialization,
       contact,
       country,
-      state2,
+      state,
+      district,
       city,
       availability,
       consultationCharge,
     } = values;
 
     if (verified) {
-      const { data } = await axios.post(`${await apiPath()}/create-doctor`, {
+      const { data } = await axios.post(`${apiPath()}/create-doctor`, {
         username,
         password,
         name,
@@ -220,7 +203,7 @@ function CreateDoctor() {
         gender,
         specialization,
         contact,
-        address: { country, state: state2, city },
+        address: { country, state, district, city },
         availability,
         profileImg: dataUrl,
         consultationCharge,
@@ -228,7 +211,6 @@ function CreateDoctor() {
 
       if (data.status === false) {
         alert("Error : " + data.message);
-        setVerified(false);
       }
       if (data.status === true) {
         setValues({
@@ -240,7 +222,8 @@ function CreateDoctor() {
           specialization: "",
           contact: "",
           country: "",
-          state2: "",
+          state: "",
+          district: "",
           city: "",
           availability: "",
           consultationCharge: 0,
@@ -261,8 +244,6 @@ function CreateDoctor() {
     setIfDisabled(false);
 
     setStage(1);
-
-    setconstOTP(null);
   }
 
   function checkError(key) {
@@ -458,6 +439,7 @@ function CreateDoctor() {
                   id="verify"
                   onClick={() => {
                     if (constOtp && otp) {
+                      console.log(constOtp, otp);
                       if (constOtp == otp) {
                         setVerified(true);
                         setShowMessage(false);
@@ -513,7 +495,7 @@ function CreateDoctor() {
             <label htmlFor="gender">Gender : </label>
 
             <div id="gender">
-              <label htmlFor="male">
+              <label htmlFor="male" className="gener">
                 <span>Male</span>
                 <input
                   type="radio"
@@ -521,11 +503,10 @@ function CreateDoctor() {
                   value="male"
                   name="gender"
                   onChange={handleChange}
-                  selected
-                  required
+                  select
                 />
               </label>
-              <label htmlFor="female">
+              <label htmlFor="female" className="gener">
                 <span>Female</span>
                 <input
                   type="radio"
@@ -533,7 +514,6 @@ function CreateDoctor() {
                   value="female"
                   name="gender"
                   onChange={handleChange}
-                  required
                 />
               </label>
             </div>
@@ -593,7 +573,18 @@ function CreateDoctor() {
               required
             />
 
-            <SelectLocation setValues={setValues} />
+            <label htmlFor="country">Country : </label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              className={`${checkError("country")}`}
+              value={values.country}
+              onChange={handleChange}
+              disabled={ifDisabled}
+              placeholder="Country"
+              required
+            />
 
             <label htmlFor="contact">Contact : </label>
             <input
