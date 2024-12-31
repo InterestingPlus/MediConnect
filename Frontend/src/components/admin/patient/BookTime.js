@@ -194,7 +194,13 @@ function BookTime() {
     }
 
     const day = new Date(date).getDay();
-    const aval = doctor.availability[0][days[day]];
+
+    let aval;
+    if (doctor?.availability.length > 0) {
+      aval = doctor?.availability[0][days[day]];
+    } else {
+      aval = false;
+    }
 
     // Categories for different times of the day
     const morningSlots = [];
@@ -202,16 +208,21 @@ function BookTime() {
     const eveningSlots = [];
 
     // Categorize the slots
-    aval?.forEach((slot) => {
-      const [hours, minutes] = slot.split(":").map(Number); // Split and convert to numbers
-      if (hours >= 6 && hours < 12) {
-        morningSlots.push(slot);
-      } else if (hours >= 12 && hours < 18) {
-        afternoonSlots.push(slot);
-      } else {
-        eveningSlots.push(slot);
-      }
-    });
+    if (aval) {
+      aval?.forEach((slot) => {
+        const [hours, minutes] = slot.split(":").map(Number); // Split and convert to numbers
+        if (hours >= 6 && hours < 12) {
+          morningSlots.push(slot);
+        } else if (hours >= 12 && hours < 18) {
+          afternoonSlots.push(slot);
+        } else {
+          eveningSlots.push(slot);
+        }
+      });
+    } else {
+      alert("Something Went Wrong!");
+      navigate("/");
+    }
 
     // Render the categorized slots
     return (

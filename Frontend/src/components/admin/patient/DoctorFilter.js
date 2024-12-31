@@ -1,21 +1,23 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import apiPath from "../../../isProduction";
+import FilterLocation from "./FilterLocation";
 
 function DoctorFilter({ onFilterChange }) {
   const [filters, setFilters] = useState({
     specialization: "",
     minRating: "",
     maxFee: "",
+    gender: "",
     country: "",
-    state: "",
-    district: "",
+    state2: "",
     city: "",
     sortBy: "",
   });
 
   const [allCategories, setAllCategories] = useState([]);
   const [hide, setHide] = useState(false);
+  const [useCurrentLocation, setUseCurrentLocation] = useState(false);
 
   // Update filter values
   const handleInputChange = (e) => {
@@ -27,7 +29,12 @@ function DoctorFilter({ onFilterChange }) {
       updatedFilters = { ...filters, maxFee: "" };
     }
 
+    if (name == "minRating" && value == 0) {
+      updatedFilters = { ...filters, minRating: "" };
+    }
+
     setFilters(updatedFilters);
+
     onFilterChange(updatedFilters); // Notify parent of changes
   };
 
@@ -66,8 +73,23 @@ function DoctorFilter({ onFilterChange }) {
 
       <hr />
 
+      {/* <button
+        type="button"
+        onClick={searchByCurrentLocation}
+        className="search-by-location"
+      >
+        Search By Current Location
+      </button>
+      <br /> */}
+
       {hide ? (
         <section>
+          <FilterLocation
+            setFilters={setFilters}
+            onFilterChange={onFilterChange}
+            useCurrentLocation={useCurrentLocation}
+          />
+
           <div className="filter-group">
             {/* Specialization */}
             <label htmlFor="specialization">Specialization:</label>
@@ -79,7 +101,7 @@ function DoctorFilter({ onFilterChange }) {
               onChange={handleInputChange}
             >
               <option selected value="">
-                Select Category
+                All Category
               </option>
 
               {allCategories?.map((category) => {
@@ -121,55 +143,21 @@ function DoctorFilter({ onFilterChange }) {
           </div>
 
           <div className="filter-group">
-            {/* Country */}
-            <label htmlFor="country">Country:</label>
-            <input
-              type="text"
-              id="country"
-              name="country"
-              placeholder="Enter country"
-              value={filters.country}
+            {/* Gender */}
+            <label htmlFor="gender">Gender:</label>
+            <select
+              id="gender"
+              name="gender"
+              placeholder="Gender"
+              value={filters.gender}
               onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="filter-group">
-            {/* State */}
-            <label htmlFor="state">State:</label>
-            <input
-              type="text"
-              id="state"
-              name="state"
-              placeholder="Enter state"
-              value={filters.state}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="filter-group">
-            {/* District */}
-            <label htmlFor="district">District:</label>
-            <input
-              type="text"
-              id="district"
-              name="district"
-              placeholder="Enter district"
-              value={filters.district}
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <div className="filter-group">
-            {/* City */}
-            <label htmlFor="city">City:</label>
-            <input
-              type="text"
-              id="city"
-              name="city"
-              placeholder="Enter city"
-              value={filters.city}
-              onChange={handleInputChange}
-            />
+            >
+              <option selected value="">
+                All
+              </option>
+              <option value="male">Male</option>;
+              <option value="female">Female</option>;
+            </select>
           </div>
 
           <div className="filter-group" id="sort">

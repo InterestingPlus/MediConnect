@@ -63,10 +63,13 @@ function DoctorProfile() {
       {doctor ? (
         <>
           <img
+            className="white"
             src={
               doctor?.profileImg
                 ? doctor.profileImg
-                : "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                : doctor?.gender == "female"
+                ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+                : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
             }
             alt="profile-pic"
           />

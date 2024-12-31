@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 import "./Create.scss";
+import SelectLocation from "./SelectLocation";
 import TimeSlotScheduler from "./TimeSlotScheduler";
 
 function CreateDoctor() {
@@ -34,8 +35,7 @@ function CreateDoctor() {
     specialization: "",
     contact: "",
     country: "",
-    state: "",
-    district: "",
+    state2: "",
     city: "",
     availability: "",
     consultationCharge: 100,
@@ -103,11 +103,13 @@ function CreateDoctor() {
         return;
       }
 
+      if (constOtp) {
+        return;
+      }
+
       alert("We Sending a Verification Code to Your Email...!");
       setShowMessage(true);
       setIfDisabled(true);
-
-      console.log(constOtp);
 
       const response = await axios.post(`${apiPath()}/otp-verification`, {
         email: values.username,
@@ -178,6 +180,20 @@ function CreateDoctor() {
       }
     }
 
+    if (!values.availability) {
+      alert("Please add Time Slots!");
+      setStage(3);
+      setIfDisabled(false);
+      return;
+    }
+
+    if (!values.city) {
+      alert("Set Your Location!");
+      setStage(1);
+      setIfDisabled(false);
+      return;
+    }
+
     const {
       username,
       password,
@@ -187,8 +203,7 @@ function CreateDoctor() {
       specialization,
       contact,
       country,
-      state,
-      district,
+      state2,
       city,
       availability,
       consultationCharge,
@@ -203,7 +218,7 @@ function CreateDoctor() {
         gender,
         specialization,
         contact,
-        address: { country, state, district, city },
+        address: { country, state: state2, city },
         availability,
         profileImg: dataUrl,
         consultationCharge,
@@ -211,6 +226,7 @@ function CreateDoctor() {
 
       if (data.status === false) {
         alert("Error : " + data.message);
+        setVerified(false);
       }
       if (data.status === true) {
         setValues({
@@ -222,8 +238,7 @@ function CreateDoctor() {
           specialization: "",
           contact: "",
           country: "",
-          state: "",
-          district: "",
+          state2: "",
           city: "",
           availability: "",
           consultationCharge: 0,
@@ -244,6 +259,8 @@ function CreateDoctor() {
     setIfDisabled(false);
 
     setStage(1);
+
+    setconstOTP(null);
   }
 
   function checkError(key) {
@@ -439,7 +456,6 @@ function CreateDoctor() {
                   id="verify"
                   onClick={() => {
                     if (constOtp && otp) {
-                      console.log(constOtp, otp);
                       if (constOtp == otp) {
                         setVerified(true);
                         setShowMessage(false);
@@ -495,7 +511,7 @@ function CreateDoctor() {
             <label htmlFor="gender">Gender : </label>
 
             <div id="gender">
-              <label htmlFor="male" className="gener">
+              <label htmlFor="male">
                 <span>Male</span>
                 <input
                   type="radio"
@@ -503,10 +519,11 @@ function CreateDoctor() {
                   value="male"
                   name="gender"
                   onChange={handleChange}
-                  select
+                  selected
+                  required
                 />
               </label>
-              <label htmlFor="female" className="gener">
+              <label htmlFor="female">
                 <span>Female</span>
                 <input
                   type="radio"
@@ -514,6 +531,7 @@ function CreateDoctor() {
                   value="female"
                   name="gender"
                   onChange={handleChange}
+                  required
                 />
               </label>
             </div>
@@ -573,18 +591,7 @@ function CreateDoctor() {
               required
             />
 
-            <label htmlFor="country">Country : </label>
-            <input
-              type="text"
-              name="country"
-              id="country"
-              className={`${checkError("country")}`}
-              value={values.country}
-              onChange={handleChange}
-              disabled={ifDisabled}
-              placeholder="Country"
-              required
-            />
+            <SelectLocation setValues={setValues} />
 
             <label htmlFor="contact">Contact : </label>
             <input

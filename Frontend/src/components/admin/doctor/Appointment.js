@@ -105,7 +105,9 @@ function DoctorAppointment() {
                       src={
                         app?.patientImg
                           ? app.patientImg
-                          : "https://cdn-icons-png.flaticon.com/512/3952/3952988.png"
+                          : app?.gender == "female"
+                          ? "https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
+                          : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png"
                       }
                     />
 

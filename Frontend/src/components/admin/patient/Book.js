@@ -8,7 +8,6 @@ import DoctorFilter from "./DoctorFilter";
 function AllDoctors() {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState("");
-  const [notFound, setNotFound] = useState(false);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1); // Current page
   const [hasMore, setHasMore] = useState(true); // Check if more data is available
@@ -18,14 +17,12 @@ function AllDoctors() {
     specialization: "",
     minRating: "",
     maxFee: "",
+    gender: "",
     country: "",
-    state: "",
-    district: "",
+    state2: "",
     city: "",
     sortBy: "",
   });
-
-  console.log(doctors);
 
   // Fetch doctors with pagination
   useEffect(() => {
@@ -66,9 +63,6 @@ function AllDoctors() {
       setDoctors(data);
       setHasMore(false);
       setLoading(false);
-
-      if (data.length === 0) setNotFound(true);
-      else setNotFound(false);
     } catch (err) {
       alert("Cannot Search Doctors!");
       setLoading(false);
@@ -83,8 +77,6 @@ function AllDoctors() {
         `${apiPath()}/get-doctor?page=${page}&limit=8`
       );
       const { data } = response.data;
-
-      console.log(page);
 
       if (data.length > 0) {
         setDoctors((prevDoctors) => {
@@ -133,33 +125,32 @@ function AllDoctors() {
         );
       }
 
-      // Filter by location (country, state, district, city)
+      // Filter by location (country, state, city)
       if (filters.country) {
         filtered = filtered.filter((doctor) =>
-          doctor?.location?.country
+          doctor?.address?.country
             ?.toLowerCase()
-            .includes(filters.country?.toLowerCase())
+            ?.includes(filters.country?.toLowerCase())
         );
       }
-      if (filters.state) {
+      if (filters.state2) {
         filtered = filtered.filter((doctor) =>
-          doctor?.location?.state
+          doctor?.address?.state
             ?.toLowerCase()
-            .includes(filters.state?.toLowerCase())
-        );
-      }
-      if (filters.district) {
-        filtered = filtered.filter((doctor) =>
-          doctor?.location?.district
-            ?.toLowerCase()
-            .includes(filters.district?.toLowerCase())
+            ?.includes(filters.state2?.toLowerCase())
         );
       }
       if (filters.city) {
         filtered = filtered.filter((doctor) =>
-          doctor?.location?.city
+          doctor?.address?.city
             ?.toLowerCase()
-            .includes(filters.city?.toLowerCase())
+            ?.includes(filters.city?.toLowerCase())
+        );
+      }
+      if (filters.gender) {
+        filtered = filtered.filter(
+          (doctor) =>
+            doctor?.gender?.toLowerCase() == filters.gender?.toLowerCase()
         );
       }
 
@@ -167,9 +158,9 @@ function AllDoctors() {
       if (filters.sortBy === "alphabetical") {
         filtered.sort((a, b) => a.name.localeCompare(b.name));
       } else if (filters.sortBy === "fee") {
-        filtered.sort((a, b) => a.consultationCharge - b.consultationCharge);
+        filtered.sort((a, b) => a?.consultationCharge - b?.consultationCharge);
       } else if (filters.sortBy === "rating") {
-        filtered.sort((a, b) => b.rating + a.rating);
+        filtered.sort((a, b) => b?.avgRating - a?.avgRating);
       }
 
       setFilteredDoctors(filtered); // Update the filtered doctors state
@@ -216,6 +207,7 @@ function AllDoctors() {
               >
                 <li>
                   <img
+                    className="white"
                     src={
                       doctor?.profileImg
                         ? doctor.profileImg

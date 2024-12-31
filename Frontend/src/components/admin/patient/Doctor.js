@@ -48,11 +48,14 @@ function Doctor() {
           <section className={shrink ? "shrink" : ""}>
             <div className="main">
               <img
+                className="white"
                 id="doctor-pic"
                 src={
                   doctor?.profileImg
                     ? doctor.profileImg
-                    : "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                    : doctor?.gender == "female"
+                    ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+                    : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
                 }
                 alt="profile-pic"
               />
@@ -116,7 +119,7 @@ function Doctor() {
                             review?.patientImg
                               ? review?.patientImg
                               : review?.gender == "female"
-                              ? "https://cdn-icons-png.flaticon.com/512/2784/2784518.png"
+                              ? "https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
                               : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png"
                           }
                         />
