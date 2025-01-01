@@ -5,7 +5,7 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
 
-const socket = io(apiPath());
+const socket = io(await apiPath());
 
 const PatientNotification = () => {
   const [user, setUser] = useState();
@@ -23,9 +23,12 @@ const PatientNotification = () => {
 
         setUser(user_data);
 
-        const response = await axios.post(`${apiPath()}/get-all-notification`, {
-          recipientId: user_data.id,
-        });
+        const response = await axios.post(
+          `${await apiPath()}/get-all-notification`,
+          {
+            recipientId: user_data.id,
+          }
+        );
 
         if (response.data.status) {
           setNotifications(response.data.data || []);
@@ -51,7 +54,7 @@ const PatientNotification = () => {
 
   async function handleDelete(notification_id) {
     try {
-      await axios.post(`${apiPath()}/delete-notification`, {
+      await axios.post(`${await apiPath()}/delete-notification`, {
         id: notification_id,
       });
 

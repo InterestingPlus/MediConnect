@@ -1,5 +1,15 @@
-function apiPath() {
+async function apiPath() {
   let isProduction = false;
+
+  await fetch("/production.json")
+    .then((response) => response.json())
+    .then((data) => {
+      isProduction = data.production;
+    })
+    .catch((error) => {
+      alert("Error loading config:");
+      console.log("Error loading config:", error);
+    });
 
   if (isProduction) {
     return "https://hms-backend-production-7d9d.up.railway.app";

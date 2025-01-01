@@ -16,7 +16,7 @@ function PatientDashboard() {
       if (user) {
         navigate("/patient-dashboard/dashboard");
 
-        const data = await axios.get(`${apiPath()}/top-doctor`);
+        const data = await axios.get(`${await apiPath()}/top-doctor`);
 
         setDoctors(data.data.data);
       } else {

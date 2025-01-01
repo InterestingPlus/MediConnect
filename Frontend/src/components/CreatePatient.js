@@ -96,7 +96,7 @@ function CreatePatient() {
       setIfDisabled(true);
       setShowMessage(true);
 
-      const response = await axios.post(`${apiPath()}/otp-verification`, {
+      const response = await axios.post(`${await apiPath()}/otp-verification`, {
         email: values.username,
       });
 
@@ -133,7 +133,7 @@ function CreatePatient() {
         contact,
       } = values;
 
-      const { data } = await axios.post(`${apiPath()}/create-patient`, {
+      const { data } = await axios.post(`${await apiPath()}/create-patient`, {
         username,
         password,
         name,

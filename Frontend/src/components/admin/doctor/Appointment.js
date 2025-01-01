@@ -6,7 +6,7 @@ import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
 import "../Appointment.scss";
 
-const socket = io(apiPath());
+const socket = io(await apiPath());
 
 function DoctorAppointment() {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ function DoctorAppointment() {
 
     if (user) {
       const { id, username } = await user;
-      const data = await axios.post(`${apiPath()}/auth-doctor`, {
+      const data = await axios.post(`${await apiPath()}/auth-doctor`, {
         id,
         username,
       });
@@ -27,9 +27,12 @@ function DoctorAppointment() {
         navigate("/login");
       }
 
-      const data2 = await axios.post(`${apiPath()}/get-appointments-doctor`, {
-        doctorId: id,
-      });
+      const data2 = await axios.post(
+        `${await apiPath()}/get-appointments-doctor`,
+        {
+          doctorId: id,
+        }
+      );
 
       setAppointments(data2.data.data.reverse());
     }
@@ -40,7 +43,7 @@ function DoctorAppointment() {
   }, []);
 
   async function updateStatus(appId, status, app) {
-    const data = await axios.post(`${apiPath()}/update-status`, {
+    const data = await axios.post(`${await apiPath()}/update-status`, {
       id: appId,
       status,
     });

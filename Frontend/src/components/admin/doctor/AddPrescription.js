@@ -38,7 +38,7 @@ function AddPrescription({ reviewInfo }) {
       setIsError(false);
 
       try {
-        const data = await axios.post(`${apiPath()}/add-review`, {
+        const data = await axios.post(`${await apiPath()}/add-review`, {
           title,
           review,
           rating,

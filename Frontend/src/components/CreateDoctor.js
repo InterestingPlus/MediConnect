@@ -71,7 +71,7 @@ function CreateDoctor() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const data = await axios.get(`${apiPath()}/get-all-categories`);
+        const data = await axios.get(`${await apiPath()}/get-all-categories`);
 
         const sortedCategory = data.data.data.map((category) => {
           return category.name;
@@ -112,7 +112,7 @@ function CreateDoctor() {
       setShowMessage(true);
       setIfDisabled(true);
 
-      const response = await axios.post(`${apiPath()}/otp-verification`, {
+      const response = await axios.post(`${await apiPath()}/otp-verification`, {
         email: values.username,
       });
 
@@ -175,7 +175,7 @@ function CreateDoctor() {
       setValues(newValue);
 
       try {
-        await axios.post(`${apiPath()}/add-category`, {
+        await axios.post(`${await apiPath()}/add-category`, {
           name: customCategory,
         });
       } catch (err) {
@@ -213,7 +213,7 @@ function CreateDoctor() {
     } = values;
 
     if (verified) {
-      const { data } = await axios.post(`${apiPath()}/create-doctor`, {
+      const { data } = await axios.post(`${await apiPath()}/create-doctor`, {
         username,
         password,
         name,

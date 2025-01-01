@@ -8,6 +8,8 @@ import { io } from "socket.io-client";
 
 import ReviewPopup from "./ReviewPopup";
 
+const socket = io(await apiPath());
+
 function PatientAppointment() {
   const navigate = useNavigate();
 
@@ -16,8 +18,6 @@ function PatientAppointment() {
   const [userId, setUserId] = useState(false);
   const [showReviewPopup, setShowReviewPopup] = useState(false);
 
-  const socket = io(apiPath());
-
   useEffect(() => {
     async function checkLocalUser() {
       const user = await JSON.parse(localStorage.getItem("profile"));
@@ -25,7 +25,7 @@ function PatientAppointment() {
         const { id, username } = await user;
         setUserId(await user.id);
 
-        const data = await axios.post(`${apiPath()}/auth-patient`, {
+        const data = await axios.post(`${await apiPath()}/auth-patient`, {
           id,
           username,
         });
@@ -36,7 +36,7 @@ function PatientAppointment() {
         }
 
         const data2 = await axios.post(
-          `${apiPath()}/get-appointments-patient`,
+          `${await apiPath()}/get-appointments-patient`,
           {
             patientId: id,
           }
@@ -67,7 +67,9 @@ function PatientAppointment() {
   useEffect(() => {
     async function addingReview() {
       try {
-        const data = await axios.post(`${apiPath()}/check-review`, { userId });
+        const data = await axios.post(`${await apiPath()}/check-review`, {
+          userId,
+        });
 
         if (data) {
           console.log(data.data);

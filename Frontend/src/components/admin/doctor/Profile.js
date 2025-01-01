@@ -48,7 +48,7 @@ function DoctorProfile() {
           };
         }
 
-        const data = await axios.post(`${apiPath()}/update-doctor`, {
+        const data = await axios.post(`${await apiPath()}/update-doctor`, {
           id: doctor._id,
 
           name,
@@ -103,7 +103,7 @@ function DoctorProfile() {
 
       const { id, username } = await user;
 
-      const data = await axios.post(`${apiPath()}/auth-doctor`, {
+      const data = await axios.post(`${await apiPath()}/auth-doctor`, {
         id,
         username,
       });
@@ -358,6 +358,15 @@ function DoctorProfile() {
         <div id="loading">
           <span className="animation"></span>
           <h1>Fetching Your Details...</h1>
+          <button
+            onClick={() => {
+              localStorage.clear();
+              checkLocalUser();
+            }}
+            className="logout"
+          >
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </button>
         </div>
       )}
     </section>

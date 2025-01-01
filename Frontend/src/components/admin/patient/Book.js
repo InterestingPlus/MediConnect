@@ -31,7 +31,7 @@ function AllDoctors() {
         setLoading(true);
 
         const response = await axios.get(
-          `${apiPath()}/get-doctor?page=${page}`
+          `${await apiPath()}/get-doctor?page=${page}`
         );
         const { data } = response.data;
 
@@ -56,7 +56,7 @@ function AllDoctors() {
     try {
       setLoading(true);
 
-      const response = await axios.post(`${apiPath()}/search-doctor`, {
+      const response = await axios.post(`${await apiPath()}/search-doctor`, {
         search,
       });
 
@@ -75,7 +75,7 @@ function AllDoctors() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `${apiPath()}/get-doctor?page=${page}&limit=8`
+        `${await apiPath()}/get-doctor?page=${page}&limit=8`
       );
       const { data } = response.data;
 

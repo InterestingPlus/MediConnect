@@ -40,7 +40,7 @@ function DoctorFilter({ onFilterChange }) {
   useEffect(() => {
     async function getCategories() {
       try {
-        const data = await axios.get(`${apiPath()}/get-all-categories`);
+        const data = await axios.get(`${await apiPath()}/get-all-categories`);
 
         const sortedCategory = data.data.data.map((category) => {
           return category.name;

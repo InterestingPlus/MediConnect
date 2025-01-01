@@ -34,7 +34,7 @@ function PatientProfile() {
 
       const { id, username } = await user;
 
-      const data = await axios.post(`${apiPath()}/auth-patient`, {
+      const data = await axios.post(`${await apiPath()}/auth-patient`, {
         id,
         username,
       });
@@ -70,7 +70,7 @@ function PatientProfile() {
           };
         }
 
-        const data = await axios.post(`${apiPath()}/update-patient`, {
+        const data = await axios.post(`${await apiPath()}/update-patient`, {
           id: patient._id,
 
           name,
