@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiPath from "../../../isProduction";
 
 const { useEffect, useState } = require("react");
 const { useNavigate, Link } = require("react-router-dom");
@@ -15,7 +16,7 @@ function PatientDashboard() {
       if (user) {
         navigate("/patient-dashboard/dashboard");
 
-        const data = await axios.get(`http://localhost:4444/top-doctor`);
+        const data = await axios.get(`${apiPath()}/top-doctor`);
 
         setDoctors(data.data.data);
       } else {
@@ -46,14 +47,31 @@ function PatientDashboard() {
                     src={
                       doctor?.profileImg
                         ? doctor.profileImg
-                        : "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                        : doctor?.gender == "female"
+                        ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+                        : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
                     }
                     alt="profile-pic"
                   />
                   <span>
-                    <h1>{doctor.name}</h1>
-                    <h2>{doctor.specialization}</h2>
-                    <h3>Fee : {doctor?.consultationCharge}₹</h3>
+                    <h1>Dr. {doctor?.name}</h1>
+                    <h2>{doctor?.specialization}</h2>
+                    <h3>Fee: {doctor?.consultationCharge}₹</h3>
+                    <div className="rating">
+                      {doctor?.avgRating
+                        ? Array.from({ length: 5 }).map((_, index) => {
+                            if (index < doctor?.avgRating) {
+                              return (
+                                <i key={index} className="fi fi-sc-star"></i>
+                              ); // Filled star
+                            } else {
+                              return (
+                                <i key={index} className="fi fi-rr-star"></i>
+                              ); // Blank star
+                            }
+                          })
+                        : ""}
+                    </div>
                   </span>
                 </li>
               </Link>

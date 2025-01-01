@@ -17,7 +17,7 @@ function DoctorAppointment() {
 
     if (user) {
       const { id, username } = await user;
-      const data = await axios.post(`http://localhost:4444/auth-doctor`, {
+      const data = await axios.post(`${apiPath()}/auth-doctor`, {
         id,
         username,
       });
@@ -27,7 +27,7 @@ function DoctorAppointment() {
         navigate("/login");
       }
 
-      const data2 = await axios.post(`http://localhost:4444/get-appointments-doctor`, {
+      const data2 = await axios.post(`${apiPath()}/get-appointments-doctor`, {
         doctorId: id,
       });
 
@@ -40,7 +40,7 @@ function DoctorAppointment() {
   }, []);
 
   async function updateStatus(appId, status, app) {
-    const data = await axios.post(`http://localhost:4444/update-status`, {
+    const data = await axios.post(`${apiPath()}/update-status`, {
       id: appId,
       status,
     });

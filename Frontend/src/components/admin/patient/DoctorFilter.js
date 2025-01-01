@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import apiPath from "../../../isProduction";
 
 function DoctorFilter({ onFilterChange }) {
   const [filters, setFilters] = useState({
@@ -39,7 +40,7 @@ function DoctorFilter({ onFilterChange }) {
   useEffect(() => {
     async function getCategories() {
       try {
-        const data = await axios.get(`http://localhost:4444/get-all-categories`);
+        const data = await axios.get(`${apiPath()}/get-all-categories`);
 
         const sortedCategory = data.data.data.map((category) => {
           return category.name;

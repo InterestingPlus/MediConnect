@@ -7,6 +7,7 @@ import Appointment from "../../../images/appointment.gif";
 import Morning from "../../../images/morning.png";
 import Evening from "../../../images/night.png";
 
+import apiPath from "../../../isProduction";
 import "./BookTime.scss";
 
 function BookTime() {
@@ -61,7 +62,7 @@ function BookTime() {
   useEffect(() => {
     async function getDoctor() {
       try {
-        const data = await axios.post(`http://localhost:4444/doctor`, {
+        const data = await axios.post(`${apiPath()}/doctor`, {
           username: u,
         });
         await setDoctor(data.data.data);
@@ -71,7 +72,7 @@ function BookTime() {
 
       try {
         const bookedAppointments = await axios.post(
-          `http://localhost:4444/check-booked-appointments`,
+          `${apiPath()}/check-booked-appointments`,
           {
             username: u,
           }
@@ -92,7 +93,7 @@ function BookTime() {
 
         const { id, username } = await user;
 
-        const data = await axios.post(`http://localhost:4444/auth-patient`, {
+        const data = await axios.post(`${apiPath()}/auth-patient`, {
           id,
           username,
         });
@@ -145,7 +146,7 @@ function BookTime() {
           };
 
           const { data } = await axios.post(
-            `http://localhost:4444/create-appointment`,
+            `${apiPath()}/create-appointment`,
             appointmentData
           );
 

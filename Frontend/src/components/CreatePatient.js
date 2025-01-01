@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Create.scss";
 
+import apiPath from "../isProduction";
 import SelectLocation from "./SelectLocation";
 
 function CreatePatient() {
@@ -95,12 +96,9 @@ function CreatePatient() {
       setIfDisabled(true);
       setShowMessage(true);
 
-      const response = await axios.post(
-        `http://localhost:4444/otp-verification`,
-        {
-          email: values.username,
-        }
-      );
+      const response = await axios.post(`${apiPath()}/otp-verification`, {
+        email: values.username,
+      });
 
       if (await response.data) {
         setconstOTP(response.data.otp);
@@ -135,23 +133,22 @@ function CreatePatient() {
         contact,
       } = values;
 
-      const { data } = await axios.post(
-        `http://localhost:4444/create-patient`,
-        {
-          username,
-          password,
-          name,
-          age,
-          gender,
-          address: { country, state: state2, district, city },
-          contact,
-          profileImg: dataUrl,
-        }
-      );
+      const { data } = await axios.post(`${apiPath()}/create-patient`, {
+        username,
+        password,
+        name,
+        age,
+        gender,
+        address: { country, state: state2, district, city },
+        contact,
+        profileImg: dataUrl,
+      });
 
       if (data.status === false) {
         // alert("Errr : " + data.message);
-        alert("This Email-id is Already Registered! Please try Another.");
+        alert(
+          "This Email-id is Already Registered! Please try Another. Else / the Image Size is Too Large!"
+        );
         setIfDisabled(false);
         setVerified(false);
         setconstOTP("");

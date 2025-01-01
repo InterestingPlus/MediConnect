@@ -1264,10 +1264,9 @@ main.profile {
 // Search Box Start
 section#search-box {
   display: flex;
-  padding: 1rem;
   width: 100%;
 
-  position: sticky;
+  position: sticky !important;
   top: 0rem;
 
   div {

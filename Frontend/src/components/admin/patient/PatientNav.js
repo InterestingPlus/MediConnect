@@ -75,11 +75,15 @@ function PatientNav() {
             onClick={() => {
               setBell(false);
             }}
+            id="notification-icon"
           >
             {notificationBell ? (
-              <i className="fi fi-bs-bell-notification-social-media"></i>
+              <i
+                className="fi fi-bs-bell-notification-social-media"
+                id="newNotification"
+              ></i>
             ) : (
-              <i className="fi fi-bs-bell"></i>
+              <i className="fi fi-bs-bell"> </i>
             )}
           </NavLink>
 
@@ -95,9 +99,15 @@ function PatientNav() {
                   setBell(false);
                 }}
               >
-                <NavLink to="/patient-dashboard/notification">
+                <NavLink
+                  to="/patient-dashboard/notification"
+                  id="notification-icon"
+                >
                   {notificationBell ? (
-                    <i className="fi fi-bs-bell-notification-social-media"></i>
+                    <i
+                      className="fi fi-bs-bell-notification-social-media"
+                      id="newNotification"
+                    ></i>
                   ) : (
                     <i className="fi fi-bs-bell"></i>
                   )}{" "}

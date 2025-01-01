@@ -1,0 +1,82 @@
+section#profile {
+
+    h1,
+    h2 {
+        width: 100%;
+        display: flex;
+        gap: 1rem;
+        margin-top: 10px;
+        white-space: nowrap;
+        max-width: 600px;
+    }
+
+
+
+    input,
+    select {
+        border-radius: 10px;
+        padding: .3rem 1rem;
+        background: #ffffff50;
+        border: 1px solid #4d3a3a62;
+        width: 100%;
+
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #142899d2;
+
+        outline: none;
+
+        &:focus {
+            border: 3px solid rgba(48, 66, 88, 0.842);
+        }
+
+    }
+
+    input[type=file] {
+        max-width: 600px;
+    }
+
+    .location {
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+
+        label {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: rgb(0, 119, 255);
+        }
+
+        select {
+            margin-top: .3rem;
+            margin-bottom: 1rem;
+            max-width: 600px;
+        }
+    }
+
+
+    #cancel {
+        margin-left: 1rem;
+        border-radius: 20px;
+        padding: .75rem 1.6rem;
+
+        color: #ffffff;
+        background: rgba(160, 36, 36, 0.637);
+        border: none;
+        outline: none;
+
+        font-weight: 800;
+        font-size: 1.2rem;
+        cursor: pointer;
+
+        &:hover {
+            background: #f00;
+        }
+    }
+
+    .logout {
+        margin-top: 20px;
+        margin-bottom: 30px;
+    }
+
+}

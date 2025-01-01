@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import apiPath from "../isProduction";
 import "./Create.scss";
 import TimeSlotScheduler from "./TimeSlotScheduler";
 
@@ -68,9 +69,7 @@ function CreateDoctor() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const data = await axios.get(
-          `http://localhost:4444/get-all-categories`
-        );
+        const data = await axios.get(`${apiPath()}/get-all-categories`);
 
         const sortedCategory = data.data.data.map((category) => {
           return category.name;
@@ -111,12 +110,9 @@ function CreateDoctor() {
       setShowMessage(true);
       setIfDisabled(true);
 
-      const response = await axios.post(
-        `http://localhost:4444/otp-verification`,
-        {
-          email: values.username,
-        }
-      );
+      const response = await axios.post(`${apiPath()}/otp-verification`, {
+        email: values.username,
+      });
 
       if (await response.data) {
         setconstOTP(response.data.otp);
@@ -177,7 +173,7 @@ function CreateDoctor() {
       setValues(newValue);
 
       try {
-        await axios.post(`http://localhost:4444/add-category`, {
+        await axios.post(`${apiPath()}/add-category`, {
           name: customCategory,
         });
       } catch (err) {
@@ -215,7 +211,7 @@ function CreateDoctor() {
     } = values;
 
     if (verified) {
-      const { data } = await axios.post(`http://localhost:4444/create-doctor`, {
+      const { data } = await axios.post(`${apiPath()}/create-doctor`, {
         username,
         password,
         name,

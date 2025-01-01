@@ -40,6 +40,7 @@ main#book-doctor {
             max-width: 55px;
             aspect-ratio: 1;
           }
+
           h2 {
             color: rgba(0, 0, 0, 0.776);
             font-size: 1.25rem !important;
@@ -58,9 +59,11 @@ main#book-doctor {
 
         .review-info {
           margin-top: 1rem;
+
           h2 {
             font-size: 1.3rem !important;
           }
+
           p {
             font-size: 1.15rem !important;
             color: #232f3dc4;
@@ -91,6 +94,7 @@ main#book-doctor {
           white-space: nowrap;
         }
       }
+
       button.aptmnt {
         max-width: 66% !important;
         z-index: 99;
@@ -98,6 +102,7 @@ main#book-doctor {
       }
     }
   }
+
   body {
     max-height: 100dvh;
     overflow-y: hidden;
@@ -140,6 +145,7 @@ main#book-doctor {
             max-width: 60px;
             aspect-ratio: 1;
           }
+
           h2 {
             color: rgba(0, 0, 0, 0.776);
             font-size: 2.8rem;
@@ -191,6 +197,7 @@ main#book-doctor {
           white-space: nowrap;
         }
       }
+
       button.aptmnt {
         max-width: 66% !important;
         z-index: 99;
@@ -198,6 +205,7 @@ main#book-doctor {
       }
     }
   }
+
   body {
     max-height: 100dvh;
     overflow-y: hidden;

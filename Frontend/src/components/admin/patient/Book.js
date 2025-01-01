@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import apiPath from "../../../isProduction";
 import "./Book.scss";
 import DoctorFilter from "./DoctorFilter";
 
@@ -30,7 +31,7 @@ function AllDoctors() {
         setLoading(true);
 
         const response = await axios.get(
-          `http://localhost:4444/get-doctor?page=${page}`
+          `${apiPath()}/get-doctor?page=${page}`
         );
         const { data } = response.data;
 
@@ -55,7 +56,7 @@ function AllDoctors() {
     try {
       setLoading(true);
 
-      const response = await axios.post(`http://localhost:4444/search-doctor`, {
+      const response = await axios.post(`${apiPath()}/search-doctor`, {
         search,
       });
 
@@ -74,7 +75,7 @@ function AllDoctors() {
     try {
       setLoading(true);
       const response = await axios.get(
-        `http://localhost:4444/get-doctor?page=${page}&limit=8`
+        `${apiPath()}/get-doctor?page=${page}&limit=8`
       );
       const { data } = response.data;
 

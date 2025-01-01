@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Thanks from "../../../../src/images/shooting-star.gif";
+import apiPath from "../../../isProduction";
 import "./ReviewPopup.scss";
 
 const ReviewPopup = ({ reviewInfo }) => {
@@ -37,7 +38,7 @@ const ReviewPopup = ({ reviewInfo }) => {
       setIsError(false);
 
       try {
-        const data = await axios.post(`http://localhost:4444/add-review`, {
+        const data = await axios.post(`${apiPath()}/add-review`, {
           title,
           review,
           rating,

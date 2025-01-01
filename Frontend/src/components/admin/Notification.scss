@@ -23,6 +23,7 @@ div.notification {
         h2 {
           font-size: 1.46rem;
         }
+
         p {
           line-height: 1.2rem;
           font-size: 1.2rem;
@@ -59,6 +60,31 @@ div.notification {
   }
 }
 
+
+
+
+#notification-icon {
+
+
+
+  &:hover {
+    i {
+      animation: new-notification 1.8s alternate !important;
+    }
+  }
+
+
+  #newNotification {
+    transform-origin: center 0;
+    animation: new-notification 2s infinite ease-out;
+  }
+
+}
+
+
+
+
+
 #notification-popup {
   position: fixed;
   bottom: 2rem;
@@ -90,18 +116,21 @@ div.notification {
   from {
     transform: translateX(200%);
   }
+
   to {
     transform: translateX(0);
   }
 }
 
 @keyframes hideNotification {
+
   0%,
   90% {
     opacity: 1;
     visibility: visible;
     transform: translateX(0);
   }
+
   100% {
     opacity: 0;
     visibility: hidden;
@@ -113,7 +142,47 @@ div.notification {
   from {
     width: 0%;
   }
+
   to {
     width: calc(100% - 3rem);
+  }
+}
+
+@keyframes new-notification {
+
+  0%,
+  100% {
+    rotate: 0deg;
+    scale: 1;
+  }
+
+  10% {
+    rotate: 7deg;
+    scale: 1.1;
+  }
+
+  20% {
+    rotate: -7deg;
+    scale: 1.1;
+  }
+
+  30% {
+    rotate: 7deg;
+    scale: 1.1;
+  }
+
+  40% {
+    rotate: -7deg;
+    scale: 1.1;
+  }
+
+  60% {
+    rotate: 3deg;
+    scale: 1.1;
+  }
+
+  80% {
+    rotate: -3deg;
+    scale: 1.1;
   }
 }
