@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import apiPath from "../isProduction";
 import "./Create.scss";
+
+import SelectLocation from "./SelectLocation";
 
 function CreatePatient() {
   const navigate = useNavigate();
@@ -22,6 +23,10 @@ function CreatePatient() {
     password: "",
     name: "",
     age: "",
+    gender: "",
+    country: "",
+    state2: "",
+    city: "",
     contact: "",
   });
 
@@ -62,8 +67,8 @@ function CreatePatient() {
     });
   }
 
-  function ageValidation() {
-    if (values.age !== "") {
+  function ageValidation(location) {
+    if (values["location"] == "") {
       const numericAge = parseInt(values.age, 10);
       if (numericAge < 1 || numericAge > 120) {
         alert("Age must be between 1 and 120.");
@@ -82,14 +87,20 @@ function CreatePatient() {
         return;
       }
 
+      if (constOtp) {
+        return;
+      }
+
       alert("We Sending a Verification Code to Your Email...!");
       setIfDisabled(true);
       setShowMessage(true);
-      console.log(constOtp);
 
-      const response = await axios.post(`${apiPath()}/otp-verification`, {
-        email: values.username,
-      });
+      const response = await axios.post(
+        `http://localhost:4444/otp-verification`,
+        {
+          email: values.username,
+        }
+      );
 
       if (await response.data) {
         setconstOTP(response.data.otp);
@@ -111,16 +122,32 @@ function CreatePatient() {
     setIfDisabled(true);
 
     if (verified) {
-      const { username, password, name, age, contact } = values;
-
-      const { data } = await axios.post(`${apiPath()}/create-patient`, {
+      const {
         username,
         password,
         name,
         age,
+        gender,
+        country,
+        state2,
+        district,
+        city,
         contact,
-        profileImg: dataUrl,
-      });
+      } = values;
+
+      const { data } = await axios.post(
+        `http://localhost:4444/create-patient`,
+        {
+          username,
+          password,
+          name,
+          age,
+          gender,
+          address: { country, state: state2, district, city },
+          contact,
+          profileImg: dataUrl,
+        }
+      );
 
       if (data.status === false) {
         // alert("Errr : " + data.message);
@@ -136,6 +163,11 @@ function CreatePatient() {
           password: "",
           name: "",
           age: "",
+          gender: "",
+          country: "",
+          state: "",
+          district: "",
+          city: "",
           contact: "",
         });
 
@@ -239,7 +271,7 @@ function CreatePatient() {
           <input
             type="file"
             accept="image/jpeg,image/png"
-            onChange={handleFileChange}
+            onInput={handleFileChange}
           />
           {loading && <p>Processing image...</p>}
           {dataUrl && (
@@ -257,7 +289,7 @@ function CreatePatient() {
           name="username"
           id="username"
           value={values.username}
-          onChange={(e) => handleChange(e)}
+          onInput={(e) => handleChange(e)}
           disabled={ifDisabled || verified}
           placeholder="demo@gmail.com"
           required
@@ -270,7 +302,7 @@ function CreatePatient() {
             name="password"
             id="password"
             value={values.password}
-            onChange={(e) => handleChange(e)}
+            onInput={(e) => handleChange(e)}
             disabled={ifDisabled || verified}
             placeholder="Create a Strong Password"
             required
@@ -344,7 +376,7 @@ function CreatePatient() {
           name="name"
           id="name"
           value={values.name}
-          onChange={(e) => {
+          onInput={(e) => {
             handleChange(e);
             nameValidation(e);
           }}
@@ -361,7 +393,7 @@ function CreatePatient() {
           min="0"
           max="120"
           value={values.age}
-          onChange={(e) => {
+          onInput={(e) => {
             handleChange(e);
             ageValidation(e);
           }}
@@ -371,6 +403,34 @@ function CreatePatient() {
           required
         />
 
+        <label htmlFor="gender">Gender : </label>
+
+        <div id="gender">
+          <label htmlFor="male">
+            <span>Male</span>
+            <input
+              type="radio"
+              id="male"
+              value="male"
+              name="gender"
+              onInput={handleChange}
+              selected
+              required
+            />
+          </label>
+          <label htmlFor="female">
+            <span>Female</span>
+            <input
+              type="radio"
+              id="female"
+              value="female"
+              name="gender"
+              onInput={handleChange}
+              required
+            />
+          </label>
+        </div>
+
         <label htmlFor="contact">Contact : </label>
         <input
           type="number"
@@ -379,11 +439,13 @@ function CreatePatient() {
           min="1000000000"
           max="9999999999"
           value={values.contact}
-          onChange={(e) => handleChange(e)}
+          onInput={(e) => handleChange(e)}
           disabled={ifDisabled}
           placeholder="Enter your Mobile Number"
           required
         />
+
+        <SelectLocation setValues={setValues} />
 
         <p className="login-signUp">
           Already have an Account? <Link to="/login-patient">Login</Link>
@@ -394,6 +456,10 @@ function CreatePatient() {
           className={ifDisabled ? "submit disable" : "submit"}
           value="submit"
         />
+
+        <br />
+
+        <p>.</p>
       </form>
     </main>
   );

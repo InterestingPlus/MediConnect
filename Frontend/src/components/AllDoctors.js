@@ -1,14 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import apiPath from "../isProduction";
 
 function AllDoctors() {
   const [doctors, setDoctors] = useState(null);
 
   useEffect(() => {
     async function getDoctors() {
-      const data = await axios.get(`${apiPath()}/get-doctor`);
+      const data = await axios.get(`http://localhost:4444/get-doctor`);
 
       setDoctors(data);
     }

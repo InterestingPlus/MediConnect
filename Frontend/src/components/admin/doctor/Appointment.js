@@ -17,7 +17,7 @@ function DoctorAppointment() {
 
     if (user) {
       const { id, username } = await user;
-      const data = await axios.post(`${apiPath()}/auth-doctor`, {
+      const data = await axios.post(`http://localhost:4444/auth-doctor`, {
         id,
         username,
       });
@@ -27,7 +27,7 @@ function DoctorAppointment() {
         navigate("/login");
       }
 
-      const data2 = await axios.post(`${apiPath()}/get-appointments-doctor`, {
+      const data2 = await axios.post(`http://localhost:4444/get-appointments-doctor`, {
         doctorId: id,
       });
 
@@ -40,7 +40,7 @@ function DoctorAppointment() {
   }, []);
 
   async function updateStatus(appId, status, app) {
-    const data = await axios.post(`${apiPath()}/update-status`, {
+    const data = await axios.post(`http://localhost:4444/update-status`, {
       id: appId,
       status,
     });
@@ -105,7 +105,9 @@ function DoctorAppointment() {
                       src={
                         app?.patientImg
                           ? app.patientImg
-                          : "https://cdn-icons-png.flaticon.com/512/3952/3952988.png"
+                          : app?.gender == "female"
+                          ? "https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
+                          : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png"
                       }
                     />
 

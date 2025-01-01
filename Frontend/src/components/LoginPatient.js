@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { default as apiPath } from "../isProduction";
 
 function LoginPatient() {
   const navigate = useNavigate();
@@ -41,7 +40,7 @@ function LoginPatient() {
     const { username, password } = values;
 
     if (true) {
-      const { data } = await axios.post(`${apiPath()}/login-patient`, {
+      const { data } = await axios.post(`http://localhost:4444/login-patient`, {
         username,
         password,
       });

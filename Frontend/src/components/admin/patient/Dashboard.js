@@ -1,5 +1,4 @@
 import axios from "axios";
-import apiPath from "../../../isProduction";
 
 const { useEffect, useState } = require("react");
 const { useNavigate, Link } = require("react-router-dom");
@@ -16,11 +15,9 @@ function PatientDashboard() {
       if (user) {
         navigate("/patient-dashboard/dashboard");
 
-        const data = await axios.get(`${apiPath()}/top-doctor`);
+        const data = await axios.get(`http://localhost:4444/top-doctor`);
 
         setDoctors(data.data.data);
-
-        console.log(doctors);
       } else {
         navigate("/login");
       }
@@ -66,7 +63,7 @@ function PatientDashboard() {
       ) : (
         <div id="small-loading">
           <span className="animation"></span>
-          <h1>Loading Appointments...</h1>
+          <h1>Loading Doctors...</h1>
         </div>
       )}
     </>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import apiPath from "../../../isProduction";
 
 const { useEffect, useState } = require("react");
 const { useNavigate } = require("react-router-dom");
@@ -18,7 +17,7 @@ function DoctorProfile() {
 
       const { id, username } = await user;
 
-      const data = await axios.post(`${apiPath()}/auth-doctor`, {
+      const data = await axios.post(`http://localhost:4444/auth-doctor`, {
         id,
         username,
       });
@@ -63,10 +62,13 @@ function DoctorProfile() {
       {doctor ? (
         <>
           <img
+            className="white"
             src={
               doctor?.profileImg
                 ? doctor.profileImg
-                : "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                : doctor?.gender == "female"
+                ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+                : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
             }
             alt="profile-pic"
           />

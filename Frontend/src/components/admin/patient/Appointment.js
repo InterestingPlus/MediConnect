@@ -1,13 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import apiPath from "../../../isProduction";
 import "../Appointment.scss";
 
 import { io } from "socket.io-client";
 import ReviewPopup from "./ReviewPopup";
 
-function PatientAppointment() {
+async function PatientAppointment() {
   const navigate = useNavigate();
 
   const [appointments, setAppointments] = useState(null);
@@ -15,7 +14,7 @@ function PatientAppointment() {
   const [userId, setUserId] = useState(false);
   const [showReviewPopup, setShowReviewPopup] = useState(false);
 
-  const socket = io(apiPath());
+  const socket = io("http://localhost:4444");
 
   useEffect(() => {
     async function checkLocalUser() {
@@ -24,7 +23,7 @@ function PatientAppointment() {
         const { id, username } = await user;
         setUserId(await user.id);
 
-        const data = await axios.post(`${apiPath()}/auth-patient`, {
+        const data = await axios.post(`http://localhost:4444/auth-patient`, {
           id,
           username,
         });
@@ -35,7 +34,7 @@ function PatientAppointment() {
         }
 
         const data2 = await axios.post(
-          `${apiPath()}/get-appointments-patient`,
+          `http://localhost:4444/get-appointments-patient`,
           {
             patientId: id,
           }
@@ -66,7 +65,9 @@ function PatientAppointment() {
   useEffect(() => {
     async function addingReview() {
       try {
-        const data = await axios.post(`${apiPath()}/check-review`, { userId });
+        const data = await axios.post(`http://localhost:4444/check-review`, {
+          userId,
+        });
 
         if (data) {
           console.log(data.data);

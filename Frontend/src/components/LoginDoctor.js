@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import apiPath from "../isProduction";
 
 function LoginDoctor() {
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ function LoginDoctor() {
     const { username, password } = values;
 
     if (true) {
-      const { data } = await axios.post(`${apiPath()}/login-doctor`, {
+      const { data } = await axios.post(`http://localhost:4444/login-doctor`, {
         username,
         password,
       });
@@ -58,7 +57,7 @@ function LoginDoctor() {
           password: "",
         });
         setIfDisabled(false);
- 
+
         localStorage.setItem("profile", JSON.stringify(data.data));
 
         navigate("/doctor-dashboard");
