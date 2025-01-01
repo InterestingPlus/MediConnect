@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.04f18707.css",
-    "main.js": "/static/js/main.4e2580d0.js",
+    "main.js": "/static/js/main.60dd564e.js",
     "static/js/453.201b76ce.chunk.js": "/static/js/453.201b76ce.chunk.js",
     "static/media/MediConnect.mp4": "/static/media/MediConnect.cee4304ab4d1b1d748d2.mp4",
     "static/media/404.gif": "/static/media/404.4be2a9ca0fe717992e26.gif",
@@ -14,11 +14,11 @@
     "static/media/morning.png": "/static/media/morning.41151bfed353da332a6d.png",
     "index.html": "/index.html",
     "main.04f18707.css.map": "/static/css/main.04f18707.css.map",
-    "main.4e2580d0.js.map": "/static/js/main.4e2580d0.js.map",
+    "main.60dd564e.js.map": "/static/js/main.60dd564e.js.map",
     "453.201b76ce.chunk.js.map": "/static/js/453.201b76ce.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.04f18707.css",
-    "static/js/main.4e2580d0.js"
+    "static/js/main.60dd564e.js"
   ]
 }
