@@ -18,8 +18,6 @@ module.exports.addDoctor = async (req, res) => {
       consultationCharge,
     } = req.body;
 
-    console.log(address);
-
     const result = await Doctor.create({
       username,
       password,
@@ -35,7 +33,7 @@ module.exports.addDoctor = async (req, res) => {
     });
 
     console.log(
-      `Doctor Created = Name : ${result.name} UserName : ${result.username} Specialization : ${result.specialization}`
+      `Doctor Created = Name : ${result.name} UserName : ${result.username}`
     );
 
     return res.json({
@@ -48,7 +46,7 @@ module.exports.addDoctor = async (req, res) => {
       status: true,
     });
   } catch (err) {
-    console.log("Error While Creating Doctor : ", err);
+    console.log("Error While Creating Doctor!");
 
     res.json({
       message: "Failed to Create Doctor!",
@@ -142,8 +140,8 @@ module.exports.getDoctors = async (req, res) => {
 
 module.exports.TopDoctors = async (req, res) => {
   try {
-    // const data = await Doctor.find().sort({ rating: -1 }).limit(10);
-    const data = await Doctor.find().limit(6).lean();
+    // const data = await Doctor.find().limit(6).lean();
+    const data = await Doctor.find().sort({ avgRating: -1 }).limit(4);
 
     data.forEach((doctor) => {
       delete doctor.password;

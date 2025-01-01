@@ -138,15 +138,17 @@ module.exports.updateStatus = async (req, res) => {
         type: "status",
         message: `Your appointment has been ${status}.`,
       });
-
-      console.log("new Notification", notification);
     }
+
+    console.log("Appointment Status Updated!");
 
     res.json({
       message: "Appointment status updated successfully!",
       data,
     });
   } catch (error) {
+    console.log("Can't Update Status!");
+
     res.json({ error: "Failed to update appointment status." });
   }
 };

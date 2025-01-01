@@ -21,6 +21,7 @@ const {
   loginPatient,
   getAuthenticatedPatient,
   addPatient,
+  updatePatient,
 } = require("./controllers/patient.controller.js");
 const {
   addAppointment,
@@ -106,6 +107,7 @@ app.post("/auth-doctor", getAuthenticatedDoctor);
 // Patient Route
 app.post("/login-patient", loginPatient);
 app.post("/create-patient", addPatient);
+app.post("/update-patient", updatePatient);
 app.post("/auth-patient", getAuthenticatedPatient);
 
 // Appointment Route
