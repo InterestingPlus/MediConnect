@@ -55,6 +55,42 @@ module.exports.addDoctor = async (req, res) => {
   }
 };
 
+module.exports.updateDoctor = async (req, res) => {
+  try {
+    const { id, name, age, address, contact, profileImg, availability } =
+      req.body;
+
+    const result = await Doctor.findOneAndUpdate(
+      { _id: id },
+      {
+        name,
+        age,
+        address,
+        contact,
+        profileImg,
+        availability,
+      }
+    );
+
+    console.log(
+      `Doctor Updated = Name : ${result.name} UserName : ${result.username}`
+    );
+
+    return res.status(200).json({
+      message: "Doctor Profile Updated SuccessFully!",
+      data: result,
+      status: true,
+    });
+  } catch (err) {
+    console.log("Error While Updating Doctor!", err);
+
+    res.status(500).json({
+      message: "Failed to Update Doctor!",
+      status: false,
+    });
+  }
+};
+
 module.exports.getAllDoctors = async (req, res) => {
   try {
     const { page = 1, limit = 8 } = req.query; // Default values for page and limit

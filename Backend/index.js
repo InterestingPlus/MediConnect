@@ -15,6 +15,7 @@ const {
   getAuthenticatedDoctor,
   TopDoctors,
   searchDoctor,
+  updateDoctor,
 } = require("./controllers/doctor.controller.js");
 
 const {
@@ -102,6 +103,7 @@ app.post("/doctor", getDoctor);
 
 app.post("/login-doctor", loginDoctor);
 app.post("/create-doctor", addDoctor);
+app.post("/update-doctor", updateDoctor);
 app.post("/auth-doctor", getAuthenticatedDoctor);
 
 // Patient Route
