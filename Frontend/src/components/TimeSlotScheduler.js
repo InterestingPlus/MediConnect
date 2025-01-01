@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TimeSlotScheduler.scss";
 
-const TimeSlotScheduler = ({ onScheduleChange }) => {
+const TimeSlotScheduler = ({ onScheduleChange, defaultValues }) => {
   const [schedule, setSchedule] = useState({
     Monday: [],
     Tuesday: [],
@@ -11,6 +11,12 @@ const TimeSlotScheduler = ({ onScheduleChange }) => {
     Saturday: [],
     Sunday: [],
   });
+
+  useEffect(() => {
+    if (defaultValues) {
+      setSchedule((prev) => ({ ...prev, ...defaultValues }));
+    }
+  }, [defaultValues]);
 
   const [selectedDay, setSelectedDay] = useState("Monday");
   const [newSlot, setNewSlot] = useState("07:00");

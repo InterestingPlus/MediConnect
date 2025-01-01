@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../isProduction";
 import "./Create.scss";
+import SelectLocation from "./SelectLocation";
+
 import TimeSlotScheduler from "./TimeSlotScheduler";
 
 function CreateDoctor() {
@@ -592,7 +594,7 @@ function CreateDoctor() {
               required
             />
 
-            {/* <SelectLocation setValues={setValues} /> */}
+            <SelectLocation setValues={setValues} />
 
             <label htmlFor="contact">Contact : </label>
             <input

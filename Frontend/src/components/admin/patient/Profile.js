@@ -232,7 +232,7 @@ function PatientProfile() {
 
           {isUpdate ? (
             <h2>
-              Name,
+              Name :
               <input
                 type="text"
                 name="name"

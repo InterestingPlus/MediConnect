@@ -20,6 +20,17 @@ function PatientDashboard() {
   return (
     <>
       <h1> Doctor Dashboard </h1>
+
+      <section>
+        <h2>Recent Patients</h2>
+        <hr />
+
+        <ul>
+          <li>Patient 1</li>
+          <li>Patient 2</li>
+          <li>Patient 3</li>
+        </ul>
+      </section>
     </>
   );
 }

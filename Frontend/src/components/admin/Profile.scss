@@ -10,7 +10,34 @@ section#profile {
         max-width: 600px;
     }
 
+    h2.availability {
+        display: flex;
+        flex-direction: column;
 
+        h3 {
+            font-size: 1.4rem;
+            color: rgba(98, 76, 102, 0.87);
+            margin-left: 20px;
+        }
+
+        div {
+            margin-left: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+
+            button {
+                padding: .7rem 1.3rem;
+                border-radius: 10px;
+                border: 1px solid rgba(0, 19, 54, 0.486);
+                background: rgb(255, 255, 255);
+
+                color: #38352ec5;
+                font-size: 1rem;
+                font-weight: 800;
+            }
+        }
+    }
 
     input,
     select {
