@@ -61,7 +61,6 @@ module.exports.getAppointmentsDoctor = async (req, res) => {
         app.patientImg = patient.profileImg;
         app.gender = patient?.gender;
         delete app.doctorId;
-        delete app.patientId;
 
         return app;
       })

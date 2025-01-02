@@ -46,6 +46,7 @@ const {
   checkReview,
 } = require("./controllers/review.controller.js");
 const { dietSuggestions } = require("./controllers/suggestion.controller.js");
+const { addPrescription } = require("./controllers/prescription.controller.js");
 
 const app = express();
 
@@ -118,6 +119,9 @@ app.post("/get-appointments-patient", getAppointmentsPatient);
 app.post("/get-appointments-doctor", getAppointmentsDoctor);
 app.post("/update-status", updateStatus);
 app.post("/check-booked-appointments", checkBookedAppointments);
+
+// Prescription Route
+app.post("/add-prescription", addPrescription);
 
 // NodeMailer Route
 app.post("/otp-verification", otpVerification);
