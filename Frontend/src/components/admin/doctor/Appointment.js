@@ -5,18 +5,25 @@ import { Link, useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
 import "../Appointment.scss";
+import "./Prescription.scss";
+import ai from "../../../images/stars.png";
 
 const socket = io(await apiPath());
 
 function DoctorAppointment() {
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState(null);
+  const [localId, setLocalId] = useState(false);
+  const [reason, setReason] = useState(false);
 
   async function checkLocalUser() {
     const user = await JSON.parse(localStorage.getItem("profile"));
 
     if (user) {
       const { id, username } = await user;
+
+      setLocalId(id);
+
       const data = await axios.post(`${await apiPath()}/auth-doctor`, {
         id,
         username,
@@ -64,6 +71,79 @@ function DoctorAppointment() {
     } else {
       alert("Something Went Wrong!");
     }
+  }
+
+  // Add Prescription
+  const [isLoading, setIsLoading] = useState(false);
+  const [prescriptionPopup, setPrescriptionPopup] = useState(false);
+  const [preValues, setPreValues] = useState({
+    title: "",
+    description: "",
+    link: "",
+  });
+
+  function handlePreChange(e) {
+    setPreValues({
+      ...preValues,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function addPrescription() {
+    setIsLoading(true);
+
+    if (!preValues.title || !preValues.description) {
+      console.log("Please add the Required Details");
+      return;
+    }
+
+    const { title, description, link } = preValues;
+
+    try {
+      const data = await axios.post(`${await apiPath()}/add-prescription`, {
+        appId: prescriptionPopup,
+        title,
+        description,
+        link,
+      });
+
+      if (data.data.status) {
+        checkLocalUser();
+
+        setPrescriptionPopup(false);
+        alert("Prescription Added!");
+      } else {
+        alert("Error while Adding Prescription!");
+      }
+    } catch (err) {
+      alert("Can't Add Prescription!");
+    }
+    setIsLoading(false);
+  }
+
+  async function getSuggestions() {
+    setIsLoading(true);
+
+    try {
+      const data = await axios.post(`${await apiPath()}/diet-suggestions`, {
+        doctorId: localId,
+        reason: reason,
+      });
+
+      checkLocalUser();
+
+      const formattedSuggestions = data.data.data
+        .map((item) => item.suggestion) // Extract the 'suggestion' field
+        .join("\n\n");
+
+      setPreValues((prevValues) => ({
+        ...prevValues,
+        description: formattedSuggestions,
+      }));
+    } catch (err) {
+      alert("Can't Add Prescription!");
+    }
+    setIsLoading(false);
   }
 
   return (
@@ -172,11 +252,22 @@ function DoctorAppointment() {
                     </p>
                     <br />
 
+                    {app?.prescriptionId}
                     {app?.status == "visited" ? (
-                      app?.prescription ? (
-                        <Link to="">View Prescription</Link>
+                      app?.prescriptionId ? (
+                        <Link to={`/prescription/${app.prescriptionId}`}>
+                          View Prescription
+                        </Link>
                       ) : (
-                        <Link to="">Add Prescription</Link>
+                        <button
+                          onClick={() => {
+                            setPrescriptionPopup(app?._id);
+                            setReason(app?.reason);
+                          }}
+                          id="add"
+                        >
+                          Add Prescription
+                        </button>
                       )
                     ) : (
                       ""
@@ -204,6 +295,73 @@ function DoctorAppointment() {
             <h1>Loading Appointments...</h1>
           </div>
         )}
+
+        {prescriptionPopup ? (
+          <div id="prescription-popup">
+            <button
+              type="button"
+              id="hide"
+              onClick={() => {
+                setPrescriptionPopup(false);
+              }}
+            >
+              <i class="fi fi-ss-cross-circle"></i>
+            </button>
+
+            <h2>Prescription</h2>
+
+            <br />
+
+            <div>
+              <label htmlFor="title">Title :</label>
+              <input
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Enter Prescription Title"
+                value={preValues.title}
+                onInput={handlePreChange}
+              />
+
+              <label htmlFor="description">Description :</label>
+              <textarea
+                name="description"
+                id="description"
+                placeholder="Prescription Content"
+                value={preValues.description}
+                onInput={handlePreChange}
+              ></textarea>
+
+              <label htmlFor="link">Link : (Attachment)</label>
+              <input
+                type="url"
+                name="link"
+                id="link"
+                placeholder="https://your-doc.com"
+                value={preValues.link}
+                onInput={handlePreChange}
+              />
+
+              <div className="buttons">
+                <button
+                  onClick={addPrescription}
+                  className="add-presc"
+                  disabled={isLoading}
+                >
+                  {!isLoading ? "Add" : "Adding..."}
+                </button>
+                <button
+                  onClick={getSuggestions}
+                  className="suggest"
+                  disabled={isLoading}
+                >
+                  {!isLoading ? "Suggest" : "Generating..."}
+                  <img src={ai} />
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : null}
       </section>
     </>
   );

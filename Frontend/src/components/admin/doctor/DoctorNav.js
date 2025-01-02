@@ -30,7 +30,11 @@ function DoctorNav() {
             </h1>
           </Link>
 
-          <NavLink to="/doctor-dashboard/notification" className="icon">
+          <NavLink
+            to="/doctor-dashboard/notification"
+            className="icon"
+            id="notification-icon"
+          >
             <i class="fi fi-bs-bell" id="notification"></i>
           </NavLink>
 

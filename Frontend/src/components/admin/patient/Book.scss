@@ -2,7 +2,6 @@ ul#all-doctors {
   margin-bottom: 2rem;
 }
 
-
 #search-box {
   z-index: 9;
 }
@@ -45,7 +44,7 @@ li {
 ul#all-doctors {
   .rating {
     position: absolute;
-    top: 1rem;
+    top: -0rem;
     right: 1rem;
 
     display: flex !important;
@@ -97,7 +96,7 @@ ul#all-doctors {
       min-width: 300px;
       margin-bottom: 15px;
 
-      &>label {
+      & > label {
         display: block;
         font-weight: bold;
         margin-bottom: 5px;

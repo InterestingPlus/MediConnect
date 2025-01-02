@@ -7,8 +7,7 @@ async function apiPath() {
       isProduction = data.production;
     })
     .catch((error) => {
-      alert("Error loading config:");
-      console.log("Error loading config:", error);
+      alert("Internet Not Connected!");
     });
 
   if (isProduction) {

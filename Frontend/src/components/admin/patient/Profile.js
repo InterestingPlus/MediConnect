@@ -186,6 +186,25 @@ function PatientProfile() {
     });
   };
 
+  function formateDate(dateString) {
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  function formateTime(dateString) {
+    const hour = new Date(dateString).getHours();
+    const min = new Date(dateString).getMinutes();
+
+    return `${hour.toString().padStart(2, "0")}:${min
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
   return (
     <>
       {patient ? (
@@ -326,6 +345,31 @@ function PatientProfile() {
           ) : null}
 
           <br />
+          <br />
+
+          {!isUpdate ? (
+            patient.createdAt ? (
+              <h2 className="timeStamps">
+                Joined : <span> {formateDate(patient.createdAt)} </span>
+              </h2>
+            ) : null
+          ) : null}
+
+          {!isUpdate ? (
+            patient.updatedAt ? (
+              <>
+                <h2 className="timeStamps">
+                  Last Updated : <span>{formateDate(patient.updatedAt)}</span>
+                </h2>
+                <h2 className="updatedTime">
+                  Last Updated :<span>{formateTime(patient.updatedAt)}</span>
+                </h2>
+              </>
+            ) : null
+          ) : null}
+
+          <br />
+
           <br />
         </section>
       ) : (

@@ -217,6 +217,25 @@ function DoctorProfile() {
     });
   };
 
+  function formateDate(dateString) {
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
+  function formateTime(dateString) {
+    const hour = new Date(dateString).getHours();
+    const min = new Date(dateString).getMinutes();
+
+    return `${hour.toString().padStart(2, "0")}:${min
+      .toString()
+      .padStart(2, "0")}`;
+  }
+
   return (
     <section id="profile">
       {doctor ? (
@@ -343,6 +362,28 @@ function DoctorProfile() {
           ) : null}
 
           <br />
+
+          {!isUpdate ? (
+            doctor.createdAt ? (
+              <h2 className="timeStamps">
+                Joined : <span> {formateDate(doctor.createdAt)} </span>
+              </h2>
+            ) : null
+          ) : null}
+
+          {!isUpdate ? (
+            doctor.updatedAt ? (
+              <>
+                <h2 className="timeStamps">
+                  Last Updated : <span>{formateDate(doctor.updatedAt)}</span>
+                </h2>
+                <h2 className="updatedTime">
+                  Last Updated :<span>{formateTime(doctor.updatedAt)}</span>
+                </h2>
+              </>
+            ) : null
+          ) : null}
+
           <br />
           <button
             onClick={() => {

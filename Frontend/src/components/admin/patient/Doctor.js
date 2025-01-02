@@ -37,6 +37,16 @@ function Doctor() {
     }
   };
 
+  function formateDate(dateString) {
+    const date = new Date(dateString);
+
+    return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  }
+
   return (
     <main
       className="profile"
@@ -82,6 +92,12 @@ function Doctor() {
               <h3>
                 Age : <span> {doctor.age} </span>
               </h3>
+
+              {doctor.createdAt ? (
+                <h3>
+                  Joined Date : <span> {formateDate(doctor.createdAt)} </span>
+                </h3>
+              ) : null}
 
               <button
                 className="aptmnt"

@@ -79,8 +79,11 @@ const ReviewPopup = ({ reviewInfo }) => {
             <p>Recently Visited</p>
             <img
               src={
-                reviewInfo?.doctorImg ||
-                "https://img.freepik.com/premium-vector/doctor-woman-smiling-profile-cartoon_18591-60679.jpg"
+                reviewInfo?.doctorImg
+                  ? reviewInfo.doctorImg
+                  : reviewInfo.doctorGender == "female"
+                  ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+                  : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
               }
               alt={reviewInfo?.doctorName}
               className="doctor"
