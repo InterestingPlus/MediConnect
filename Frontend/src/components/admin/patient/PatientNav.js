@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
-// import Logo from "../../../../src/images/NewLogo2.png";
 import Logo from "../../../../src/images/White.png";
 import "../Notification.scss";
 
@@ -28,7 +27,6 @@ function PatientNav() {
       userIdRef.current = id; // Update ref here
 
       navigate("/patient-dashboard/dashboard");
-      setUserId(await user);
     } else {
       navigate("/");
     }
@@ -56,9 +54,9 @@ function PatientNav() {
 
   function showNotification(notification) {
     if (notification) {
-      // setTimeout(() => {
-      // setNotifications(false);
-      // }, 8000);
+      setTimeout(() => {
+        setNotifications(false);
+      }, 8000);
 
       return (
         <Link id="notification-popup" to="/patient-dashboard/notification">
@@ -156,7 +154,7 @@ function PatientNav() {
                   }}
                   className="logout"
                 >
-                  <i className="fa-solid fa-right-from-bracket"></i> Logout
+                  <i className="fa-solid fa-right-from-bracket"></i> Logou
                 </button>
               </li>
 

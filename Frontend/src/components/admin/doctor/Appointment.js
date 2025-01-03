@@ -1,12 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { io } from "socket.io-client";
+import ai from "../../../images/stars.png";
 import apiPath from "../../../isProduction";
 import "../Appointment.scss";
 import "./Prescription.scss";
-import ai from "../../../images/stars.png";
 
 const socket = io(await apiPath());
 
@@ -16,11 +16,16 @@ function DoctorAppointment() {
   const [localId, setLocalId] = useState(false);
   const [reason, setReason] = useState(false);
 
+  const [userId, setUserId] = useState(false);
+  const userIdRef = useRef(userId);
+
   async function checkLocalUser() {
     const user = await JSON.parse(localStorage.getItem("profile"));
 
     if (user) {
       const { id, username } = await user;
+      setUserId(id);
+      userIdRef.current = id; // Update ref here
 
       setLocalId(id);
 
@@ -49,6 +54,19 @@ function DoctorAppointment() {
     checkLocalUser();
   }, []);
 
+  useEffect(() => {
+    socket.on("new-notification-doctor", (data) => {
+      console.log(data);
+      if (data?.type == "new Appointment") {
+        if (data.recipientId == userIdRef.current) {
+          checkLocalUser();
+        }
+      } else {
+        alert(data?.type.toLowerCase());
+      }
+    });
+  }, []);
+
   async function updateStatus(appId, status, app) {
     const data = await axios.post(`${await apiPath()}/update-status`, {
       id: appId,
@@ -67,7 +85,7 @@ function DoctorAppointment() {
       // };
 
       // socket.emit("status", notification);
-      socket.emit("status", data.data.data);
+      socket.emit("patient", data.data.data);
 
       checkLocalUser();
     } else {

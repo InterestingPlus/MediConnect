@@ -4,7 +4,18 @@ section.view-appointment {
     flex-direction: column;
 
     li {
+
+
       position: relative;
+
+
+
+      p:last-child {
+        margin-top: 7px;
+
+      }
+
+
 
       &.new {
         &::after {

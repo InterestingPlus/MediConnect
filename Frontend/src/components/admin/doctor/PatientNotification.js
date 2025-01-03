@@ -43,6 +43,15 @@ const PatientNotification = () => {
     fetchNotifications();
   }, [deletedNotification, notifications]);
 
+  useEffect(() => {
+    socket.on("new-notification-patient", (data) => {
+      console.log(data);
+      setNotifications((prev) => {
+        return [data, ...prev];
+      });
+    });
+  }, []);
+
   async function handleDelete(notification_id) {
     try {
       await axios.post(`${await apiPath()}/delete-notification`, {

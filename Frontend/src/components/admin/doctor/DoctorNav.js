@@ -1,15 +1,31 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import Logo from "../../../../src/images/White.png";
+import "../Notification.scss";
+
+import { io } from "socket.io-client";
+import apiPath from "../../../isProduction";
+
+const socket = io(await apiPath());
 
 function DoctorNav() {
   const navigate = useNavigate();
   const [menu, setMenu] = useState(false);
 
+  const [notifications, setNotifications] = useState(false);
+  const [notificationBell, setBell] = useState(false);
+
+  const [userId, setUserId] = useState(false);
+  const userIdRef = useRef(userId);
+
   async function checkLocalUser() {
     const user = await JSON.parse(localStorage.getItem("profile"));
 
     if (user) {
+      const { id } = await user;
+      setUserId(id);
+      userIdRef.current = id;
+
       navigate("/doctor-dashboard/dashboard");
     } else {
       navigate("/");
@@ -19,6 +35,44 @@ function DoctorNav() {
   useEffect(() => {
     checkLocalUser();
   }, []);
+
+  useEffect(() => {
+    socket.on("new-notification-doctor", (data) => {
+      if (data.recipientId == userIdRef.current) {
+        if (notifications) {
+          setTimeout(() => {
+            setNotifications(data);
+            setBell(true);
+          }, 9000);
+        } else {
+          setNotifications(data);
+          setBell(true);
+        }
+      }
+    });
+  }, []);
+
+  function showNotification(notification) {
+    if (notification) {
+      setTimeout(() => {
+        setNotifications(false);
+      }, 8000);
+
+      return (
+        <Link id="notification-popup" to="/doctor-dashboard/notification">
+          <h2>You Have a New Notification</h2>
+          <hr />
+          <img src={notification?.patientImg} alt="doctor-image" />
+          <p>{notification?.message}</p>
+          <b>{notification?.type}</b>
+
+          <span className="progress"></span>
+        </Link>
+      );
+    } else {
+      return <></>;
+    }
+  }
 
   return (
     <>
@@ -33,9 +87,19 @@ function DoctorNav() {
           <NavLink
             to="/doctor-dashboard/notification"
             className="icon"
+            onClick={() => {
+              setBell(false);
+            }}
             id="notification-icon"
           >
-            <i class="fi fi-bs-bell" id="notification"></i>
+            {notificationBell ? (
+              <i
+                className="fi fi-bs-bell-notification-social-media"
+                id="newNotification"
+              ></i>
+            ) : (
+              <i className="fi fi-bs-bell"> </i>
+            )}
           </NavLink>
 
           <nav className={`mobile ${menu ? "close" : ""}`} id="doctor-sidebar">
@@ -43,6 +107,26 @@ function DoctorNav() {
               <li>
                 <NavLink to="/doctor-dashboard/dashboard">
                   <i class="fa-solid fa-house"></i> Home
+                </NavLink>
+              </li>
+              <li
+                onClick={() => {
+                  setBell(false);
+                }}
+              >
+                <NavLink
+                  to="/doctor-dashboard/notification"
+                  id="notification-icon"
+                >
+                  {notificationBell ? (
+                    <i
+                      className="fi fi-bs-bell-notification-social-media"
+                      id="newNotification"
+                    ></i>
+                  ) : (
+                    <i className="fi fi-bs-bell"></i>
+                  )}{" "}
+                  Notification
                 </NavLink>
               </li>
               <li>
@@ -130,6 +214,8 @@ function DoctorNav() {
           </li>
         </ul>
       </nav>
+
+      {showNotification(notifications)}
     </>
   );
 }

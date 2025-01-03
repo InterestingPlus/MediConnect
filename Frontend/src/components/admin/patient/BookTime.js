@@ -7,8 +7,11 @@ import Appointment from "../../../images/appointment.gif";
 import Morning from "../../../images/morning.png";
 import Evening from "../../../images/night.png";
 
+import { io } from "socket.io-client";
 import apiPath from "../../../isProduction";
 import "./BookTime.scss";
+
+const socket = io(await apiPath());
 
 function BookTime() {
   const navigate = useNavigate();
@@ -149,6 +152,8 @@ function BookTime() {
             `${await apiPath()}/create-appointment`,
             appointmentData
           );
+
+          socket.emit("doctor", data.data);
 
           if (data.status === false) {
             alert(
