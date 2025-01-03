@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import apiPath from "../../../isProduction";
+import FilterLocation from "./FilterLocation";
 
 function DoctorFilter({ onFilterChange }) {
   const [filters, setFilters] = useState({
@@ -83,11 +84,11 @@ function DoctorFilter({ onFilterChange }) {
 
       {hide ? (
         <section>
-          {/* <FilterLocation
+          <FilterLocation
             setFilters={setFilters}
             onFilterChange={onFilterChange}
             useCurrentLocation={useCurrentLocation}
-          /> */}
+          />
 
           <div className="filter-group">
             {/* Specialization */}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 // import Logo from "../../../../src/images/NewLogo2.png";
 import Logo from "../../../../src/images/White.png";
@@ -16,11 +16,19 @@ function PatientNav() {
   const [notifications, setNotifications] = useState(false);
   const [notificationBell, setBell] = useState(false);
 
+  const [userId, setUserId] = useState(false);
+  const userIdRef = useRef(userId);
+
   async function checkLocalUser() {
     const user = await JSON.parse(localStorage.getItem("profile"));
 
     if (user) {
+      const { id } = await user;
+      setUserId(id);
+      userIdRef.current = id; // Update ref here
+
       navigate("/patient-dashboard/dashboard");
+      setUserId(await user);
     } else {
       navigate("/");
     }
@@ -31,26 +39,34 @@ function PatientNav() {
   }, []);
 
   useEffect(() => {
-    socket.on("new-notification", (data) => {
-      console.log([data]);
-      setNotifications([data]);
-      setBell(true);
+    socket.on("new-notification-patient", (data) => {
+      if (data.recipientId == userIdRef.current) {
+        if (notifications) {
+          setTimeout(() => {
+            setNotifications(data);
+            setBell(true);
+          }, 9000);
+        } else {
+          setNotifications(data);
+          setBell(true);
+        }
+      }
     });
   }, []);
 
   function showNotification(notification) {
     if (notification) {
-      if (notification) {
-        setTimeout(() => {
-          setNotifications(false);
-        }, 8000);
-      }
+      setTimeout(() => {
+        setNotifications(false);
+      }, 8000);
+
       return (
-        <Link id="notification-popup">
+        <Link id="notification-popup" to="">
           <h2>You Have a New Notification</h2>
           <hr />
-          <p>{notification[0]?.message}</p>
-          <p>{notification[0]?.status}</p>
+          <img src={notification?.image} />
+          <p>{notification?.message}</p>
+          <b>{notification?.type}</b>
 
           <span className="progress"></span>
         </Link>

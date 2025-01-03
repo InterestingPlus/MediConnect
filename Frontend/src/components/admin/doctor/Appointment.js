@@ -53,19 +53,21 @@ function DoctorAppointment() {
     const data = await axios.post(`${await apiPath()}/update-status`, {
       id: appId,
       status,
+      senderId: localId,
     });
 
     if (data.status) {
       alert("Updated...!");
 
-      const notification = {
-        recipientId: data.data.data.patientId,
-        recipientType: "patient",
-        type: "Status Updated!",
-        message: `Your Status for Appointment Has ${status}`,
-      };
+      // const notification = {
+      //   recipientId: data.data.data.patientId,
+      //   recipientType: "patient",
+      //   type: "Status Updated!",
+      //   message: `Your Status for Appointment Has ${status}`,
+      // };
 
-      socket.emit("status", notification);
+      // socket.emit("status", notification);
+      socket.emit("status", data.data.data);
 
       checkLocalUser();
     } else {
@@ -93,7 +95,7 @@ function DoctorAppointment() {
     setIsLoading(true);
 
     if (!preValues.title || !preValues.description) {
-      console.log("Please add the Required Details");
+      alert("Please add the Required Details");
       return;
     }
 
@@ -220,7 +222,6 @@ function DoctorAppointment() {
                           }
                           onChange={(e) => {
                             updateStatus(app._id, e.target.value, app);
-                            checkLocalUser();
                           }}
                           disabled={app.status !== "pending"}
                         >

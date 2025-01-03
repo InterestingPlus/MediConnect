@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../../../isProduction";
 import "../Appointment.scss";
@@ -15,42 +15,50 @@ function PatientAppointment() {
 
   const [appointments, setAppointments] = useState(null);
 
-  const [userId, setUserId] = useState(false);
   const [showReviewPopup, setShowReviewPopup] = useState(false);
 
-  useEffect(() => {
-    async function checkLocalUser() {
-      const user = await JSON.parse(localStorage.getItem("profile"));
-      if (user) {
-        const { id, username } = await user;
-        setUserId(await user.id);
+  const [userId, setUserId] = useState(false);
+  const userIdRef = useRef(userId);
 
-        const data = await axios.post(`${await apiPath()}/auth-patient`, {
-          id,
-          username,
-        });
+  async function checkLocalUser() {
+    const user = await JSON.parse(localStorage.getItem("profile"));
+    if (user) {
+      const { id, username } = await user;
+      setUserId(id);
+      userIdRef.current = id; // Update ref here
 
-        if (!data.data.status) {
-          localStorage.clear();
-          navigate("/login");
-        }
+      const data = await axios.post(`${await apiPath()}/auth-patient`, {
+        id,
+        username,
+      });
 
-        const data2 = await axios.post(
-          `${await apiPath()}/get-appointments-patient`,
-          {
-            patientId: id,
-          }
-        );
-
-        setAppointments(data2.data.data.reverse());
-        // setAppointments(data2.data.data);
+      if (!data.data.status) {
+        localStorage.clear();
+        navigate("/login");
       }
-    }
-    checkLocalUser();
 
-    socket.on("new-notification", (data) => {
+      const data2 = await axios.post(
+        `${await apiPath()}/get-appointments-patient`,
+        {
+          patientId: id,
+        }
+      );
+
+      setAppointments(data2.data.data.reverse());
+      // setAppointments(data2.data.data);
+    }
+  }
+
+  useEffect(() => {
+    checkLocalUser();
+  }, []);
+
+  useEffect(() => {
+    socket.on("new-notification-patient", (data) => {
       if (data?.type.toLowerCase().includes("status")) {
-        checkLocalUser();
+        if (data.recipientId == userIdRef.current) {
+          checkLocalUser();
+        }
       } else {
         alert(data?.type.toLowerCase());
       }
@@ -72,7 +80,6 @@ function PatientAppointment() {
         });
 
         if (data) {
-          console.log(data.data);
           setShowReviewPopup(data.data.data);
         } else {
           setShowReviewPopup({});
