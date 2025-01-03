@@ -56,15 +56,15 @@ function PatientNav() {
 
   function showNotification(notification) {
     if (notification) {
-      setTimeout(() => {
-        setNotifications(false);
-      }, 8000);
+      // setTimeout(() => {
+      // setNotifications(false);
+      // }, 8000);
 
       return (
-        <Link id="notification-popup" to="">
+        <Link id="notification-popup" to="/patient-dashboard/notification">
           <h2>You Have a New Notification</h2>
           <hr />
-          <img src={notification?.image} />
+          <img src={notification?.doctorImg} alt="doctor-image" />
           <p>{notification?.message}</p>
           <b>{notification?.type}</b>
 

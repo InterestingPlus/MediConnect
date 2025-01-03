@@ -100,6 +100,13 @@ div.notification {
   animation: notification 1s alternate, hideNotification 8s alternate;
   text-decoration: none;
 
+  img {
+    border-radius: 50%;
+    margin-top: 10px;
+    width: 70px;
+    aspect-ratio: 1;
+  }
+
   .progress {
     width: 0%;
     height: 3px;
@@ -111,6 +118,15 @@ div.notification {
     animation: progress 8s alternate;
   }
 }
+
+@media screen and (width < 1000px) {
+
+  #notification-popup {
+    bottom: 5rem;
+  }
+
+}
+
 
 @keyframes notification {
   from {

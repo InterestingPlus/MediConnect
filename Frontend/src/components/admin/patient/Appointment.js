@@ -55,6 +55,7 @@ function PatientAppointment() {
 
   useEffect(() => {
     socket.on("new-notification-patient", (data) => {
+      console.log(data);
       if (data?.type.toLowerCase().includes("status")) {
         if (data.recipientId == userIdRef.current) {
           checkLocalUser();
