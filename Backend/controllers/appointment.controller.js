@@ -2,6 +2,7 @@ const Appointment = require("../models/appointment.model.js");
 const Doctor = require("../models/doctor.model.js");
 const Patient = require("../models/patient.model.js");
 const Notification = require("../models/notification.model.js");
+const { notifyDoctor } = require("./email.controller.js");
 
 module.exports.addAppointment = async (req, res) => {
   try {
@@ -24,6 +25,24 @@ module.exports.addAppointment = async (req, res) => {
 
       console.log(
         `Appointment Booked = Date : ${result.date} Time : ${result.time}`
+      );
+
+      const patientInfo = await Patient.findOne(
+        { _id: patientId },
+        { name: 1 }
+      );
+
+      const doctorInfo = await Doctor.findOne(
+        { _id: doctorId },
+        { username: 1, name: 1 }
+      );
+
+      notifyDoctor(
+        doctorInfo.username,
+        doctorInfo.name,
+        patientInfo.name,
+        time,
+        date
       );
 
       return res.status(200).json({
@@ -130,24 +149,30 @@ module.exports.updateStatus = async (req, res) => {
       });
     }
 
+    const doctor_data = await Doctor.findOne(
+      { _id: data?.doctorId },
+      { name: 1, profileImg: 1, gender: 1 }
+    );
 
-
-    const notification_data = await Notification.create({
+    await Notification.create({
       recipientId: data?.patientId,
       recipientType: "patient",
       type: "status",
-      message: `Your appointment has been ${status}.`,
+      message: `Your Appointment Status has been ${status} by Dr. ${doctor_data.name}.`,
     });
 
-    const patient_data = await Patient.findOne(
-      { _id: data?.patientId },
-      { name: 1, profileImg: 1, password: 0 }
-    );
-
     const notification = {
-      ...notification_data,
-      ...patient_data,
+      recipientId: data?.patientId,
+      type: "status",
+      message: `Your Appointment Status has been ${status} by Dr. ${doctor_data.name}.`,
+      doctorImg: doctor_data.profileImg
+        ? doctor_data.profileImg
+        : doctor_data.gender == "female"
+        ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
+        : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png",
     };
+
+    // recipientId, type, message, profileImg
 
     console.log("Appointment Status Updated!");
 
@@ -156,7 +181,7 @@ module.exports.updateStatus = async (req, res) => {
       data: notification,
     });
   } catch (error) {
-    console.log("Can't Update Status!");
+    console.log("Can't Update Status!", error);
 
     res.json({ error: "Failed to update appointment status." });
   }
