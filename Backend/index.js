@@ -70,7 +70,8 @@ io.on("connection", (socket) => {
   // console.log("New client connected:", socket.id);
 
   socket.on("status", (data) => {
-    io.emit("new-notification", data);
+    io.emit("new-notification-patient", data);
+    console.log(data);
   });
 });
 module.exports = { io };

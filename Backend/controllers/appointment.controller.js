@@ -123,27 +123,37 @@ module.exports.updateStatus = async (req, res) => {
 
     const data = await Appointment.findOneAndUpdate({ _id: id }, { status });
 
-    // if (!data) {
-    //   return res.json({
-    //     message: "Something Went Wrong",
-    //     status: false,
-    //   });
-    // }
-
-    if (data) {
-      const notification = await Notification.create({
-        recipientId: data.patientId,
-        recipientType: "patient",
-        type: "status",
-        message: `Your appointment has been ${status}.`,
+    if (!data) {
+      return res.json({
+        message: "Something Went Wrong",
+        status: false,
       });
     }
+
+
+
+    const notification_data = await Notification.create({
+      recipientId: data?.patientId,
+      recipientType: "patient",
+      type: "status",
+      message: `Your appointment has been ${status}.`,
+    });
+
+    const patient_data = await Patient.findOne(
+      { _id: data?.patientId },
+      { name: 1, profileImg: 1, password: 0 }
+    );
+
+    const notification = {
+      ...notification_data,
+      ...patient_data,
+    };
 
     console.log("Appointment Status Updated!");
 
     res.json({
       message: "Appointment status updated successfully!",
-      data,
+      data: notification,
     });
   } catch (error) {
     console.log("Can't Update Status!");
