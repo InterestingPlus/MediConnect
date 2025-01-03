@@ -56,13 +56,16 @@ module.exports.addAppointment = async (req, res) => {
         recipientId: doctorId,
         recipientType: "doctor",
         type: "new Appointment",
-        message: `New Appointment has been Booked by ${patientInfo.name}.`,
+        message: `New Appointment has been Booked by ${patientInfo?.name}.`,
+        senderId: patientId,
       });
 
+      // recipientId, type, message, profileImg
+
       const notification = {
-        recipientId: data?.patientId,
-        type: "status",
-        message: `New Appointment has been Booked by ${patientInfo.name}.`,
+        recipientId: doctorId,
+        type: "new Appointment",
+        message: `New Appointment has been Booked by ${patientInfo?.name}.`,
         patientImg,
       };
 
@@ -181,6 +184,7 @@ module.exports.updateStatus = async (req, res) => {
       recipientType: "patient",
       type: "status",
       message: `Your Appointment Status has been ${status} by Dr. ${doctor_data.name}.`,
+      senderId: data?.doctorId,
     });
 
     const notification = {

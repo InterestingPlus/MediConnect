@@ -127,6 +127,7 @@ module.exports.notifyDoctor = async (
     </div>
       `,
     });
+    console.log(`Notification Sent to the Doctor : ${doctorName}`);
   } catch (error) {
     console.log("Error sending email: ", error);
   }
