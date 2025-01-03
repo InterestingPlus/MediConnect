@@ -29,8 +29,14 @@ module.exports.addAppointment = async (req, res) => {
 
       const patientInfo = await Patient.findOne(
         { _id: patientId },
-        { name: 1 }
+        { name: 1, profileImg: 1, gender: 1 }
       );
+
+      const patientImg = patientInfo.profileImg
+        ? patientInfo.profileImg
+        : patientInfo.gender == "female"
+        ? "https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
+        : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png";
 
       const doctorInfo = await Doctor.findOne(
         { _id: doctorId },
@@ -42,11 +48,27 @@ module.exports.addAppointment = async (req, res) => {
         doctorInfo.name,
         patientInfo.name,
         time,
-        date
+        date,
+        patientImg
       );
+
+      await Notification.create({
+        recipientId: doctorId,
+        recipientType: "doctor",
+        type: "new Appointment",
+        message: `New Appointment has been Booked by ${patientInfo.name}.`,
+      });
+
+      const notification = {
+        recipientId: data?.patientId,
+        type: "status",
+        message: `New Appointment has been Booked by ${patientInfo.name}.`,
+        patientImg,
+      };
 
       return res.status(200).json({
         message: "Appointment Booked SuccessFully!",
+        data: notification,
         status: true,
       });
     } else {
@@ -144,7 +166,7 @@ module.exports.updateStatus = async (req, res) => {
 
     if (!data) {
       return res.json({
-        message: "Something Went Wrong",
+        message: "Something Went Wrong!",
         status: false,
       });
     }
