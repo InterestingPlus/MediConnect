@@ -3,6 +3,7 @@ import "./Home.scss";
 
 import MediConnect from "../images/MediConnect.mp4";
 import Logo from "../images/White.png";
+import { useEffect } from "react";
 
 function Home() {
   const navigate = useNavigate();

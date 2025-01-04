@@ -60,30 +60,18 @@ div.notification {
   }
 }
 
-
-
-
 #notification-icon {
-
-
-
   &:hover {
     i {
       animation: new-notification 1.8s alternate !important;
     }
   }
 
-
   #newNotification {
     transform-origin: center 0;
     animation: new-notification 2s infinite ease-out;
   }
-
 }
-
-
-
-
 
 #notification-popup {
   position: fixed;
@@ -121,13 +109,10 @@ div.notification {
 }
 
 @media screen and (width < 1000px) {
-
   #notification-popup {
     bottom: 5rem;
   }
-
 }
-
 
 @keyframes notification {
   from {
@@ -140,7 +125,6 @@ div.notification {
 }
 
 @keyframes hideNotification {
-
   0%,
   90% {
     opacity: 1;
@@ -166,7 +150,6 @@ div.notification {
 }
 
 @keyframes new-notification {
-
   0%,
   100% {
     rotate: 0deg;
