@@ -1,3 +1,5 @@
 {
-  "production": true
+  "production": true,
+  "url": "https://mediconnect-hms-backend-production.up.railway.app",
+  "url1": "https://hms-backend-production-7d9d.up.railway.app"
 }
