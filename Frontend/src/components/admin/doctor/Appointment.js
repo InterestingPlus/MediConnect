@@ -47,6 +47,8 @@ function DoctorAppointment() {
       );
 
       setAppointments(data2.data.data.reverse());
+
+      setIsLoading(false);
     }
   }
 
@@ -68,6 +70,8 @@ function DoctorAppointment() {
   }, []);
 
   async function updateStatus(appId, status, app) {
+    setIsLoading(true);
+
     const data = await axios.post(`${await apiPath()}/update-status`, {
       id: appId,
       status,
@@ -77,24 +81,21 @@ function DoctorAppointment() {
     if (data.status) {
       alert("Updated...!");
 
-      // const notification = {
-      //   recipientId: data.data.data.patientId,
-      //   recipientType: "patient",
-      //   type: "Status Updated!",
-      //   message: `Your Status for Appointment Has ${status}`,
-      // };
-
-      // socket.emit("status", notification);
       socket.emit("patient", data.data.data);
 
       checkLocalUser();
     } else {
       alert("Something Went Wrong!");
     }
+
+    setIsLoading(false);
   }
 
   // Add Prescription
   const [isLoading, setIsLoading] = useState(false);
+  const [isAddLoading, setIsAddLoading] = useState(false);
+  const [isSuggestLoading, setIsSuggestLoading] = useState(false);
+
   const [prescriptionPopup, setPrescriptionPopup] = useState(false);
   const [preValues, setPreValues] = useState({
     title: "",
@@ -111,6 +112,7 @@ function DoctorAppointment() {
 
   async function addPrescription() {
     setIsLoading(true);
+    setIsAddLoading(true);
 
     if (!preValues.title || !preValues.description) {
       alert("Please add the Required Details");
@@ -139,10 +141,12 @@ function DoctorAppointment() {
       alert("Can't Add Prescription!");
     }
     setIsLoading(false);
+    setIsAddLoading(false);
   }
 
   async function getSuggestions() {
     setIsLoading(true);
+    setIsSuggestLoading(true);
 
     try {
       const data = await axios.post(`${await apiPath()}/diet-suggestions`, {
@@ -161,9 +165,10 @@ function DoctorAppointment() {
         description: formattedSuggestions,
       }));
     } catch (err) {
-      alert("Can't Add Prescription!");
+      alert("Our AI Feature Currently not Working!");
     }
     setIsLoading(false);
+    setIsSuggestLoading(false);
   }
 
   return (
@@ -183,23 +188,36 @@ function DoctorAppointment() {
                 return (
                   <li key={key}>
                     {app?.status == "accepted" ? (
-                      <input
-                        type="checkbox"
-                        onClick={() => {
-                          const confirmVisited = window.confirm(
-                            "Are you Sure to Mark as Visited?"
-                          );
+                      <div className="visited">
+                        <label htmlFor="visited">Mark as Visited</label>
+                        <input
+                          type="checkbox"
+                          id="visited"
+                          onClick={() => {
+                            const confirmVisited = window.confirm(
+                              "Are you Sure to Mark as Visited?"
+                            );
 
-                          if (confirmVisited) {
-                            updateStatus(app._id, "visited");
-                          }
-                        }}
-                        value={app?.status == "visited"}
-                        checked={app?.status == "visited"}
-                        disabled={app?.status == "visited"}
-                      />
+                            if (confirmVisited) {
+                              if (!isLoading) {
+                                updateStatus(app._id, "visited");
+                              }
+                            }
+                          }}
+                          value={app?.status == "visited"}
+                          checked={app?.status == "visited"}
+                          disabled={app?.status == "visited" || isLoading}
+                        />
+                      </div>
                     ) : app?.status == "visited" ? (
-                      <input type="checkbox" checked="true" disabled />
+                      <div className="visited">
+                        <input
+                          type="checkbox"
+                          checked="true"
+                          id="visited"
+                          disabled
+                        />
+                      </div>
                     ) : (
                       ""
                     )}
@@ -271,10 +289,12 @@ function DoctorAppointment() {
                     </p>
                     <br />
 
-                    {app?.prescriptionId}
                     {app?.status == "visited" ? (
                       app?.prescriptionId ? (
-                        <Link to={`/prescription/${app.prescriptionId}`}>
+                        <Link
+                          to={`/prescription/${app.prescriptionId}`}
+                          className="view-presc"
+                        >
                           View Prescription
                         </Link>
                       ) : (
@@ -284,8 +304,9 @@ function DoctorAppointment() {
                             setReason(app?.reason);
                           }}
                           id="add"
+                          disabled={isAddLoading}
                         >
-                          Add Prescription
+                          {!isAddLoading ? "Add Prescription" : "Adding..."}
                         </button>
                       )
                     ) : (
@@ -362,19 +383,19 @@ function DoctorAppointment() {
               />
 
               <div className="buttons">
-                <button
+                <buttonx
                   onClick={addPrescription}
                   className="add-presc"
                   disabled={isLoading}
                 >
-                  {!isLoading ? "Add" : "Adding..."}
-                </button>
+                  {!isAddLoading ? "Add" : "Adding..."}
+                </buttonx>
                 <button
                   onClick={getSuggestions}
                   className="suggest"
                   disabled={isLoading}
                 >
-                  {!isLoading ? "Suggest" : "Generating..."}
+                  {!isSuggestLoading ? "Suggest" : "Generating..."}
                   <img src={ai} />
                 </button>
               </div>

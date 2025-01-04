@@ -30,3 +30,65 @@ section.view-appointment {
     }
   }
 }
+
+
+
+
+li {
+  position: relative;
+
+  .visited {
+    position: absolute;
+    top: .7rem;
+    right: .7rem;
+
+    display: flex;
+    gap: .4rem;
+
+    #visited {
+
+      width: 20px;
+      height: 20px;
+      border-radius: 10px;
+
+    }
+
+  }
+}
+
+
+button#add {
+
+  color: #0c0d63;
+  background: rgb(10, 218, 10);
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  padding: .5rem 1.2rem;
+  cursor: pointer;
+
+  &:hover {
+    color: #0c0d63;
+    background: rgb(0, 255, 0);
+  }
+
+  &:disabled {
+    color: #fff;
+    background: rgba(13, 117, 13, 0.74);
+    cursor: not-allowed;
+  }
+}
+
+.view-presc {
+  font-size: 1.2rem;
+  font-weight: 500;
+
+  background: #b9bada63;
+  text-align: center;
+  cursor: pointer;
+
+  border-radius: 20px;
+  padding: .3rem;
+}

@@ -1060,6 +1060,19 @@ button.logout {
   display: block;
 }
 
+a.view-all {
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+
+  border: none;
+  border-radius: 20px;
+  padding: 0.6rem 1.6rem;
+  color: #fff;
+  background: #144859;
+}
+
 main#dashboard {
   overflow-x: hidden;
   padding: 1rem;

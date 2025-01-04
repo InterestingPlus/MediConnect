@@ -166,9 +166,13 @@ function PatientAppointment() {
 
                     {app?.status == "visited" ? (
                       app?.prescriptionId ? (
-                        <Link to="/">View Prescription</Link>
+                        <Link to="/" className="view-presc">
+                          View Prescription
+                        </Link>
                       ) : (
-                        <p>Prescription Will be Shown Here</p>
+                        <p className="view-presc">
+                          Prescription Will be Shown Here
+                        </p>
                       )
                     ) : (
                       ""
