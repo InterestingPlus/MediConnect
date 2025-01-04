@@ -116,7 +116,7 @@ module.exports.getAppointmentsDoctor = async (req, res) => {
       data: data1,
     });
   } catch (err) {
-    console.log("Error ", err);
+    console.log("Error while Loading Appointments");
 
     res.json({
       message: "Failed to Get Appointments!",
@@ -152,7 +152,7 @@ module.exports.getAppointmentsPatient = async (req, res) => {
       data: data1,
     });
   } catch (err) {
-    console.log("Error ", err);
+    console.log("Error While Loading Appointments!");
 
     res.json({
       message: "Failed to Get Appointments!",
@@ -207,7 +207,7 @@ module.exports.updateStatus = async (req, res) => {
       data: notification,
     });
   } catch (error) {
-    console.log("Can't Update Status!", error);
+    console.log("Can't Update Status!");
 
     res.json({ error: "Failed to update appointment status." });
   }
@@ -237,7 +237,7 @@ module.exports.checkBookedAppointments = async (req, res) => {
       data: appointments,
     });
   } catch (err) {
-    console.log("Error loading appointments:", err);
+    console.log("Error loading appointments!");
 
     return res.status(500).json({
       message: "Failed to get appointments!",
