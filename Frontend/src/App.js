@@ -12,16 +12,17 @@ import DoctorAppointment from "./components/admin/doctor/Appointment";
 import DoctorDashboard from "./components/admin/doctor/Dashboard";
 import DoctorNav from "./components/admin/doctor/DoctorNav";
 import DoctorNotification from "./components/admin/doctor/DoctorNotification";
-import Laboratory from "./components/admin/doctor/Laboratory";
-import PatientHistory from "./components/admin/doctor/PatientHistory";
+import LaboratoryDoctor from "./components/admin/doctor/Laboratory";
 import DoctorProfile from "./components/admin/doctor/Profile";
+import Doctor from "./components/admin/patient/Doctor";
 
 import { useEffect, useState } from "react";
+import PatientHistory from "./components/admin/doctor/PatientHistory";
 import PatientAppointment from "./components/admin/patient/Appointment";
 import Book from "./components/admin/patient/Book";
 import BookTime from "./components/admin/patient/BookTime";
 import PatientDashboard from "./components/admin/patient/Dashboard";
-import Doctor from "./components/admin/patient/Doctor";
+import LaboratoryPatient from "./components/admin/patient/Laboratory";
 import PatientNav from "./components/admin/patient/PatientNav";
 import PatientNotification from "./components/admin/patient/PatientNotification";
 import PatientProfile from "./components/admin/patient/Profile";
@@ -78,7 +79,7 @@ function App() {
             <Route path="appointments" element={<DoctorAppointment />} />
 
             <Route path="history" element={<PatientHistory />} />
-            <Route path="laboratory" element={<Laboratory />} />
+            <Route path="laboratory" element={<LaboratoryDoctor />} />
             <Route path="profile" element={<DoctorProfile />} />
             <Route path="notification" element={<DoctorNotification />} />
           </Route>
@@ -90,7 +91,7 @@ function App() {
             <Route path="appointments/doctor/:u" element={<Doctor />} />
 
             <Route path="history" element={<PatientHistory />} />
-            <Route path="laboratory" element={<Laboratory />} />
+            <Route path="laboratory" element={<LaboratoryPatient />} />
             <Route path="profile" element={<PatientProfile />} />
 
             <Route path="dashboard" element={<PatientDashboard />} />

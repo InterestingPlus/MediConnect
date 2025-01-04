@@ -71,26 +71,43 @@ function Doctor() {
               />
 
               <div>
-                <h1>Dr. {doctor.name}</h1>
-                <h2>{doctor.specialization}</h2>
+                <h1>Dr. {doctor?.name}</h1>
+                <h2>{doctor?.specialization}</h2>
               </div>
             </div>
 
             <div className="top">
-              <h2>About</h2>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. In
-                vitae modi magni nihil iusto veritatis repellendus? Modi tempora
-                molestiae inventore placeat delectus saepe illo? Suscipit ut
-                deleniti aut nobis est!
-              </p>
-              <br />
+              {doctor?.about ? (
+                <>
+                  <h2>About</h2>
+                  <p>{doctor?.about}</p>
+                  <br />
+                </>
+              ) : (
+                ""
+              )}
+
               <h3>
-                Contact : <span> +{doctor.contact} </span>
-                <br /> <span> {doctor.username} </span>
+                Contact : <span> +{doctor?.contact} </span>
+                <span> {doctor?.username} </span>
               </h3>
               <h3>
-                Age : <span> {doctor.age} </span>
+                Email : <span> {doctor?.username} </span>
+              </h3>
+              <h3>
+                Age : <span> {doctor?.age} </span>
+              </h3>
+
+              <br />
+              <h2>From : </h2>
+              <h3>
+                Country : <span> {doctor?.address?.country} </span>
+              </h3>
+              <h3>
+                State : <span> {doctor?.address?.state} </span>
+              </h3>
+              <h3>
+                City : <span> {doctor?.address?.city} </span>
               </h3>
 
               {doctor.createdAt ? (

@@ -1,5 +1,19 @@
-function Laboratory() {
-  return <h1>Laboratory</h1>;
+import UnderConstruction from "../../../images/under-construction.gif";
+
+function LaboratoryPatient() {
+  return (
+    <>
+      <h1>Laboratory</h1>
+
+      <img
+        src={UnderConstruction}
+        alt="Under Construction"
+        className="under-construction"
+      />
+      <h3>This Page is Under Construction...</h3>
+      <p>Work in Progress...</p>
+    </>
+  );
 }
 
-export default Laboratory;
+export default LaboratoryPatient;

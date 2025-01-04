@@ -19,6 +19,7 @@ function DoctorProfile() {
     password: "",
     name: "",
     age: "",
+    about: "",
     gender: "",
     country: "",
     state2: "",
@@ -37,7 +38,7 @@ function DoctorProfile() {
       }
 
       try {
-        let { name, contact, age, address, profileImg, availability } =
+        let { name, contact, age, about, address, profileImg, availability } =
           updatedValues;
 
         if (updatedValues?.city) {
@@ -54,6 +55,7 @@ function DoctorProfile() {
           name,
           contact,
           age,
+          about,
           address,
           profileImg,
           availability,
@@ -304,6 +306,20 @@ function DoctorProfile() {
               />
             ) : (
               <span> {doctor?.contact} </span>
+            )}
+          </h2>
+
+          <h2>
+            About :
+            {isUpdate ? (
+              <textarea
+                rows="6"
+                name="about"
+                value={updatedValues?.about}
+                onInput={handleChange}
+              />
+            ) : (
+              <span> {doctor?.about} </span>
             )}
           </h2>
 
