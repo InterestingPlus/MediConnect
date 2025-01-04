@@ -65,6 +65,8 @@ module.exports.otpVerification = async (req, res) => {
         `,
     });
 
+    console.log("Email Sent!", info);
+
     // Respond with the OTP
     res.status(200).json({ success: true, otp });
   } catch (error) {
@@ -127,6 +129,7 @@ module.exports.notifyDoctor = async (
     </div>
       `,
     });
+
     console.log(`Notification Sent to the Doctor : ${doctorName}`);
   } catch (error) {
     console.log("Error sending email: ", error);
