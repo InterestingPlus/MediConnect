@@ -68,3 +68,15 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+
+PORT = 4444
+DATABASE_URI = mongodb+srv://root:jatin@first.lbcup8l.mongodb.net
+
+SMTP_HOST = smtp.gmail.com
+SMTP_PORT = 587
+EMAIL_USER = poriyajatin914@gmail.com
+EMAIL_PASS = cpxbxemzfdcztuav
+
+GEMINI_API_KEY = AIzaSyChXnSrzF3PEMPvn3XReYlRWxqV24Q7vt4
