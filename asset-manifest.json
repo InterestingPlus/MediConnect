@@ -1,10 +1,11 @@
 {
   "files": {
-    "main.css": "/static/css/main.58edeed1.css",
-    "main.js": "/static/js/main.4468c363.js",
+    "main.css": "/static/css/main.e62b452a.css",
+    "main.js": "/static/js/main.ca4be2b0.js",
     "static/js/453.e44b9a2c.chunk.js": "/static/js/453.e44b9a2c.chunk.js",
     "static/media/MediConnect.mp4": "/static/media/MediConnect.cee4304ab4d1b1d748d2.mp4",
     "static/media/404.gif": "/static/media/404.4be2a9ca0fe717992e26.gif",
+    "static/media/under-construction.gif": "/static/media/under-construction.b54a73c8d04ae32fc8c9.gif",
     "static/media/shooting-star.gif": "/static/media/shooting-star.e8c53dab446aa669ce5e.gif",
     "static/media/appointment.gif": "/static/media/appointment.8d88b22c87f4edde8e1d.gif",
     "static/media/White.png": "/static/media/White.025447d688ac97573f81.png",
@@ -14,12 +15,12 @@
     "static/media/stars.png": "/static/media/stars.b79b3f0df1bbb12eab2e.png",
     "static/media/morning.png": "/static/media/morning.41151bfed353da332a6d.png",
     "index.html": "/index.html",
-    "main.58edeed1.css.map": "/static/css/main.58edeed1.css.map",
-    "main.4468c363.js.map": "/static/js/main.4468c363.js.map",
+    "main.e62b452a.css.map": "/static/css/main.e62b452a.css.map",
+    "main.ca4be2b0.js.map": "/static/js/main.ca4be2b0.js.map",
     "453.e44b9a2c.chunk.js.map": "/static/js/453.e44b9a2c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.58edeed1.css",
-    "static/js/main.4468c363.js"
+    "static/css/main.e62b452a.css",
+    "static/js/main.ca4be2b0.js"
   ]
 }
