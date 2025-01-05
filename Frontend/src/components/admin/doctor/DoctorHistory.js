@@ -2,9 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiPath from "../../../isProduction";
-import "./Book.scss";
+import "../patient/Book.scss";
 
-function PatientHistory() {
+function DoctorHistory() {
   const navigate = useNavigate();
 
   const [history, setHistory] = useState();
@@ -16,7 +16,7 @@ function PatientHistory() {
       if (user) {
         const { id, username } = await user;
 
-        const data = await axios.post(`${await apiPath()}/auth-patient`, {
+        const data = await axios.post(`${await apiPath()}/auth-doctor`, {
           id,
           username,
         });
@@ -24,7 +24,7 @@ function PatientHistory() {
         if (data.data.status) {
           try {
             const history_data = await axios.post(
-              `${await apiPath()}/patient-history`,
+              `${await apiPath()}/doctor-history`,
               {
                 id,
               }
@@ -51,7 +51,7 @@ function PatientHistory() {
 
   return (
     <>
-      <h1>Visited Doctor History</h1>
+      <h1>Recent Patient</h1>
 
       {history ? (
         history.length > 0 ? (
@@ -59,45 +59,22 @@ function PatientHistory() {
             <ul id="all-doctors">
               {history.map((doctor, index) => {
                 return (
-                  <Link
-                    to={`/patient-dashboard/appointments/doctor/${doctor.username}`}
-                  >
+                  <Link to={`/doctor-dashboard/patient/${doctor.username}`}>
                     <li key={index}>
                       <img
                         src={
                           doctor?.profileImg
                             ? doctor.profileImg
                             : doctor?.gender == "female"
-                            ? "https://cdn-icons-png.flaticon.com/512/3304/3304567.png"
-                            : "https://cdn-icons-png.flaticon.com/512/8815/8815112.png"
+                            ? "https://cdn-icons-png.flaticon.com/512/6997/6997662.png"
+                            : "https://cdn-icons-png.flaticon.com/512/4874/4874944.png"
                         }
                         alt="profile-pic"
                       />
                       <span>
-                        <h1>Dr. {doctor?.name}</h1>
-                        <h2>{doctor?.specialization}</h2>
-                        <h3>Fee: {doctor?.consultationCharge}₹</h3>
-                        <div className="rating">
-                          {doctor?.avgRating
-                            ? Array.from({ length: 5 }).map((_, index) => {
-                                if (index < doctor?.avgRating) {
-                                  return (
-                                    <i
-                                      key={index}
-                                      className="fi fi-sc-star"
-                                    ></i>
-                                  ); // Filled star
-                                } else {
-                                  return (
-                                    <i
-                                      key={index}
-                                      className="fi fi-rr-star"
-                                    ></i>
-                                  ); // Blank star
-                                }
-                              })
-                            : ""}
-                        </div>
+                        <h1> {doctor?.name}</h1>
+                        <h2>{doctor?.address?.state}</h2>
+                        <h2>{doctor?.address?.city}</h2>
                       </span>
                     </li>
                   </Link>
@@ -128,4 +105,4 @@ function PatientHistory() {
   );
 }
 
-export default PatientHistory;
+export default DoctorHistory;

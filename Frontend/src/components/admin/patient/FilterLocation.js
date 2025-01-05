@@ -43,16 +43,14 @@ function FilterLocation({ setFilters, onFilterChange }) {
             ...prev,
             country: selectedCountry.name,
             state2: "",
-            district: "",
             city: "",
-          })); // Reset state, district, and city in parent
+          })); // Reset state and city in parent
           onFilterChange((prev) => ({
             ...prev,
             country: selectedCountry.name,
             state2: "",
-            district: "",
             city: "",
-          })); // Reset state, district, and city in parent
+          })); // Reset state and city in parent
         } catch (error) {
           console.error("Error loading states:", error);
         }
@@ -80,15 +78,13 @@ function FilterLocation({ setFilters, onFilterChange }) {
           setFilters((prev) => ({
             ...prev,
             state2: selectedState.name,
-            district: "",
             city: "",
-          })); // Reset district and city in parent
+          })); // Reset city in parent
           onFilterChange((prev) => ({
             ...prev,
             state2: selectedState.name,
-            district: "",
             city: "",
-          })); // Reset district and city in parent
+          })); // Reset city in parent
         } catch (error) {
           console.error("Error loading cities:", error);
         }

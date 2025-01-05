@@ -8,6 +8,7 @@ function PatientDashboard() {
   const navigate = useNavigate();
 
   const [doctors, setDoctors] = useState(null);
+  const [hospitals, setHospitals] = useState(null);
 
   useEffect(() => {
     async function checkLocalUser() {
@@ -16,9 +17,19 @@ function PatientDashboard() {
       if (user) {
         navigate("/patient-dashboard/dashboard");
 
-        const data = await axios.get(`${await apiPath()}/top-doctor`);
+        try {
+          const data = await axios.get(`${await apiPath()}/top-doctor`);
+          setDoctors(data.data.data);
+        } catch (err) {
+          alert("Can't Load Doctors!");
+        }
 
-        setDoctors(data.data.data);
+        try {
+          const hospitals = await axios.get(`${await apiPath()}/top-hospitals`);
+          setHospitals(hospitals.data.data);
+        } catch (err) {
+          alert("Can't Load Hospitals!");
+        }
       } else {
         navigate("/login");
       }
@@ -29,6 +40,68 @@ function PatientDashboard() {
   return (
     <>
       <h1> Dashboard </h1>
+      <hr />
+
+      <span className="top-ten">
+        <h3> Top Hospitals </h3>
+      </span>
+
+      {hospitals ? (
+        <>
+          <ul id="all-doctors">
+            {hospitals.map((hospital, index) => {
+              return (
+                <Link
+                  to={`/patient-dashboard/hospital/${hospital._id}`}
+                  key={index}
+                >
+                  <li key={index}>
+                    <img
+                      src={
+                        hospital?.profileImg
+                          ? hospital.profileImg
+                          : "https://cdn-icons-png.flaticon.com/512/4521/4521401.png"
+                      }
+                      alt="profile-pic"
+                    />
+                    <span>
+                      <h1>{hospital?.name}</h1>
+                      <div className="rating">
+                        {hospital?.avgRating
+                          ? Array.from({ length: 5 }).map((_, index) => {
+                              if (index < Math.floor(hospital?.avgRating)) {
+                                return (
+                                  <i key={index} className="fi fi-sc-star"></i>
+                                ); // Filled star
+                              } else {
+                                return (
+                                  <i key={index} className="fi fi-rr-star"></i>
+                                ); // Blank star
+                              }
+                            })
+                          : ""}
+                      </div>
+                      <h2>State: {hospital?.address?.state}</h2>
+                      <h2>City: {hospital?.address?.city}</h2>
+                    </span>
+                  </li>
+                </Link>
+              );
+            })}
+          </ul>
+          <Link to="/patient-dashboard/all-hospitals" className="view-all">
+            View All
+          </Link>
+        </>
+      ) : (
+        <div id="small-loading">
+          <span className="animation"></span>
+          <h1>Loading Hospitals...</h1>
+        </div>
+      )}
+
+      <br />
+      <br />
 
       <span className="top-ten">
         <h3> Top Doctors </h3>
@@ -88,6 +161,9 @@ function PatientDashboard() {
           <h1>Loading Doctors...</h1>
         </div>
       )}
+
+      <br />
+      <br />
     </>
   );
 }
