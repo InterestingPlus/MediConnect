@@ -58,6 +58,16 @@
     color: #effced !important;
   }
 
+  h4 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+  }
+
+  pre {
+    max-width: 100%;
+    white-space: pre-wrap;
+  }
+
   button#add {
     border: none;
     outline: none;
@@ -87,6 +97,7 @@
       &:hover {
         background: #0fdbffd9;
       }
+
       &:disabled {
         background: #309ac4d9;
       }
@@ -121,6 +132,7 @@
           scale: 1.2;
         }
       }
+
       &:disabled {
         background: #b551c9d9;
 

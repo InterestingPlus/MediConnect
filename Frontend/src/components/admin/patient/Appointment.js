@@ -92,6 +92,27 @@ function PatientAppointment() {
     addingReview();
   }, [appointments]);
 
+  const [prescription, setViewPrescription] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchPrescription = async (id) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        `${await apiPath()}/view-prescription`,
+        { id }
+      );
+      setViewPrescription(response.data.data);
+    } catch (err) {
+      setError("Error while Loading Prescription!");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <div className="appointment-header">
@@ -164,11 +185,16 @@ function PatientAppointment() {
                       )}
                     </p>
 
+                    <br />
+
                     {app?.status == "visited" ? (
                       app?.prescriptionId ? (
-                        <Link to="/" className="view-presc">
+                        <button
+                          onClick={() => fetchPrescription(app.prescriptionId)}
+                          className="view-presc"
+                        >
                           View Prescription
-                        </Link>
+                        </button>
                       ) : (
                         <p className="view-presc">
                           Prescription Will be Shown Here
@@ -203,6 +229,38 @@ function PatientAppointment() {
       </section>
 
       {showReviewPopup ? <ReviewPopup reviewInfo={showReviewPopup} /> : <></>}
+
+      {prescription && (
+        <div id="prescription-popup">
+          <button
+            type="button"
+            id="hide"
+            onClick={() => setViewPrescription(null)}
+          >
+            <i className="fi fi-ss-cross-circle"></i>
+          </button>
+          <h2>Prescription</h2>
+          <br />
+          <hr />
+          <br />
+          {loading ? (
+            <div id="small-loading">
+              <span className="animation"></span>
+              <h1>Loading Prescription...</h1>
+            </div>
+          ) : error ? (
+            <p>{error}</p>
+          ) : (
+            <div>
+              <br />
+              <h4>{prescription?.title}</h4>
+              <pre>{prescription?.description}</pre>
+              <br />
+              <a href={prescription.link}>Link: (Attachment)</a>
+            </div>
+          )}
+        </div>
+      )}
     </>
   );
 }

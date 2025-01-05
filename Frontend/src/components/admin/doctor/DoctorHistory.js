@@ -51,7 +51,7 @@ function DoctorHistory() {
 
   return (
     <>
-      <h1>Recent Patient</h1>
+      <h1>Recent Patients</h1>
 
       {history ? (
         history.length > 0 ? (

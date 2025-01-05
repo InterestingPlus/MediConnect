@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { io } from "socket.io-client";
 import ai from "../../../images/stars.png";
@@ -171,6 +171,27 @@ function DoctorAppointment() {
     setIsSuggestLoading(false);
   }
 
+  const [prescription, setViewPrescription] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const fetchPrescription = async (id) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        `${await apiPath()}/view-prescription`,
+        { id }
+      );
+      setViewPrescription(response.data.data);
+    } catch (err) {
+      setError("Error while Loading Prescription!");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <h1>
@@ -291,12 +312,12 @@ function DoctorAppointment() {
 
                     {app?.status == "visited" ? (
                       app?.prescriptionId ? (
-                        <Link
-                          to={`/prescription/${app.prescriptionId}`}
+                        <button
+                          onClick={() => fetchPrescription(app.prescriptionId)}
                           className="view-presc"
                         >
                           View Prescription
-                        </Link>
+                        </button>
                       ) : (
                         <button
                           onClick={() => {
@@ -402,6 +423,41 @@ function DoctorAppointment() {
             </div>
           </div>
         ) : null}
+
+        {prescription && (
+          <div id="prescription-popup">
+            <button
+              type="button"
+              id="hide"
+              onClick={() => setViewPrescription(null)}
+            >
+              <i className="fi fi-ss-cross-circle"></i>
+            </button>
+            <h2>Prescription</h2>
+
+            <hr />
+            <br />
+            {loading ? (
+              <div id="small-loading">
+                <span className="animation"></span>
+                <h1>Loading Prescription...</h1>
+              </div>
+            ) : error ? (
+              <p>{error}</p>
+            ) : (
+              <div>
+                <br />
+                <h4>{prescription?.title}</h4>
+                <pre>{prescription?.description}</pre>
+                <br />
+                <a href={prescription.link}>Link: (Attachment)</a>
+              </div>
+            )}
+
+            <br />
+            <br />
+          </div>
+        )}
       </section>
     </>
   );
